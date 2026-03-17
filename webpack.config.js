@@ -1,7 +1,4 @@
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import CopyPlugin from 'copy-webpack-plugin';
 import { GitRevisionPlugin } from 'git-revision-webpack-plugin';
-import HtmlWebpackPlugin  from 'html-webpack-plugin';
 import path from 'path';
 
 // Workaround now this is a module...
@@ -20,63 +17,11 @@ const SUPPORT_FULLY_QUALIFIED_TS_ESM_IMPORTS = {
 };
 const HANDLE_TYPESCRIPT_WITH_TS_LOADER = { test: /\.([cm]?ts|tsx)$/, loader: "ts-loader" };
 
-const OUTPUT_DIRECTORY = 'dist';
-
-function recursivelyCopy(dir) {
-  return {from: dir, to: dir, toType: 'dir'};
-}
-
-function cleanUpLeftovers() {
-  return new CleanWebpackPlugin();
-}
-
-function copyStaticAssets() {
-  return new CopyPlugin({
-    "patterns": [
-      recursivelyCopy('css'),
-      recursivelyCopy('images'),
-      recursivelyCopy('sprites'),
-      'LICENSE',
-      'COPYING',
-    ]
-  });
-}
-
-function injectBundleIntoHTML(gitHash) {
-  return new HtmlWebpackPlugin({
-    gitHash,
-    inject: true,
-    hash: true,
-    template: './index.html',
-    filename: 'index.html'
-  });
-}
-
-function injectBuildIdIntoAbout(gitHash) {
-  return new HtmlWebpackPlugin({
-    gitHash,
-    inject: false,
-    hash: true,
-    template: './about.html',
-    filename: 'about.html'
-  });
-}
-
-function injectBuildIdIntoNameLicense(gitHash) {
-  return new HtmlWebpackPlugin({
-    gitHash,
-    inject: false,
-    hash: true,
-    template: './name_license.html',
-    filename: 'name_license.html'
-  });
-}
+// Output bundle directly to the project root so it is served alongside index.html
+// without requiring a separate build/dist directory.
+const OUTPUT_DIRECTORY = '.';
 
 function addDevelopmentConfigTo(options) {
-  options.devServer = {
-    contentBase: `./${OUTPUT_DIRECTORY}`
-  };
-
   options.devtool = 'source-maps';
   options.mode = 'development';
 }
@@ -105,8 +50,6 @@ function getBuildId() {
 }
 
 function commonOptions() {
-  const buildId = getBuildId();
-
   const options = {
     entry: './src/micropolis.js',
     resolve: {
@@ -120,15 +63,9 @@ function commonOptions() {
     },
     output: {
       path: path.resolve(__dirname, OUTPUT_DIRECTORY),
-      filename: 'src/micropolis.js'
+      filename: 'micropolis.bundle.js'
     },
-    plugins: [
-      cleanUpLeftovers(),
-      copyStaticAssets(),
-      injectBundleIntoHTML(buildId),
-      injectBuildIdIntoAbout(buildId),
-      injectBuildIdIntoNameLicense(buildId),
-    ],
+    plugins: [],
   };
 
   return options;
