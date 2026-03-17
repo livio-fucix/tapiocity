@@ -244,6 +244,10 @@ var canvasClickHandler = function(e) {
 
 
 var toolButtonHandler = function(e) {
+  // Use currentTarget (the .toolButton element the handler is bound to) instead of
+  // target (which may be a child element like an SVG icon inside the button).
+  var btn = $(e.currentTarget);
+
   // Remove highlight from last tool button
   $('.selected').each(function() {
     $(this).removeClass('selected');
@@ -251,13 +255,13 @@ var toolButtonHandler = function(e) {
   });
 
   // Add highlight
-  $(e.target).removeClass('unselected');
-  $(e.target).addClass('selected');
+  btn.removeClass('unselected');
+  btn.addClass('selected');
 
-  this.toolName = $(e.target).attr('data-tool');
-  this.toolWidth = $(e.target).attr('data-size');
+  this.toolName = btn.attr('data-tool');
+  this.toolWidth = btn.attr('data-size');
   this.currentTool = this.gameTools[this.toolName];
-  this.toolColour = $(e.target).attr('data-colour');
+  this.toolColour = btn.attr('data-colour');
   $(toolOutputID).html('Tools');
 
   if (this.toolName !== 'query') {
