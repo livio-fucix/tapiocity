@@ -317,6 +317,11 @@ export const CHURCH7LAST    = 1018;
 
 // tiles 1020-1023 unused
 
+// Solar power plant (4x4) - tiles drawn programmatically in tileSet.js
+export const SOLARBASE      = 884; // First tile of solar power plant.
+export const SOLAR          = 889; // 'Center' tile of solar power plant (ZONEBIT).
+export const LASTSOLAR      = 899; // Last tile of solar power plant.
+
 export const TILE_COUNT     = 1024;
 
 export const TILE_INVALID   = -1; // Invalid tile (not used in the world map).

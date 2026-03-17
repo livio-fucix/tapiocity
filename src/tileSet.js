@@ -11,12 +11,57 @@
  *
  */
 
-import { TILE_COUNT } from "./tileValues.ts";
+import { TILE_COUNT, SOLARBASE, LASTSOLAR } from "./tileValues.ts";
 
 // Tiles must be 16px square
 var TILE_SIZE = 16;
 var TILES_PER_ROW = Math.sqrt(TILE_COUNT);
 var ACCEPTABLE_DIMENSION = TILES_PER_ROW * TILE_SIZE;
+
+
+// Draw one 16×16 tile of the solar power plant at grid position (col, row) within the 4×4 building.
+// col/row range 0–3.  'size' is the tile side length in pixels (always 16).
+function _drawSolarTile(ctx, col, row, size) {
+  var W = size; // 16
+
+  // ── Solar cell surface ────────────────────────────────────────────────────
+  ctx.fillStyle = '#0d2952';   // dark navy: photovoltaic cell body
+  ctx.fillRect(0, 0, W, W);
+
+  // Each tile shows a 2×2 grid of cells separated by thin grid lines
+  // Grid lines at x=7,8 and y=7,8 (2px wide to stay visible at small scale)
+  ctx.fillStyle = '#1e4fa0';   // slightly lighter blue: grid line / cell border
+  ctx.fillRect(7, 0, 2, W);   // vertical divider
+  ctx.fillRect(0, 7, W, 2);   // horizontal divider
+
+  // Small specular highlight on top-left corner of each of the 4 cells
+  ctx.fillStyle = '#6ab8e8';   // sky-blue reflection
+  ctx.fillRect(2, 2, 2, 1);   // top-left cell
+  ctx.fillRect(10, 2, 2, 1);  // top-right cell
+  ctx.fillRect(2, 10, 2, 1);  // bottom-left cell
+  ctx.fillRect(10, 10, 2, 1); // bottom-right cell
+
+  // ── Metal frame on outer edges of the building ───────────────────────────
+  ctx.fillStyle = '#8a8a8a';   // gray aluminium frame
+  if (row === 0) ctx.fillRect(0, 0, W, 2);      // top edge
+  if (row === 3) ctx.fillRect(0, W - 2, W, 2);  // bottom edge
+  if (col === 0) ctx.fillRect(0, 0, 2, W);      // left edge
+  if (col === 3) ctx.fillRect(W - 2, 0, 2, W);  // right edge
+
+  // ── Corner support posts (darker square at each corner of the building) ──
+  if (col === 0 && row === 0) { ctx.fillStyle = '#404040'; ctx.fillRect(0, 0, 3, 3); }
+  if (col === 3 && row === 0) { ctx.fillStyle = '#404040'; ctx.fillRect(W - 3, 0, 3, 3); }
+  if (col === 0 && row === 3) { ctx.fillStyle = '#404040'; ctx.fillRect(0, W - 3, 3, 3); }
+  if (col === 3 && row === 3) { ctx.fillStyle = '#404040'; ctx.fillRect(W - 3, W - 3, 3, 3); }
+
+  // ── Central inverter box (tile 1,1 = the ZONE tile) ─────────────────────
+  if (col === 1 && row === 1) {
+    ctx.fillStyle = '#c8a030'; // golden yellow: power inverter/converter box
+    ctx.fillRect(6, 6, 4, 4);
+    ctx.fillStyle = '#ffd060';
+    ctx.fillRect(7, 7, 2, 2); // highlight
+  }
+}
 
 
 function TileSet(image, callback, errorCallback) {
@@ -84,9 +129,18 @@ TileSet.prototype._verifyImage = function(image, callback, errorCallback) {
   for (var i = 0; i < tileCount; i++) {
     cx.clearRect(0, 0, tileWidth, tileWidth);
 
-    var sourceX = i % TILES_PER_ROW * tileWidth;
-    var sourceY = Math.floor(i / TILES_PER_ROW) * tileWidth;
-    cx.drawImage(image, sourceX, sourceY, tileWidth, tileWidth, 0, 0, tileWidth, tileWidth);
+    if (i >= SOLARBASE && i <= LASTSOLAR) {
+      // Solar power plant tiles: draw programmatically as pixel-art solar panels.
+      // The building is 4×4 tiles; identify position within it.
+      var tileIdx = i - SOLARBASE;
+      var tileCol = tileIdx % 4;
+      var tileRow = Math.floor(tileIdx / 4);
+      _drawSolarTile(cx, tileCol, tileRow, tileWidth);
+    } else {
+      var sourceX = i % TILES_PER_ROW * tileWidth;
+      var sourceY = Math.floor(i / TILES_PER_ROW) * tileWidth;
+      cx.drawImage(image, sourceX, sourceY, tileWidth, tileWidth, 0, 0, tileWidth, tileWidth);
+    }
 
     this[i] = new Image();
     this[i].onload = imageLoad;

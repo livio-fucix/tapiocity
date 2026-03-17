@@ -28,7 +28,7 @@ function GameTools(map) {
     airport: new BuildingTool(10000, TileValues.AIRPORT, map, 6, false),
     bulldozer: new BulldozerTool(map),
     coal: new BuildingTool(3000, TileValues.POWERPLANT, map, 4, false),
-    solare: new BuildingTool(9000, TileValues.POWERPLANT, map, 4, false),
+    solare: new BuildingTool(9000, TileValues.SOLAR, map, 4, false),
     commercial: new BuildingTool(100, TileValues.COMCLR, map, 3, false),
     fire: new BuildingTool(500, TileValues.FIRESTATION, map, 3, false),
     industrial: new BuildingTool(100, TileValues.INDCLR, map, 3, false),
