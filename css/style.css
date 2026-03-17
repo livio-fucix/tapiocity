@@ -581,6 +581,14 @@ nav li {
   background-color: mistyrose;
 }
 
+#eolicoButton {
+  background-color: mistyrose;
+}
+
+#solareButton {
+  background-color: gray;
+}
+
 #parkButton {
   background-color: darkgreen;
   color: white;
