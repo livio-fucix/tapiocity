@@ -23,12 +23,12 @@ var landValueStrings = ['Slum', 'Lower Class', 'Middle Class', 'High'];
 var crimeStrings = ['Safe', 'Light', 'Moderate', 'Dangerous'];
 var pollutionStrings = ['None', 'Moderate', 'Heavy', 'Very Heavy'];
 var rateStrings = ['Declining', 'Stable', 'Slow Growth', 'Fast Growth'];
-var zoneTypes = ['Clear', 'Water', 'Trees', 'Rubble', 'Flood', 'Radioactive Waste',
-                 'Fire', 'Road', 'Power', 'Rail', 'Residential', 'Commercial',
-                 'Industrial', 'Seaport', 'Airport', 'Coal Power', 'Fire Department',
-                 'Police Department', 'Stadium', 'Nuclear Power', 'Draw Bridge',
-                 'Radar Dish', 'Fountain', 'Industrial', 'Steelers 38  Bears 3',
-                 'Draw Bridge', 'Ur 238'];
+var zoneTypes = ['Libero', 'Acqua', 'Alberi', 'Macerie', 'Alluvione', 'Scorie Radioattive',
+                 'Incendio', 'Strada', 'Corrente', 'Ferrovia', 'Case', 'Negozi',
+                 'Industrie', 'Porto', 'Aeroporto', 'Carbone', 'Vigili del Fuoco',
+                 'Polizia', 'Stadio', 'Nucleare', 'Ponte Mobile',
+                 'Antenna Radar', 'Fontana', 'Industrie', 'Steelers 38  Bears 3',
+                 'Ponte Mobile', 'Ur 238'];
 
 // Evaluation window
 var gameLevel = {};
