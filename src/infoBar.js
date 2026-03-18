@@ -34,13 +34,11 @@ function renderFundsGems(funds) {
   gems.forEach(function(gem) {
     var count = Math.floor(f / gem.value);
     f = f % gem.value;
-    if (count > 0) {
-      html +=
-        '<div class="gem-line">' +
-          '<span class="gem-icon ' + gem.cls + '"></span>' +
-          '<span class="gem-count">' + count + '</span>' +
-        '</div>';
-    }
+    html +=
+      '<div class="gem-line">' +
+        '<span class="gem-icon ' + gem.cls + '"></span>' +
+        '<span class="gem-count">' + count + '</span>' +
+      '</div>';
   });
 
   $('#funds-gems').html(html);

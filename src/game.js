@@ -66,7 +66,7 @@ function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name) {
   if (savedGame)
     this.load(savedGame);
 
-  this.rci = new RCI('RCIContainer', this.simulation);
+  this.rci = new RCI('RCICanvasWrapper', this.simulation);
 
   // Note: must init canvas before inputStatus
   this.gameCanvas = new GameCanvas('canvasContainer');
