@@ -280,9 +280,12 @@ nav li {
 }
 
 .toolButton {
-  width: 140px;
+  width: 170px;
   margin-left: 5px;
   margin-right: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: black;
   background-color: white;
   font-size: 12px;
@@ -337,16 +340,31 @@ nav li {
 #controls {
   position: absolute;
   top: 40px;
-  width: 305px;
+  width: 365px;
   height: auto;
   max-height: calc(100vh - 60px);
   overflow-y: auto;
 }
 
+.tool-name {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tool-cost {
+  font-size: 10px;
+  color: #b8860b;
+  white-space: nowrap;
+  margin-left: 4px;
+  flex-shrink: 0;
+}
+
 #statusBox {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 0;
+  bottom: 60px;
   background-color: #ffe0f0;
   width: 140px;
 }
@@ -492,8 +510,8 @@ nav li {
 
 #miscButtons {
   position: absolute;
-  bottom: 60px;
-  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   height: auto;
 }
 
@@ -864,10 +882,6 @@ nav li {
     top: 324px;
   }
 
-  #miscButtons {
-    top: 230px;
-  }
-
   #notifications {
     top: 563px;
   }
@@ -896,10 +910,6 @@ nav li {
 
   #monstertv {
     top: 304px;
-  }
-
-  #miscButtons {
-    top: 210px;
   }
 
   #notifications {
@@ -935,10 +945,6 @@ nav li {
     top: 10px;
   }
 
-  #miscButtons {
-    top: 190px;
-  }
-
   #monstertv {
     top: 274px;
   }
@@ -967,10 +973,6 @@ nav li {
 
   #infobar {
     top: 0px;
-  }
-
-  #miscButtons {
-    top: 170px;
   }
 
   #monstertv {

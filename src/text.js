@@ -37,12 +37,12 @@ gameLevel['' + Simulation.LEVEL_MED] = 'Medium';
 gameLevel['' + Simulation.LEVEL_HARD] = 'Hard';
 
 var cityClass = {};
-cityClass[Evaluation.CC_VILLAGE] = 'VILLAGE';
-cityClass[Evaluation.CC_TOWN] = 'TOWN';
-cityClass[Evaluation.CC_CITY] = 'CITY';
-cityClass[Evaluation.CC_CAPITAL] = 'CAPITAL';
-cityClass[Evaluation.CC_METROPOLIS] = 'METROPOLIS';
-cityClass[Evaluation.CC_MEGALOPOLIS] = 'MEGALOPOLIS';
+cityClass[Evaluation.CC_VILLAGE] = 'VILLAGGIO';
+cityClass[Evaluation.CC_TOWN] = 'BORGO';
+cityClass[Evaluation.CC_CITY] = 'CITTÀ';
+cityClass[Evaluation.CC_CAPITAL] = 'CAPITALE';
+cityClass[Evaluation.CC_METROPOLIS] = 'METROPOLI';
+cityClass[Evaluation.CC_MEGALOPOLIS] = 'MEGALOPOLI';
 
 var problems = {};
 problems[Evaluation.CRIME] = 'Crime';

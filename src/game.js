@@ -627,35 +627,35 @@ Game.prototype.processFrontEndMessage = function(message) {
       case Messages.REACHED_CAPITAL:
         if (!this._reachedCapital) {
           this._reachedCapital = true;
-          cMessage += 'capital!';
+          cMessage += 'capitale!';
         }
         break;
 
       case Messages.REACHED_CITY:
         if (!this._reachedCity) {
           this._reachedCity = true;
-          cMessage += 'city!';
+          cMessage += 'città!';
         }
         break;
 
       case Messages.REACHED_MEGALOPOLIS:
         if (!this._reachedMegalopolis) {
           this._reachedMegalopolis = true;
-          cMessage += 'megalopolis!';
+          cMessage += 'megalopoli!';
         }
         break;
 
       case Messages.REACHED_METROPOLIS:
         if (!this._reachedMetropolis) {
           this._reachedMetropolis = true;
-          cMessage += 'metropolis!';
+          cMessage += 'metropoli!';
         }
         break;
 
       case Messages.REACHED_TOWN:
         if (!this._reachedTown) {
           this._reachedTown = true;
-          cMessage += 'town!';
+          cMessage += 'borgo!';
         }
         break;
     }
