@@ -27,6 +27,10 @@ import { TileSetSnowURI } from './tileSetSnowURI.ts';
  */
 
 
+// Inject build info (hash + date/time) into the footer element.
+// BUILD_HASH and BUILD_DATE are compile-time constants injected by webpack DefinePlugin.
+document.getElementById('build').textContent = 'Build: ' + BUILD_HASH + '  |  ' + BUILD_DATE;
+
 var fallbackImage, tileSet, snowTileSet;
 
 

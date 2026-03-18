@@ -1,4 +1,5 @@
 import { GitRevisionPlugin } from 'git-revision-webpack-plugin';
+import webpack from 'webpack';
 import path from 'path';
 
 // Workaround now this is a module...
@@ -65,7 +66,15 @@ function commonOptions() {
       path: path.resolve(__dirname, OUTPUT_DIRECTORY),
       filename: 'micropolis.bundle.js'
     },
-    plugins: [],
+    plugins: [
+      new webpack.DefinePlugin({
+        BUILD_HASH: JSON.stringify(getBuildId()),
+        BUILD_DATE: JSON.stringify(new Date().toLocaleString('it-IT', {
+          day: '2-digit', month: '2-digit', year: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        })),
+      }),
+    ],
   };
 
   return options;
