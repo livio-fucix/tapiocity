@@ -374,7 +374,61 @@ nav li {
 #infobar {
   position: absolute;
   top: 40px;
-  height: 150px;
+  height: 220px;
+}
+
+/* ── Funds gem breakdown ─────────────────────────────────────────────────── */
+#funds-gems {
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.gem-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 2px 0;
+}
+
+.gem-icon {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+}
+
+.gem-diamond {
+  background: linear-gradient(135deg, #e0f8ff 30%, #7ecfea 100%);
+  border: 1px solid #4ab8d8;
+  transform: rotate(45deg);
+  box-shadow: 0 0 3px rgba(100,200,255,0.7);
+}
+
+.gem-gold {
+  background: radial-gradient(circle at 35% 35%, #ffe066, #c8a000);
+  border-radius: 50%;
+  border: 1px solid #a07800;
+}
+
+.gem-silver {
+  background: radial-gradient(circle at 35% 35%, #f0f0f0, #909090);
+  border-radius: 50%;
+  border: 1px solid #707070;
+}
+
+.gem-bronze {
+  background: radial-gradient(circle at 35% 35%, #e8a060, #8b4500);
+  border-radius: 50%;
+  border: 1px solid #6a3000;
+}
+
+.gem-count {
+  font-weight: bold;
+  color: #333;
+  min-width: 14px;
+  text-align: left;
 }
 
 #loadingBanner[data-hasscript=false] {

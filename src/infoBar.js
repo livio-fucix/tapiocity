@@ -19,6 +19,34 @@ import { Text } from './text.js';
 
 // TODO L20N
 
+// Renders the gem-based funds breakdown below the population counter.
+// Denominations: diamond=10000, gold=1000, silver=100, bronze=10.
+function renderFundsGems(funds) {
+  var f = Math.max(0, Math.floor(funds));
+  var gems = [
+    { cls: 'gem-diamond', value: 10000 },
+    { cls: 'gem-gold',    value: 1000  },
+    { cls: 'gem-silver',  value: 100   },
+    { cls: 'gem-bronze',  value: 10    },
+  ];
+
+  var html = '';
+  gems.forEach(function(gem) {
+    var count = Math.floor(f / gem.value);
+    f = f % gem.value;
+    if (count > 0) {
+      html +=
+        '<div class="gem-line">' +
+          '<span class="gem-icon ' + gem.cls + '"></span>' +
+          '<span class="gem-count">' + count + '</span>' +
+        '</div>';
+    }
+  });
+
+  $('#funds-gems').html(html);
+}
+
+
 var InfoBar = function(classification, population, score, funds, date, name) {
   var classificationSelector = MiscUtils.normaliseDOMid(classification);
   var populationSelector = MiscUtils.normaliseDOMid(population);
@@ -34,6 +62,7 @@ var InfoBar = function(classification, population, score, funds, date, name) {
     $(fundsSelector).text(initialValues.funds);
     $(dateSelector).text([Text.months[initialValues.date.month], initialValues.date.year].join(' '));
     $(nameSelector).text(initialValues.name);
+    renderFundsGems(initialValues.funds);
 
     // Add the various listeners
     dataSource.addEventListener(Messages.CLASSIFICATION_UPDATED, function(classification) {
@@ -50,6 +79,7 @@ var InfoBar = function(classification, population, score, funds, date, name) {
 
     dataSource.addEventListener(Messages.FUNDS_CHANGED, function(funds) {
       $(fundsSelector).text(funds);
+      renderFundsGems(funds);
     });
 
     dataSource.addEventListener(Messages.DATE_UPDATED, function(date) {
