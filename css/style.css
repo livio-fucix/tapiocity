@@ -339,8 +339,27 @@ nav li {
   top: 40px;
   width: 305px;
   height: auto;
-  max-height: calc(100vh - 100px);
+  max-height: calc(100vh - 60px);
   overflow-y: auto;
+}
+
+#statusBox {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ffe0f0;
+  width: 140px;
+}
+
+#status-title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 13px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #d090b0;
+  margin-bottom: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 #debug {

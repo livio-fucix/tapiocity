@@ -54,8 +54,8 @@ problems[Evaluation.UNEMPLOYMENT] = 'Unemployment';
 problems[Evaluation.FIRE] = 'Fire';
 
 // months
-var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-              'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
+              'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
 
 // Tool strings
 var toolMessages = {
