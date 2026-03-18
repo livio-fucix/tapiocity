@@ -469,6 +469,93 @@ Game.prototype.handleSave = function() {
 };
 
 
+Game.prototype.updateStatusBox = function() {
+  var now = Date.now();
+  if (this._lastStatusUpdate && now - this._lastStatusUpdate < 100)
+    return;
+  this._lastStatusUpdate = now;
+
+  var sim = this.simulation;
+  var census = sim._census;
+  var evaluation = sim.evaluation;
+
+  // Step: phase (0-15) e simCycle (0-1023)
+  $('#status-step').text(sim._phaseCycle + ' / ' + sim._simCycle);
+
+  // Tasse: TAX_FREQUENCY = 48
+  var taxStep = sim._cityTime % 48;
+  var taxEl = $('#status-tax');
+  if (taxStep === 0 && sim._cityTime > 0) {
+    taxEl.text('★ ora').addClass('status-active').removeClass('status-warn');
+  } else {
+    var taxRemaining = 48 - taxStep;
+    taxEl.text(taxRemaining + ' step').removeClass('status-active');
+    taxEl.toggleClass('status-warn', taxRemaining <= 5);
+  }
+
+  // Censimento: CENSUS_FREQUENCY_10 = 4
+  var censusStep = sim._cityTime % 4;
+  var censusEl = $('#status-census');
+  if (censusStep === 0 && sim._cityTime > 0) {
+    censusEl.text('★ ora').addClass('status-active');
+  } else {
+    censusEl.text((4 - censusStep) + ' step').removeClass('status-active');
+  }
+
+  // Velocità
+  var speedNames = ['Pausa', 'Lenta', 'Media', 'Veloce'];
+  $('#status-speed').text(speedNames[sim._speed] || '?');
+
+  // Crimine (0-255, soglia avviso 100)
+  var crime = census.crimeAverage || 0;
+  $('#status-crime')
+    .text(crime)
+    .toggleClass('status-bad', crime > 100)
+    .toggleClass('status-warn', crime > 60 && crime <= 100);
+
+  // Inquinamento (0-255, soglia avviso 60)
+  var pollution = census.pollutionAverage || 0;
+  $('#status-pollution')
+    .text(pollution)
+    .toggleClass('status-bad', pollution > 100)
+    .toggleClass('status-warn', pollution > 60 && pollution <= 100);
+
+  // Traffico (0-240, soglia avviso 60)
+  var traffic = Math.round(census.trafficAverage || 0);
+  $('#status-traffic')
+    .text(traffic)
+    .toggleClass('status-bad', traffic > 100)
+    .toggleClass('status-warn', traffic > 60 && traffic <= 100);
+
+  // Disoccupazione (stessa formula di evaluation.js)
+  var laborBase = (census.comPop + census.indPop) * 8;
+  var unemp = 0;
+  if (laborBase > 0)
+    unemp = Math.min(Math.max(0, Math.round((census.resPop / laborBase - 1) * 255)), 255);
+  $('#status-unemp')
+    .text(unemp)
+    .toggleClass('status-bad', unemp > 100)
+    .toggleClass('status-warn', unemp > 50 && unemp <= 100);
+
+  // Approvazione sindaco (0-100)
+  var approval = evaluation.cityYes || 0;
+  $('#status-approval')
+    .text(approval + '%')
+    .toggleClass('status-bad', approval < 40)
+    .toggleClass('status-warn', approval >= 40 && approval < 60);
+
+  // Zone alimentate
+  var powered = census.poweredZoneCount || 0;
+  var total = powered + (census.unpoweredZoneCount || 0);
+  var powerEl = $('#status-powered');
+  powerEl.text(powered + ' / ' + total);
+  var ratio = total > 0 ? powered / total : 1;
+  powerEl
+    .toggleClass('status-bad', ratio < 0.7 && total > 0)
+    .toggleClass('status-warn', ratio >= 0.7 && ratio < 0.9 && total > 0);
+};
+
+
 Game.prototype.handlePause = function() {
   // XXX Currently only offer pause and run to the user
   // No real difference among the speeds until we optimise
@@ -653,6 +740,8 @@ var tick = function() {
 
   // Run this even when paused: you can still build when paused
   this.mouse = this.calculateMouseForPaint();
+
+  this.updateStatusBox();
 
   window.setTimeout(this.tick, 0);
 };

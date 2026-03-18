@@ -362,6 +362,40 @@ nav li {
   text-transform: uppercase;
 }
 
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  padding: 2px 0;
+  border-bottom: 1px solid #f0c8e0;
+}
+
+.status-label {
+  color: #885070;
+}
+
+.status-val {
+  font-weight: bold;
+  color: #333;
+}
+
+.status-divider {
+  height: 4px;
+}
+
+.status-active {
+  color: #008800 !important;
+}
+
+.status-warn {
+  color: #cc6600 !important;
+}
+
+.status-bad {
+  color: #cc0000 !important;
+}
+
 #debug {
   position: absolute;
   top: 580px;
