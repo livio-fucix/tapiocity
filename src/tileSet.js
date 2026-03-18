@@ -11,12 +11,93 @@
  *
  */
 
-import { TILE_COUNT, SOLARBASE, LASTSOLAR } from "./tileValues.ts";
+import { TILE_COUNT, EOLICOBASE, LASTEOLICO, SOLARBASE, LASTSOLAR } from "./tileValues.ts";
 
 // Tiles must be 16px square
 var TILE_SIZE = 16;
 var TILES_PER_ROW = Math.sqrt(TILE_COUNT);
 var ACCEPTABLE_DIMENSION = TILES_PER_ROW * TILE_SIZE;
+
+
+// Draw one 16×16 tile of the wind power plant (eolico) at grid position (col, row) within the 4×4 building.
+// The turbine tower runs vertically through col=1; three blades radiate from the hub at (col=1, row=0).
+function _drawEolicoTile(ctx, col, row, size) {
+  var W = size; // 16
+
+  // ── Background: sky (top rows) transitioning to grass (bottom rows) ──────
+  var skyH = (row <= 1) ? W : (row === 2 ? 8 : 0);
+  ctx.fillStyle = '#8cc8f0'; // clear sky blue
+  ctx.fillRect(0, 0, W, skyH);
+  ctx.fillStyle = '#4a7a30'; // grass green
+  if (skyH < W) ctx.fillRect(0, skyH, W, W - skyH);
+
+  // ── Turbine tower: 2 px wide at x=7, runs full height in column 1 ────────
+  if (col === 1) {
+    ctx.fillStyle = '#d0d0d0'; // light gray pole
+    ctx.fillRect(7, 0, 2, W);
+    ctx.fillStyle = '#a0a0a0'; // right-side shadow
+    ctx.fillRect(8, 0, 1, W);
+  }
+
+  // ── Concrete foundation (col=1, row=3) ───────────────────────────────────
+  if (col === 1 && row === 3) {
+    ctx.fillStyle = '#707070';
+    ctx.fillRect(4, 2, 8, 8);
+    ctx.fillStyle = '#909090';
+    ctx.fillRect(5, 1, 6, 5);
+  }
+
+  // ── Hub + blade roots (col=1, row=0) ─────────────────────────────────────
+  if (col === 1 && row === 0) {
+    // Blade 1: straight up – thin white strip for the full tile height
+    ctx.fillStyle = '#f4f4f4';
+    ctx.fillRect(7, 0, 2, 11);  // upward blade shaft
+    ctx.fillRect(6, 0, 4, 3);   // slightly wider near tip
+
+    // Hub body at y=11–15
+    ctx.fillStyle = '#c8c8c8';
+    ctx.fillRect(5, 11, 6, 5);
+    ctx.fillStyle = '#ececec';
+    ctx.fillRect(6, 12, 4, 3);
+
+    // Blade 2 root (heading lower-left): starts just left of hub
+    ctx.fillStyle = '#f4f4f4';
+    ctx.fillRect(0, 14, 4, 2);
+    ctx.fillRect(3, 13, 2, 1);
+
+    // Blade 3 root (heading lower-right): starts just right of hub
+    ctx.fillRect(12, 14, 4, 2);
+    ctx.fillRect(11, 13, 2, 1);
+  }
+
+  // ── Blade 2: diagonal lower-left, spans (col=0, row=1) ───────────────────
+  if (col === 0 && row === 1) {
+    ctx.fillStyle = '#f4f4f4';
+    ctx.fillRect(13, 0, 3, 2);
+    ctx.fillRect(9,  3, 4, 2);
+    ctx.fillRect(5,  6, 4, 2);
+    ctx.fillRect(1,  9, 4, 2);
+    ctx.fillRect(0, 12, 2, 2);
+  }
+
+  // ── Blade 3: diagonal lower-right, spans (col=2, row=1) ──────────────────
+  if (col === 2 && row === 1) {
+    ctx.fillStyle = '#f4f4f4';
+    ctx.fillRect(0,  0, 3, 2);
+    ctx.fillRect(3,  3, 4, 2);
+    ctx.fillRect(7,  6, 4, 2);
+    ctx.fillRect(11, 9, 4, 2);
+    ctx.fillRect(14,12, 2, 2);
+  }
+
+  // ── Zone center marker (col=1, row=1) ────────────────────────────────────
+  if (col === 1 && row === 1) {
+    ctx.fillStyle = '#30c878'; // mint green: wind = renewable
+    ctx.fillRect(6, 6, 4, 4);
+    ctx.fillStyle = '#80ffb8';
+    ctx.fillRect(7, 7, 2, 2);
+  }
+}
 
 
 // Draw one 16×16 tile of the solar power plant at grid position (col, row) within the 4×4 building.
@@ -129,7 +210,11 @@ TileSet.prototype._verifyImage = function(image, callback, errorCallback) {
   for (var i = 0; i < tileCount; i++) {
     cx.clearRect(0, 0, tileWidth, tileWidth);
 
-    if (i >= SOLARBASE && i <= LASTSOLAR) {
+    if (i >= EOLICOBASE && i <= LASTEOLICO) {
+      // Wind power plant tiles: draw programmatically as pixel-art wind turbine.
+      var eIdx = i - EOLICOBASE;
+      _drawEolicoTile(cx, eIdx % 4, Math.floor(eIdx / 4), tileWidth);
+    } else if (i >= SOLARBASE && i <= LASTSOLAR) {
       // Solar power plant tiles: draw programmatically as pixel-art solar panels.
       // The building is 4×4 tiles; identify position within it.
       var tileIdx = i - SOLARBASE;

@@ -79,6 +79,8 @@ Census.prototype.clearCensus = function() {
   this.stadiumPop = 0;
   this.coalPowerPop = 0;
   this.nuclearPowerPop = 0;
+  this.eolicoPowerPop = 0;
+  this.solarPowerPop = 0;
   this.seaportPop = 0;
   this.airportPop = 0;
 };

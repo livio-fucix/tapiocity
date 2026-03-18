@@ -317,6 +317,11 @@ export const CHURCH7LAST    = 1018;
 
 // tiles 1020-1023 unused
 
+// Wind power plant / eolico (4x4) - tiles drawn programmatically in tileSet.js
+export const EOLICOBASE     = 868; // First tile of wind power plant.
+export const EOLICO         = 873; // 'Center' tile of wind power plant (ZONEBIT).
+export const LASTEOLICO     = 883; // Last tile of wind power plant.
+
 // Solar power plant (4x4) - tiles drawn programmatically in tileSet.js
 export const SOLARBASE      = 884; // First tile of solar power plant.
 export const SOLAR          = 889; // 'Center' tile of solar power plant (ZONEBIT).

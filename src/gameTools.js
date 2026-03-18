@@ -33,7 +33,7 @@ function GameTools(map) {
     fire: new BuildingTool(500, TileValues.FIRESTATION, map, 3, false),
     industrial: new BuildingTool(100, TileValues.INDCLR, map, 3, false),
     nuclear: new BuildingTool(5000, TileValues.NUCLEAR, map, 4, true),
-    eolico: new BuildingTool(7000, TileValues.NUCLEAR, map, 4, true),
+    eolico: new BuildingTool(7000, TileValues.EOLICO, map, 4, false),
     park: new ParkTool(map),
     police: new BuildingTool(500, TileValues.POLICESTATION, map, 3, false),
     port: new BuildingTool(3000, TileValues.PORT, map, 4, false),
