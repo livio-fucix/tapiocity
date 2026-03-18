@@ -30,6 +30,8 @@ var PowerManager = EventEmitter(function(map) {
   this._map = map;
   this._powerStack = [];
   this.powerGridMap = new BlockMap(this._map.width, this._map.height, 1);
+  this.powerSupply = 0;
+  this.powerUsed = 0;
 });
 
 
@@ -81,6 +83,7 @@ PowerManager.prototype.doPowerScan = function(census) {
                  census.eolicoPowerPop * EOLICO_POWER_STRENGTH +
                  census.solarPowerPop * SOLAR_POWER_STRENGTH;
 
+  this.powerSupply = maxPower;
   var powerConsumption = 0; // Amount of power used.
 
   while (this._powerStack.length > 0) {
@@ -90,6 +93,7 @@ PowerManager.prototype.doPowerScan = function(census) {
     do {
       powerConsumption++;
       if (powerConsumption > maxPower) {
+        this.powerUsed = maxPower;
         this._emitEvent(NOT_ENOUGH_POWER);
         return;
       }
@@ -115,6 +119,8 @@ PowerManager.prototype.doPowerScan = function(census) {
         this._powerStack.push(new Position(pos.x, pos.y));
     } while (conNum);
   }
+
+  this.powerUsed = powerConsumption;
 };
 
 

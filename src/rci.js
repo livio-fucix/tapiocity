@@ -133,6 +133,13 @@ RCI.prototype.update = function(data) {
     this._drawValue(ctx, i, values[i]);
     this._drawLabel(ctx, i);
   }
+
+  var rEl = document.getElementById('rci-r-val');
+  if (rEl) rEl.textContent = Math.round(data.residential);
+  var cEl = document.getElementById('rci-c-val');
+  if (cEl) cEl.textContent = Math.round(data.commercial);
+  var iEl = document.getElementById('rci-i-val');
+  if (iEl) iEl.textContent = Math.round(data.industrial);
 };
 
 

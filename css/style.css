@@ -585,12 +585,39 @@ nav li {
   min-height: 0;
 }
 
+#rci-values {
+  display: flex;
+  justify-content: space-around;
+  padding: 2px 0;
+  border-top: 1px solid #bbb;
+  margin-top: 2px;
+}
+
+.rci-num {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.rci-r { color: rgb(0, 180, 0); }
+.rci-c { color: rgb(0, 0, 180); }
+.rci-i { color: rgb(180, 160, 0); }
+
 #rci-score {
   font-size: 12px;
   text-align: center;
   padding-top: 3px;
   border-top: 1px solid #bbb;
   margin-top: 3px;
+}
+
+.status-energy-row {
+  justify-content: space-between;
+}
+
+.status-energy-item {
+  font-size: 10px;
+  font-weight: bold;
+  color: #333;
 }
 
 #screenshotLink, #screenshotLink:link, #screenshotLink:visited, #screenshotLink:hover {

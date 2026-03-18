@@ -553,6 +553,18 @@ Game.prototype.updateStatusBox = function() {
   powerEl
     .toggleClass('status-bad', ratio < 0.7 && total > 0)
     .toggleClass('status-warn', ratio >= 0.7 && ratio < 0.9 && total > 0);
+
+  // Energia elettrica: prodotta / consumata / rimanente
+  var pm = sim._powerManager;
+  var supply = pm.powerSupply || 0;
+  var used = pm.powerUsed || 0;
+  var rem = supply - used;
+  $('#status-eprod').text('P:' + supply);
+  $('#status-econs').text('C:' + used);
+  var remEl = $('#status-erem');
+  remEl.text('R:' + rem)
+    .toggleClass('status-bad', rem < 0)
+    .toggleClass('status-warn', rem >= 0 && rem < supply * 0.1 && supply > 0);
 };
 
 
