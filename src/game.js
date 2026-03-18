@@ -82,25 +82,6 @@ function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name) {
   this.lastBadMessageTime = null;
 
   var self = this;
-  if (!this.everClicked) {
-    this.nagger = window.setTimeout(function() {
-      self.dialogOpen = true;
-      self._openWindow = 'nagWindow';
-      self.nagWindow.open();
-    }, 30 * 60 * 1000);
-
-    $('.nag').each(function() {
-      $(this).click(function(e) {
-        if (self.nagger !== null) {
-          window.clearTimeout(self.nagger);
-        self.nagger = null;
-        self.everClicked = true;
-      }
-
-      return true;
-      });
-    });
-  }
 
   // Initialise monsterTV
   this.monsterTV = new MonsterTV(this.gameMap, tileSet, spriteSheet, this.gameCanvas.animationManager);

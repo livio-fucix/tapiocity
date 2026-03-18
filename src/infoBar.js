@@ -19,6 +19,11 @@ import { Text } from './text.js';
 
 // TODO L20N
 
+// Formats a number with dot as thousands separator (Italian locale).
+function fmt(n) {
+  return Math.floor(n).toLocaleString('it-IT');
+}
+
 // Renders the gem-based funds breakdown below the population counter.
 // Denominations: diamond=10000, gold=1000, silver=100, bronze=10.
 function renderFundsGems(funds) {
@@ -55,9 +60,9 @@ var InfoBar = function(classification, population, score, funds, date, name) {
 
   return function(dataSource, initialValues) {
     $(classificationSelector).text(initialValues.classification);
-    $(populationSelector).text(initialValues.population);
-    $(scoreSelector).text(initialValues.score);
-    $(fundsSelector).text(initialValues.funds);
+    $(populationSelector).text(fmt(initialValues.population));
+    $(scoreSelector).text(fmt(initialValues.score));
+    $(fundsSelector).text(fmt(initialValues.funds));
     $(dateSelector).text([Text.months[initialValues.date.month], initialValues.date.year].join(' '));
     $(nameSelector).text(initialValues.name);
     renderFundsGems(initialValues.funds);
@@ -68,15 +73,15 @@ var InfoBar = function(classification, population, score, funds, date, name) {
     });
 
     dataSource.addEventListener(Messages.POPULATION_UPDATED, function(population) {
-      $(populationSelector).text(population);
+      $(populationSelector).text(fmt(population));
     });
 
     dataSource.addEventListener(Messages.SCORE_UPDATED, function(score) {
-      $(scoreSelector).text(score);
+      $(scoreSelector).text(fmt(score));
     });
 
     dataSource.addEventListener(Messages.FUNDS_CHANGED, function(funds) {
-      $(fundsSelector).text(funds);
+      $(fundsSelector).text(fmt(funds));
       renderFundsGems(funds);
     });
 

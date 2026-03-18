@@ -439,8 +439,17 @@ nav li {
 
 #miscButtons {
   position: absolute;
-  top: 250px;
-  height: 162px;
+  bottom: 60px;
+  right: 0;
+  height: auto;
+}
+
+#infobar-population {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 5px;
+  padding-top: 4px;
+  border-top: 1px solid #bbb;
 }
 
 #monstertv {
