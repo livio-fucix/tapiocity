@@ -33,6 +33,7 @@ function renderFundsGems(funds) {
     { cls: 'gem-gold',    value: 1000  },
     { cls: 'gem-silver',  value: 100   },
     { cls: 'gem-bronze',  value: 10    },
+    { cls: 'gem-crystal', value: 1     },
   ];
 
   var html = '';
