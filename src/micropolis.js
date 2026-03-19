@@ -96,5 +96,11 @@ Config.debug = window.location.search.slice(1).split('&').some(function(param) {
 });
 
 
+window.addEventListener('micropolis:newgame', function(e) {
+  var d = e.detail;
+  new SplashScreen(d.tileSet, d.snowTileSet, d.spriteSheet);
+});
+
+
 var tiles = $('#tiles')[0];
 tileSet = new TileSet(tiles, onTilesLoaded, tileSetError);

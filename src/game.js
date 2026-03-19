@@ -57,6 +57,7 @@ function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name) {
 
   this.tileSet = tileSet;
   this.snowTileSet = snowTileSet;
+  this.spriteSheet = spriteSheet;
   this.defaultSpeed = Simulation.SPEED_MED;
   this.simulation = new Simulation(this.gameMap, difficulty, this.defaultSpeed, savedGame);
 
@@ -72,6 +73,9 @@ function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name) {
   this.gameCanvas = new GameCanvas('canvasContainer');
   this.gameCanvas.init(this.gameMap, this.tileSet, spriteSheet);
   this.inputStatus = new InputStatus(this.gameMap, tileSet.tileWidth);
+
+  this.stopped = false;
+  $('#newGameRequest').click(this.newGame.bind(this));
 
   this.dialogOpen = false;
   this._openWindow = null;
@@ -234,6 +238,15 @@ Game.prototype.save = function() {
   this.simulation.save(saveData);
 
   Storage.saveGame(saveData);
+};
+
+
+Game.prototype.newGame = function() {
+  this.stopped = true;
+  $('#infobar, #miscButtons, #controls, #RCIContainer, #statusBox, #notifications').hide();
+  window.dispatchEvent(new CustomEvent('micropolis:newgame', {
+    detail: {tileSet: this.tileSet, snowTileSet: this.snowTileSet, spriteSheet: this.spriteSheet}
+  }));
 };
 
 
@@ -738,6 +751,7 @@ Game.prototype.calculateSpritesForPaint = function(canvas) {
 
 
 var tick = function() {
+  if (this.stopped) return;
   this.handleInput();
 
   if (this.dialogOpen) {
@@ -760,6 +774,7 @@ var tick = function() {
 
 
 var commonAnimate = function() {
+  if (this.stopped) return;
   if (this.dialogShowing) {
     nextFrame(this.animate);
     return;
@@ -779,6 +794,7 @@ var commonAnimate = function() {
 
 
 var debugAnimate = function() {
+  if (this.stopped) return;
   var date = new Date();
   var elapsed = Math.floor((date - this.animStart) / 1000);
 
