@@ -174,7 +174,7 @@ nav li {
 }
 
 .leftedge {
-  left: 50px;
+  left: 16px;
 }
 
 .loadSave, .saveHeader {
@@ -455,7 +455,7 @@ nav li {
 
 #infobar {
   position: absolute;
-  top: 40px;
+  top: 16px;
   height: auto;
 }
 
@@ -887,7 +887,7 @@ nav li {
   }
 
   #infobar {
-    top: 30px;
+    top: 16px;
   }
 
   #monstertv {
@@ -917,7 +917,7 @@ nav li {
   }
 
   #infobar {
-    top: 20px;
+    top: 16px;
   }
 
   #monstertv {
@@ -1012,7 +1012,7 @@ nav li {
 
 @media (max-width: 850px) {
   .leftedge {
-    left: 20px;
+    left: 16px;
   }
 
   .rightedge {
