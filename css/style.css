@@ -372,6 +372,19 @@ nav li {
   width: 140px;
 }
 
+#infobar-title,
+#miscButtons-title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 11px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #d090b0;
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #555;
+}
+
 #status-title {
   font-weight: bold;
   text-align: center;
