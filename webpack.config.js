@@ -50,6 +50,19 @@ function getBuildId() {
   return gitPlugin.commithash().slice(0, 12);
 }
 
+function getBuildDate() {
+  // Use the git commit date so hash and date always refer to the same commit,
+  // regardless of how many times webpack is restarted.
+  const gitPlugin = new GitRevisionPlugin({
+    commitHashCommand: 'log -1 --pretty=format:%cI'
+  });
+  const isoDate = gitPlugin.commithash().trim();
+  return new Date(isoDate).toLocaleString('it-IT', {
+    day: '2-digit', month: '2-digit', year: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  });
+}
+
 function commonOptions() {
   const options = {
     entry: './src/micropolis.js',
@@ -69,10 +82,7 @@ function commonOptions() {
     plugins: [
       new webpack.DefinePlugin({
         BUILD_HASH: JSON.stringify(getBuildId()),
-        BUILD_DATE: JSON.stringify(new Date().toLocaleString('it-IT', {
-          day: '2-digit', month: '2-digit', year: 'numeric',
-          hour: '2-digit', minute: '2-digit'
-        })),
+        BUILD_DATE: JSON.stringify(getBuildDate()),
       }),
     ],
   };

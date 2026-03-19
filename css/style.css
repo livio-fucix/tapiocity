@@ -283,7 +283,7 @@ nav li {
 }
 
 .toolButton {
-  width: 170px;
+  width: calc(100% - 10px);
   margin-left: 5px;
   margin-right: 5px;
   display: flex;
@@ -292,7 +292,6 @@ nav li {
   color: black;
   background-color: white;
   font-size: 12px;
-  display: inline-block;
 }
 
 .unselected {
@@ -348,6 +347,7 @@ nav li {
   height: auto;
   max-height: calc(100vh - 60px);
   overflow-y: auto;
+  border-radius: 4px;
 }
 
 #buttons {
@@ -375,6 +375,7 @@ nav li {
   bottom: 16px;
   background-color: #ffe0f0;
   width: 140px;
+  border-radius: 4px;
 }
 
 #infobar-title,
@@ -542,10 +543,9 @@ nav li {
 }
 
 #miscButtons {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-top: 8px;
   height: auto;
+  border-radius: 4px;
 }
 
 #newGameRequest {
@@ -621,6 +621,7 @@ nav li {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  border-radius: 4px;
 }
 
 #rci-population {
