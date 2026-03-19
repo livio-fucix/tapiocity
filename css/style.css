@@ -42,9 +42,12 @@ footer {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0px;
-  height: 5em;
+  bottom: 0;
+  height: 28px;
   background-color: darkslategray;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
 }
 
 header {
@@ -61,7 +64,7 @@ header h1 {
 main {
   position: absolute;
   top: 0;
-  bottom: 55px;
+  bottom: 28px;
   width: 100%;
   overflow: hidden;
 }
@@ -309,8 +312,8 @@ nav li {
 }
 
 .nameLicense {
-  margin-top: 1em;
-  margin-bottom: 0.5em;
+  flex: 1;
+  text-align: center;
 }
 
 #budgetForm > div:nth-child(9) {
@@ -1121,7 +1124,9 @@ nav li {
 }
 
 #build {
-  position: absolute;
-  left: 5px;
-  bottom: 5px;
+  white-space: nowrap;
+}
+
+#footerAbout {
+  white-space: nowrap;
 }
