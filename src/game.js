@@ -249,7 +249,7 @@ Game.prototype.save = function() {
 
 Game.prototype.newGame = function() {
   this.stopped = true;
-  $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #notifications').hide();
+  $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #notifications, #impostazioniBox').hide();
   window.dispatchEvent(new CustomEvent('micropolis:newgame', {
     detail: {tileSet: this.tileSet, snowTileSet: this.snowTileSet, spriteSheet: this.spriteSheet}
   }));
@@ -275,10 +275,57 @@ Game.prototype.revealControls = function() {
    $(this).removeClass('initialHidden');
  });
  // Re-show panels hidden by newGame() via .hide() (inline display:none)
- $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #fotoBox').show();
+ $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #fotoBox, #impostazioniBox').show();
 
+ this.initQuickSettings();
  this._notificationBar.news({subject: Messages.WELCOME});
  this.rci.update({residential: 750, commercial: 750, industrial: 750});
+};
+
+
+Game.prototype.initQuickSettings = function() {
+  var self = this;
+
+  var updateToggle = function(id, val) {
+    var btn = $('#' + id);
+    btn.text(val ? 'Sì' : 'No');
+    btn.removeClass('qs-on qs-off').addClass(val ? 'qs-on' : 'qs-off');
+  };
+
+  var updateSpeed = function(spd) {
+    $('.qs-speed').removeClass('qs-speed-active');
+    $('.qs-speed[data-speed="' + spd + '"]').addClass('qs-speed-active');
+  };
+
+  updateToggle('qs-autobudget', this.simulation.budget.autoBudget);
+  updateToggle('qs-autobulldoze', BaseTool.getAutoBulldoze());
+  updateToggle('qs-disasters', this.simulation.disasterManager.disastersEnabled);
+  updateSpeed(this.defaultSpeed);
+
+  $('#qs-autobudget').off('click').on('click', function() {
+    var newVal = !self.simulation.budget.autoBudget;
+    self.simulation.budget.setAutoBudget(newVal);
+    updateToggle('qs-autobudget', newVal);
+  });
+
+  $('#qs-autobulldoze').off('click').on('click', function() {
+    var newVal = !BaseTool.getAutoBulldoze();
+    BaseTool.setAutoBulldoze(newVal);
+    updateToggle('qs-autobulldoze', newVal);
+  });
+
+  $('.qs-speed').off('click').on('click', function() {
+    var spd = parseInt($(this).attr('data-speed'));
+    self.defaultSpeed = spd;
+    self.simulation.setSpeed(spd);
+    updateSpeed(spd);
+  });
+
+  $('#qs-disasters').off('click').on('click', function() {
+    var newVal = !self.simulation.disasterManager.disastersEnabled;
+    self.simulation.disasterManager.disastersEnabled = newVal;
+    updateToggle('qs-disasters', newVal);
+  });
 };
 
 
