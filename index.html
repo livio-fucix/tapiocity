@@ -106,23 +106,52 @@
           <div id="cityHeader-name"><span id="name">Your Name Here</span></div>
           <div id="cityHeader-class"><span id="cclass">VILLAGE</span></div>
         </div>
-        <div id="statusBox" class="controlShadow width140 padding10 z1 initialHidden">
-          <div id="status-title">Status</div>
-          <div class="status-row"><span class="status-label">Step</span><span id="status-step" class="status-val">0/0</span></div>
-          <div class="status-row"><span class="status-label">Tasse tra</span><span id="status-tax" class="status-val">48</span></div>
-          <div class="status-row"><span class="status-label">Censimento</span><span id="status-census" class="status-val">4</span></div>
-          <div class="status-row"><span class="status-label">Velocità</span><span id="status-speed" class="status-val">Media</span></div>
-          <div class="status-divider"></div>
-          <div class="status-row"><span class="status-label">Crimine</span><span id="status-crime" class="status-val">0</span></div>
-          <div class="status-row"><span class="status-label">Inquin.</span><span id="status-pollution" class="status-val">0</span></div>
-          <div class="status-row"><span class="status-label">Traffico</span><span id="status-traffic" class="status-val">0</span></div>
-          <div class="status-row"><span class="status-label">Disoccup.</span><span id="status-unemp" class="status-val">0</span></div>
-          <div class="status-row"><span class="status-label">Approv.</span><span id="status-approval" class="status-val">50%</span></div>
-          <div class="status-row"><span class="status-label">Zone alim.</span><span id="status-powered" class="status-val">0/0</span></div>
-          <div class="status-row status-energy-row">
-            <span id="status-eprod" class="status-energy-item">P:0</span>
-            <span id="status-econs" class="status-energy-item">C:0</span>
-            <span id="status-erem" class="status-energy-item">R:0</span>
+        <div id="rightColumn">
+          <div id="fotoBox" class="controlShadow open mintcream z1 initialHidden">
+            <div id="foto-title">FOTO</div>
+            <div class="foto-buttons">
+              <button id="screenshotAreaBtn" class="fotoButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
+                  <rect x="1" y="1" width="20" height="16" rx="2" fill="none" stroke="#555" stroke-width="1.5"/>
+                  <rect x="4" y="4" width="14" height="10" rx="1" fill="none" stroke="#888" stroke-width="1" stroke-dasharray="2,1"/>
+                  <circle cx="11" cy="9" r="2.5" fill="none" stroke="#555" stroke-width="1.2"/>
+                </svg>
+                <span>Foto Area</span>
+              </button>
+              <button id="screenshotCityBtn" class="fotoButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
+                  <rect x="1" y="1" width="20" height="16" rx="2" fill="none" stroke="#555" stroke-width="1.5"/>
+                  <rect x="3" y="3" width="5" height="5" fill="#a8d8a8" stroke="#555" stroke-width="0.8"/>
+                  <rect x="9" y="3" width="5" height="5" fill="#d8a8a8" stroke="#555" stroke-width="0.8"/>
+                  <rect x="15" y="3" width="5" height="5" fill="#a8a8d8" stroke="#555" stroke-width="0.8"/>
+                  <rect x="3" y="9" width="5" height="5" fill="#d8d8a8" stroke="#555" stroke-width="0.8"/>
+                  <rect x="9" y="9" width="5" height="5" fill="#a8d8d8" stroke="#555" stroke-width="0.8"/>
+                  <rect x="15" y="9" width="5" height="5" fill="#d8a8d8" stroke="#555" stroke-width="0.8"/>
+                </svg>
+                <span>Foto Città</span>
+              </button>
+            </div>
+          </div>
+          <div id="statusBox" class="controlShadow padding10 z1 initialHidden">
+            <div id="status-title">Status</div>
+            <div class="status-row"><span class="status-label">Step</span><span id="status-step" class="status-val">0/0</span></div>
+            <div class="status-row"><span class="status-label">Tasse tra</span><span id="status-tax" class="status-val">48</span></div>
+            <div class="status-row"><span class="status-label">Censimento</span><span id="status-census" class="status-val">4</span></div>
+            <div class="status-row"><span class="status-label">Velocità</span><span id="status-speed" class="status-val">Media</span></div>
+            <div class="status-divider"></div>
+            <div class="status-row"><span class="status-label">Crimine</span><span id="status-crime" class="status-val">0</span></div>
+            <div class="status-row"><span class="status-label">Inquin.</span><span id="status-pollution" class="status-val">0</span></div>
+            <div class="status-row"><span class="status-label">Traffico</span><span id="status-traffic" class="status-val">0</span></div>
+            <div class="status-row"><span class="status-label">Disoccup.</span><span id="status-unemp" class="status-val">0</span></div>
+            <div class="status-row"><span class="status-label">Approv.</span><span id="status-approval" class="status-val">50%</span></div>
+            <div class="status-row"><span class="status-label">Zone alim.</span><span id="status-powered" class="status-val">0/0</span></div>
+            <div class="status-row status-energy-row">
+              <span id="status-eprod" class="status-energy-item">P:0</span>
+              <span id="status-econs" class="status-energy-item">C:0</span>
+              <span id="status-erem" class="status-energy-item">R:0</span>
+            </div>
+            <div class="status-divider"></div>
+            <div class="status-row"><span class="status-label">Score</span><span id="score" class="status-val">0</span></div>
           </div>
         </div>
         <div id="RCIContainer" class="controlShadow leftedge width140 mintcream open z1 initialHidden">
@@ -133,7 +162,6 @@
             <span id="rci-c-val" class="rci-num rci-c">0</span>
             <span id="rci-i-val" class="rci-num rci-i">0</span>
           </div>
-          <div id="rci-score">Score: <span id="score">0</span></div>
         </div>
         <div id="controls" class="controlShadow mintcream z1 initialHidden rightedge open">
           <div id="toolInfo" class="alignCenter"><span id="toolOutput">UNITA'</span></div>
@@ -190,7 +218,7 @@
       </main>
       <footer id="footer" class="chunk white">
         <div id="build">Build: 4bca801</div>
-        <div class="nameLicense">Pronto Kafka?</div>
+        <div class="nameLicense" id="footerNotif"></div>
         <a href="about.html" target="_blank" id="footerAbout">Circa</a>
       </footer>
       <div class="hidden modal shadow" id="budget">

@@ -377,10 +377,14 @@ nav li {
 }
 
 .tool-name {
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 20ch;
+  flex-shrink: 0;
+  border-radius: 3px;
+  padding: 0 3px;
 }
 
 .tool-gems {
@@ -404,13 +408,61 @@ nav li {
   min-width: 10px;
 }
 
-#statusBox {
+#rightColumn {
   position: absolute;
   right: 16px;
   bottom: 16px;
-  background-color: #ffe0f0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: stretch;
   width: 140px;
+}
+
+#statusBox {
+  background-color: #ffe0f0;
   border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#fotoBox {
+  border-radius: 4px;
+  padding: 6px 8px 8px;
+  box-sizing: border-box;
+}
+
+#foto-title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 11px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #d090b0;
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.foto-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fotoButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 6px;
+  font-size: 11px;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #333;
 }
 
 #infobar-title,
@@ -667,13 +719,33 @@ nav li {
 }
 
 #notifications {
-  position: absolute;
-  bottom: 65px;
-  left: 50%;
-  border: 1px solid black;
-  width: 400px;
-  height: 19px;
-  transform: translateX(-50%);
+  display: none;
+}
+
+#footerNotif {
+  flex: 1;
+  text-align: center;
+  padding: 0 8px;
+  border-radius: 3px;
+  transition: background-color 0.2s, color 0.2s;
+  color: white;
+  cursor: default;
+}
+
+#footerNotif.bad {
+  background-color: #cc2222;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#footerNotif.good {
+  background-color: #228822;
+  color: #ffffff;
+}
+
+#footerNotif.neutral {
+  background-color: transparent;
+  color: white;
 }
 
 #opaque {
@@ -699,7 +771,7 @@ nav li {
   position: absolute;
   bottom: 16px;
   width: 140px;
-  height: 200px;
+  height: 175px;
   margin: 0px;
   padding: 6px 10px 8px;
   box-sizing: border-box;
@@ -866,85 +938,26 @@ nav li {
   color: white;
 }
 
-/* Tool buttons */
-#airportButton {
-  background-color: violet;
-}
-
-#bulldozerButton {
-  background-color: salmon;
-}
-
-#coalButton {
-  background-color: gray;
-}
-
-#commercialButton {
-  background-color: blue;
-  color: white;
-}
-
-#fireButton {
-  background-color: red;
-}
-
-#industrialButton {
-  background-color: yellow;
-}
-
-#nuclearButton {
-  background-color: mistyrose;
-}
-
-#eolicoButton {
-  background-color: mistyrose;
-}
-
-#solareButton {
-  background-color: gray;
-}
-
-#parkButton {
-  background-color: darkgreen;
-  color: white;
-}
-
-#policeButton {
-  background-color: darkblue;
-  color: white;
-}
-
-#portButton {
- background-color: dodgerblue;
- color: white;
-}
-
-#queryButton, #queryHeader {
-  background-color: cyan;
-}
-
-#railButton {
-  background-color: brown;
-  color: white;
-}
-
-#residentialButton {
-  background-color: lime;
-}
-
-#roadButton {
-  background-color: black;
-  color: white;
-}
-
-#stadiumButton {
-  background-color: indigo;
-  color: white;
-}
-
-#wireButton {
-  background-color: khaki;
-}
+/* Tool buttons — color only on the .tool-name label (20ch wide) */
+#airportButton .tool-name    { background-color: violet; }
+#bulldozerButton .tool-name  { background-color: salmon; }
+#coalButton .tool-name       { background-color: gray; color: white; }
+#commercialButton .tool-name { background-color: blue; color: white; }
+#fireButton .tool-name       { background-color: red; color: white; }
+#industrialButton .tool-name { background-color: yellow; }
+#nuclearButton .tool-name    { background-color: mistyrose; }
+#eolicoButton .tool-name     { background-color: mistyrose; }
+#solareButton .tool-name     { background-color: gray; color: white; }
+#parkButton .tool-name       { background-color: darkgreen; color: white; }
+#policeButton .tool-name     { background-color: darkblue; color: white; }
+#portButton .tool-name       { background-color: dodgerblue; color: white; }
+#queryButton .tool-name      { background-color: cyan; }
+#railButton .tool-name       { background-color: brown; color: white; }
+#residentialButton .tool-name { background-color: lime; }
+#roadButton .tool-name       { background-color: black; color: white; }
+#stadiumButton .tool-name    { background-color: indigo; color: white; }
+#wireButton .tool-name       { background-color: khaki; }
+#queryButton, #queryHeader   { background-color: transparent; }
 
 @media (max-height: 742px) {
   header {

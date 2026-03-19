@@ -69,6 +69,8 @@ var InputStatus = EventEmitter(function(map, tileWidth) {
   $('#disasterRequest').click(disasterHandler.bind(this));
   $('#pauseRequest').click(this.speedChangeHandler.bind(this));
   $('#screenshotRequest').click(screenshotHandler.bind(this));
+  $('#screenshotAreaBtn').click(screenshotVisibleHandler.bind(this));
+  $('#screenshotCityBtn').click(screenshotAllHandler.bind(this));
   $('#settingsRequest').click(settingsHandler.bind(this));
   $('#saveRequest').click(saveHandler.bind(this));
   $('#debugRequest').click(debugHandler.bind(this));
@@ -311,6 +313,8 @@ var debugHandler = makeHandler('DEBUG_WINDOW_REQUESTED');
 var disasterHandler = makeHandler('DISASTER_REQUESTED');
 var evalHandler = makeHandler('EVAL_REQUESTED');
 var screenshotHandler = makeHandler('SCREENSHOT_WINDOW_REQUESTED');
+var screenshotVisibleHandler = makeHandler('SCREENSHOT_VISIBLE_REQUESTED');
+var screenshotAllHandler = makeHandler('SCREENSHOT_ALL_REQUESTED');
 var settingsHandler = makeHandler('SETTINGS_WINDOW_REQUESTED');
 var saveHandler = makeHandler('SAVE_REQUESTED');
 

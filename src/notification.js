@@ -25,6 +25,7 @@ function Notification(element, map, initialText) {
   this._map = map;
   this._element = $(element);
   this._timeout = null;
+  this._defaultText = initialText || '';
 
   this._handleClick = handleClick.bind(this);
 
@@ -34,8 +35,9 @@ function Notification(element, map, initialText) {
 
   this._element.click(this._handleClick);
   this.close = close.bind(this);
-  if (this._element.is(':visible'))
-    this._element.toggle();
+
+  // Set default text immediately — element stays always visible
+  this._element.text(this._defaultText);
 }
 
 
@@ -43,8 +45,14 @@ var close = function(e) {
   if (e)
     e.preventDefault();
 
-  if (this._element.is(':visible'))
-    this._element.toggle();
+  if (this._timeout !== null) {
+    window.clearTimeout(this._timeout);
+    this._timeout = null;
+  }
+
+  // Restore default state
+  this._element.text(this._defaultText);
+  this._element.removeClass('bad good neutral pointer');
 };
 
 
@@ -61,14 +69,11 @@ Notification.prototype._displayLink = function(text, x, y) {
 
   this._element.addClass('pointer');
 
-  if (!this._element.is(':visible'))
-    this._element.toggle();
-
   this._timeout = window.setTimeout(function() {this._timeout = null; this.close();}.bind(this), TIMEOUT_SECS * 1000);
 };
 
 
-Notification.prototype._displayText = function(text, x, y) {
+Notification.prototype._displayText = function(text) {
   if (this._timeout !== null) {
     window.clearTimeout(this._timeout);
     this._timeout = null;
@@ -78,9 +83,6 @@ Notification.prototype._displayText = function(text, x, y) {
   this._element.text(text);
   this._x = -1;
   this._y = -1;
-
-  if (!this._element.is(':visible'))
-    this._element.toggle();
 
   this._timeout = window.setTimeout(function() {this._timeout = null; this.close();}.bind(this), TIMEOUT_SECS * 1000);
 };

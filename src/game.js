@@ -147,6 +147,12 @@ function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name) {
   this.screenshotWindow = new ScreenshotWindow(opacityLayerID, 'screenshotWindow');
   this.screenshotWindow.addEventListener(Messages.SCREENSHOT_WINDOW_CLOSED, this.handleScreenshotWindowClosure.bind(this));
   this.inputStatus.addEventListener(Messages.SCREENSHOT_WINDOW_REQUESTED, this.handleScreenshotRequest.bind(this));
+  this.inputStatus.addEventListener(Messages.SCREENSHOT_VISIBLE_REQUESTED, function() {
+    this.handleScreenshotWindowClosure(ScreenshotWindow.SCREENSHOT_VISIBLE);
+  }.bind(this));
+  this.inputStatus.addEventListener(Messages.SCREENSHOT_ALL_REQUESTED, function() {
+    this.handleScreenshotWindowClosure(ScreenshotWindow.SCREENSHOT_ALL);
+  }.bind(this));
 
   // ... the screenshot link window
   this.screenshotLinkWindow = new ScreenshotLinkWindow(opacityLayerID, 'screenshotLinkWindow');
@@ -199,7 +205,7 @@ function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name) {
   };
   this.infoBar(this.simulation, initialValues);
 
-  this._notificationBar = new Notification('#notifications', this.gameCanvas, Text.messageText[Messages.WELCOME]);
+  this._notificationBar = new Notification('#footerNotif', this.gameCanvas, Text.messageText[Messages.WELCOME]);
 
   // Track when various milestones are first reached
   this._reachedTown = this._reachedCity = this._reachedCapital = this._reachedMetropolis = this._reacedMegalopolis = false;
@@ -269,7 +275,7 @@ Game.prototype.revealControls = function() {
    $(this).removeClass('initialHidden');
  });
  // Re-show panels hidden by newGame() via .hide() (inline display:none)
- $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox').show();
+ $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #fotoBox').show();
 
  this._notificationBar.news({subject: Messages.WELCOME});
  this.rci.update({residential: 750, commercial: 750, industrial: 750});
