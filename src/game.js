@@ -471,7 +471,7 @@ Game.prototype.handleTool = function(data) {
       break;
 
     default:
-      $('#toolOutput').html('Tools');
+      $('#toolOutput').html("UNITA'");
   }
 };
 

@@ -262,7 +262,7 @@ var toolButtonHandler = function(e) {
   this.toolWidth = btn.attr('data-size');
   this.currentTool = this.gameTools[this.toolName];
   this.toolColour = btn.attr('data-colour');
-  $(toolOutputID).html('Tools');
+  $(toolOutputID).html("UNITA'");
 
   if (this.toolName !== 'query') {
     $(this.canvasID).removeClass('helpPointer');
