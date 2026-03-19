@@ -372,7 +372,7 @@ nav li {
 }
 
 #buttons {
-  padding-bottom: 16px;
+  padding-bottom: 0;
 }
 
 .tool-name {
@@ -684,10 +684,31 @@ nav li {
   padding: 0 5px;
 }
 
-#infobar {
+#leftTopCol {
   position: absolute;
+  left: 16px;
   top: 16px;
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#infobar {
+  position: static;
+  top: auto;
+  left: auto;
+  width: 140px;
   height: auto;
+  box-sizing: border-box;
+}
+
+#miscButtons {
+  position: static;
+  bottom: auto;
+  left: auto;
+  width: 140px;
+  box-sizing: border-box;
 }
 
 #cityHeader {
@@ -810,11 +831,6 @@ nav li {
 }
 
 #miscButtons {
-  position: absolute;
-  bottom: 16px;
-  left: 164px; /* 16px + 140px (RCI) + 8px gap */
-  width: 140px;
-  box-sizing: border-box;
   height: auto;
   border-radius: 4px;
 }
@@ -894,7 +910,7 @@ nav li {
 
 /* ── BILANCIO box ─────────────────────────────────────────────────────────── */
 #bilancioBox {
-  width: 180px;
+  width: 140px;
   box-sizing: border-box;
   border-radius: 4px;
 }
