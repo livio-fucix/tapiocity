@@ -733,14 +733,21 @@ Game.prototype.updateBilancioBox = function() {
   $('#bil-prevfunds').text('€ ' + fmt(budget.totalFunds));
   $('#bil-funds').text('€ ' + fmt(budget.totalFunds + (budget.cashFlow || 0)));
 
-  var roadPct   = parseInt($('#bil-road-rate').val());
-  var firePct   = parseInt($('#bil-fire-rate').val());
-  var policePct = parseInt($('#bil-police-rate').val());
-  var taxRate   = parseInt($('#bil-tax-rate').val());
+  var roadPct   = Math.floor(budget.roadPercent * 100);
+  var firePct   = Math.floor(budget.firePercent * 100);
+  var policePct = Math.floor(budget.policePercent * 100);
+  var taxRate   = budget.cityTax || 0;
 
+  $('#bil-road-rate').val(roadPct);
   $('#bil-road-label').text(roadPct + '% → €' + fmt(Math.floor(budget.roadMaintenanceBudget * roadPct / 100)));
+
+  $('#bil-fire-rate').val(firePct);
   $('#bil-fire-label').text(firePct + '% → €' + fmt(Math.floor(budget.fireMaintenanceBudget * firePct / 100)));
+
+  $('#bil-police-rate').val(policePct);
   $('#bil-police-label').text(policePct + '% → €' + fmt(Math.floor(budget.policeMaintenanceBudget * policePct / 100)));
+
+  $('#bil-tax-rate').val(taxRate);
   $('#bil-tax-label').text(taxRate + '%');
 };
 

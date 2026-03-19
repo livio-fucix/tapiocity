@@ -364,7 +364,7 @@ nav li {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 310px;
+  width: 262px;
   height: auto;
   max-height: calc(100vh - 60px);
   overflow-y: auto;
@@ -406,6 +406,7 @@ nav li {
   flex-shrink: 0;
   text-align: right;
   min-width: 50px;
+  margin-left: -4px;
 }
 
 .tg-count {
@@ -422,8 +423,14 @@ nav li {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-items: stretch;
-  width: 140px;
+  align-items: flex-end;
+}
+
+#disFotoRow {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: flex-start;
 }
 
 #statusBox {
@@ -440,6 +447,7 @@ nav li {
   border-radius: 4px;
   padding: 6px 8px 8px;
   box-sizing: border-box;
+  width: 100px;
 }
 
 #foto-title {
@@ -479,6 +487,7 @@ nav li {
   border-radius: 4px;
   padding: 6px 8px 8px;
   box-sizing: border-box;
+  width: 130px;
 }
 
 #disastri-title {
@@ -497,6 +506,7 @@ nav li {
   border-radius: 4px;
   padding: 6px 8px 8px;
   box-sizing: border-box;
+  width: 140px;
 }
 
 #impostazioni-title {
