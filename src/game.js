@@ -75,7 +75,7 @@ function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name) {
   this.inputStatus = new InputStatus(this.gameMap, tileSet.tileWidth);
 
   this.stopped = false;
-  $('#newGameRequest').click(this.newGame.bind(this));
+  $('#newGameRequest').off('click').on('click', this.newGame.bind(this));
 
   this.dialogOpen = false;
   this._openWindow = null;
@@ -268,6 +268,8 @@ Game.prototype.revealControls = function() {
  $('.initialHidden').each(function(e) {
    $(this).removeClass('initialHidden');
  });
+ // Re-show panels hidden by newGame() via .hide() (inline display:none)
+ $('#infobar, #miscButtons, #controls, #RCIContainer, #statusBox').show();
 
  this._notificationBar.news({subject: Messages.WELCOME});
  this.rci.update({residential: 750, commercial: 750, industrial: 750});

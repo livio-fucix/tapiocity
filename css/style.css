@@ -350,6 +350,10 @@ nav li {
   overflow-y: auto;
 }
 
+#buttons {
+  padding-bottom: 16px;
+}
+
 .tool-name {
   text-align: left;
   white-space: nowrap;
@@ -375,6 +379,7 @@ nav li {
 
 #infobar-title,
 #miscButtons-title,
+#denaro-title,
 #status-title,
 #rci-label,
 #toolInfo {
@@ -464,9 +469,13 @@ nav li {
   border-radius: 4px;
 }
 
+#denaro {
+  margin-top: 8px;
+  border-radius: 4px;
+}
+
 /* ── Funds gem breakdown ─────────────────────────────────────────────────── */
 #funds-gems {
-  margin-top: 8px;
   padding: 6px 4px 4px;
   font-size: 13px;
   line-height: 1.8;

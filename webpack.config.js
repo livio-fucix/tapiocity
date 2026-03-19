@@ -44,7 +44,7 @@ function addProductionConfigTo(options) {
 function getBuildId() {
   // Technically don't need to use the webpack plugin, as not passing it to Webpack...
   const gitPlugin = new GitRevisionPlugin({
-    commitHashCommand: `log -1 --pretty=format:'%h'`
+    commitHashCommand: 'log -1 --pretty=format:%h'
   });
 
   return gitPlugin.commithash().slice(0, 12);
