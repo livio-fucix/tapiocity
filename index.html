@@ -80,9 +80,6 @@
                 <button id="budgetRequest" class="miscButton">Bilancio</button>
               </div>
               <div>
-                <button id="evalRequest" class="miscButton">Valutazione</button>
-              </div>
-              <div>
                 <button id="disasterRequest" class="miscButton">Disastri</button>
               </div>
               <div>
@@ -234,6 +231,45 @@
             <button id="railButton" data-size="1" data-tool="rail" data-colour="brown" class="toolButton unselected"><span class="tool-tile" style="background-position:0px -112px"></span><span class="tool-name">Ferrovia</span><span class="tool-gems"><span class="tg-icon gem-bronze"></span><span class="tg-count">2</span></span><span class="tool-price">€ 20</span></button>
             <button id="parkButton" data-size="1" data-tool="park" data-colour="darkgreen" class="toolButton unselected"><span class="tool-tile" style="background-position:-128px -16px"></span><span class="tool-name">Parco</span><span class="tool-gems"><span class="tg-icon gem-bronze"></span><span class="tg-count">1</span></span><span class="tool-price">€ 10</span></button>
             <button id="bulldozerButton" data-size="1" data-tool="bulldozer" data-colour="salmon" class="toolButton unselected"><span class="tool-tile" style="background-position:0px 0px"></span><span class="tool-name">Ruspa</span><span class="tool-gems"><span class="tg-icon gem-crystal"></span><span class="tg-count">1</span></span><span class="tool-price">€ 1</span></button>
+          </div>
+        </div>
+        <div id="bilancioBox" class="controlShadow padding10 z1 initialHidden mintcream">
+          <div id="bilancio-title">BILANCIO</div>
+          <div class="bil-row">
+            <span class="bil-lbl">Entrate tasse</span>
+            <span id="bil-taxfund" class="bil-val">—</span>
+          </div>
+          <div class="bil-row">
+            <span class="bil-lbl">Flusso cassa</span>
+            <span id="bil-cashflow" class="bil-val">—</span>
+          </div>
+          <div class="bil-row">
+            <span class="bil-lbl">Saldo prec.</span>
+            <span id="bil-prevfunds" class="bil-val">—</span>
+          </div>
+          <div class="bil-row">
+            <span class="bil-lbl">Saldo att.</span>
+            <span id="bil-funds" class="bil-val">—</span>
+          </div>
+          <div class="bil-divider"></div>
+          <div class="bil-slider-group">
+            <div class="bil-slider-label">Strade <span id="bil-road-label" class="bil-slider-info"></span></div>
+            <input type="range" id="bil-road-rate" class="bil-slider" min="0" max="100" step="1" value="100">
+          </div>
+          <div class="bil-slider-group">
+            <div class="bil-slider-label">Vigili <span id="bil-fire-label" class="bil-slider-info"></span></div>
+            <input type="range" id="bil-fire-rate" class="bil-slider" min="0" max="100" step="1" value="100">
+          </div>
+          <div class="bil-slider-group">
+            <div class="bil-slider-label">Polizia <span id="bil-police-label" class="bil-slider-info"></span></div>
+            <input type="range" id="bil-police-rate" class="bil-slider" min="0" max="100" step="1" value="100">
+          </div>
+          <div class="bil-slider-group">
+            <div class="bil-slider-label">Tasse <span id="bil-tax-label" class="bil-slider-info"></span></div>
+            <input type="range" id="bil-tax-rate" class="bil-slider" min="0" max="20" step="1" value="7">
+          </div>
+          <div class="bil-reset-row">
+            <button id="bil-reset" class="bil-reset-btn">↺ Reset</button>
           </div>
         </div>
         <div id="tw" class="z1 rightedge initialHidden">

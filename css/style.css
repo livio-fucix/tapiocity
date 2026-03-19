@@ -857,6 +857,91 @@ nav li {
 .analisi-lbl { font-size: 11px; color: #666; }
 .analisi-val { font-size: 11px; font-weight: bold; color: #333; }
 
+/* ── BILANCIO box ─────────────────────────────────────────────────────────── */
+#bilancioBox {
+  position: absolute;
+  top: 16px;
+  right: 342px;
+  width: 180px;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+#bilancio-title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 11px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #d090b0;
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.bil-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  padding: 1px 0;
+}
+
+.bil-lbl { font-size: 10px; color: #666; }
+.bil-val  { font-size: 11px; font-weight: bold; color: #333; }
+
+.bil-divider {
+  border-top: 1px solid #d090b0;
+  margin: 5px 0;
+}
+
+.bil-slider-group {
+  margin-bottom: 4px;
+}
+
+.bil-slider-label {
+  font-size: 10px;
+  color: #555;
+  margin-bottom: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bil-slider-info {
+  font-size: 9px;
+  color: #888;
+}
+
+.bil-slider {
+  width: 100%;
+  height: 14px;
+  cursor: pointer;
+  accent-color: #a05080;
+  box-sizing: border-box;
+}
+
+.bil-reset-row {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.bil-reset-btn {
+  width: auto;
+  height: 17px;
+  font-size: 10px;
+  padding: 0 10px;
+  background-color: #e0c8d8;
+  border: 1px solid #c090a0;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #444;
+}
+
+.bil-reset-btn:hover {
+  background-color: #d0b0c8;
+}
+
 #newGameRequest {
   margin-top: 8px;
   border-top: 1px solid #d090b0;
@@ -1170,7 +1255,7 @@ nav li {
 }
 
 @media (max-height: 702px) {
-  #controls {
+  #controls, #bilancioBox {
     top: 30px;
   }
 

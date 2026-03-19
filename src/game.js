@@ -249,7 +249,7 @@ Game.prototype.save = function() {
 
 Game.prototype.newGame = function() {
   this.stopped = true;
-  $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #notifications, #impostazioniBox, #analisiBox').hide();
+  $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #notifications, #impostazioniBox, #analisiBox, #bilancioBox').hide();
   window.dispatchEvent(new CustomEvent('micropolis:newgame', {
     detail: {tileSet: this.tileSet, snowTileSet: this.snowTileSet, spriteSheet: this.spriteSheet}
   }));
@@ -275,9 +275,10 @@ Game.prototype.revealControls = function() {
    $(this).removeClass('initialHidden');
  });
  // Re-show panels hidden by newGame() via .hide() (inline display:none)
- $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #fotoBox, #impostazioniBox, #analisiBox').show();
+ $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #fotoBox, #impostazioniBox, #analisiBox, #bilancioBox').show();
 
  this.initQuickSettings();
+ this.initBilancio();
  this._notificationBar.news({subject: Messages.WELCOME});
  this.rci.update({residential: 750, commercial: 750, industrial: 750});
 };
@@ -554,6 +555,10 @@ Game.prototype.updateStatusBox = function() {
   // Tasse: TAX_FREQUENCY = 48
   var taxStep = sim._cityTime % 48;
   var taxEl = $('#status-tax');
+  if (taxStep === 47) {
+    // One step before tax collection: snapshot current funds as "previous"
+    this._bilPrevFunds = this.simulation.budget.totalFunds;
+  }
   if (taxStep === 0 && sim._cityTime > 0) {
     taxEl.text('ora').addClass('status-active').removeClass('status-warn');
   } else {
@@ -636,6 +641,7 @@ Game.prototype.updateStatusBox = function() {
     .toggleClass('status-warn', rem >= 0 && rem < supply * 0.1 && supply > 0);
 
   this.updateAnalysisBox();
+  this.updateBilancioBox();
 };
 
 
@@ -670,6 +676,83 @@ Game.prototype.updateAnalysisBox = function() {
   $('#analisi-value').text('€ ' + (evaluation.cityAssessedValue || 0).toLocaleString('it-IT'));
   $('#analisi-level').text(Text.gameLevel[evaluation.gameLevel] || '—');
   $('#analisi-delta').text(evaluation.cityScoreDelta || 0);
+};
+
+
+Game.prototype.initBilancio = function() {
+  var self = this;
+  var budget = this.simulation.budget;
+
+  // Store originals for reset
+  this._bilOrigRoadPct  = Math.floor(budget.roadPercent * 100);
+  this._bilOrigFirePct  = Math.floor(budget.firePercent * 100);
+  this._bilOrigPolicePct = Math.floor(budget.policePercent * 100);
+  this._bilOrigTax      = budget.cityTax;
+  if (this._bilPrevFunds === undefined)
+    this._bilPrevFunds  = budget.totalFunds;
+
+  $('#bil-road-rate').off('input').on('input', function() {
+    budget.roadPercent = parseInt(this.value) / 100;
+    budget.updateFundEffects();
+    self.updateBilancioBox();
+  });
+
+  $('#bil-fire-rate').off('input').on('input', function() {
+    budget.firePercent = parseInt(this.value) / 100;
+    budget.updateFundEffects();
+    self.updateBilancioBox();
+  });
+
+  $('#bil-police-rate').off('input').on('input', function() {
+    budget.policePercent = parseInt(this.value) / 100;
+    budget.updateFundEffects();
+    self.updateBilancioBox();
+  });
+
+  $('#bil-tax-rate').off('input').on('input', function() {
+    budget.setTax(parseInt(this.value));
+    self.updateBilancioBox();
+  });
+
+  $('#bil-reset').off('click').on('click', function() {
+    budget.roadPercent   = self._bilOrigRoadPct / 100;
+    budget.firePercent   = self._bilOrigFirePct / 100;
+    budget.policePercent = self._bilOrigPolicePct / 100;
+    budget.setTax(self._bilOrigTax);
+    budget.updateFundEffects();
+    self.updateBilancioBox();
+  });
+
+  this.updateBilancioBox();
+};
+
+
+Game.prototype.updateBilancioBox = function() {
+  var budget = this.simulation.budget;
+
+  var fmt = function(n) { return (n || 0).toLocaleString('it-IT'); };
+
+  $('#bil-taxfund').text('€ ' + fmt(budget.taxFund));
+  $('#bil-cashflow').text('€ ' + fmt(budget.cashFlow));
+  $('#bil-prevfunds').text('€ ' + fmt(this._bilPrevFunds));
+  $('#bil-funds').text('€ ' + fmt(budget.totalFunds));
+
+  var roadPct  = Math.floor(budget.roadPercent * 100);
+  var firePct  = Math.floor(budget.firePercent * 100);
+  var policePct = Math.floor(budget.policePercent * 100);
+  var taxRate  = budget.cityTax || 0;
+
+  $('#bil-road-rate').val(roadPct);
+  $('#bil-road-label').text(roadPct + '% → €' + fmt(Math.floor(budget.roadMaintenanceBudget * roadPct / 100)));
+
+  $('#bil-fire-rate').val(firePct);
+  $('#bil-fire-label').text(firePct + '% → €' + fmt(Math.floor(budget.fireMaintenanceBudget * firePct / 100)));
+
+  $('#bil-police-rate').val(policePct);
+  $('#bil-police-label').text(policePct + '% → €' + fmt(Math.floor(budget.policeMaintenanceBudget * policePct / 100)));
+
+  $('#bil-tax-rate').val(taxRate);
+  $('#bil-tax-label').text(taxRate + '%');
 };
 
 
