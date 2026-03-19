@@ -366,7 +366,7 @@ nav li {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 365px;
+  width: 310px;
   height: auto;
   max-height: calc(100vh - 60px);
   overflow-y: auto;
@@ -403,11 +403,11 @@ nav li {
 }
 
 .tool-price {
-  margin-left: auto;
   font-size: 10px;
   color: #555;
   flex-shrink: 0;
   text-align: right;
+  min-width: 50px;
 }
 
 .tg-count {
@@ -548,6 +548,25 @@ nav li {
 .qs-speed.qs-speed-active {
   background-color: #4455cc;
   color: white;
+}
+
+.qs-row-pause {
+  justify-content: center;
+  margin-top: 4px;
+  border-top: 1px solid #d090b0;
+  padding-top: 5px;
+}
+
+.qs-pause-btn {
+  width: 100%;
+  height: auto;
+  padding: 2px 0;
+  font-size: 11px;
+  border-radius: 3px;
+  background-color: #555;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
 #infobar-title,
