@@ -373,7 +373,10 @@ nav li {
 }
 
 #infobar-title,
-#miscButtons-title {
+#miscButtons-title,
+#status-title,
+#rci-label,
+#toolInfo {
   font-weight: bold;
   text-align: center;
   font-size: 11px;
@@ -385,16 +388,6 @@ nav li {
   color: #555;
 }
 
-#status-title {
-  font-weight: bold;
-  text-align: center;
-  font-size: 13px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid #d090b0;
-  margin-bottom: 4px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
 
 .status-row {
   display: flex;
@@ -619,17 +612,6 @@ nav li {
   padding-bottom: 2px;
 }
 
-#rci-label {
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-  color: #555;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding-bottom: 3px;
-  border-bottom: 1px solid #bbb;
-  margin-bottom: 3px;
-}
 
 #RCICanvasWrapper {
   flex: 1;
