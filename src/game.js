@@ -243,7 +243,7 @@ Game.prototype.save = function() {
 
 Game.prototype.newGame = function() {
   this.stopped = true;
-  $('#infobar, #miscButtons, #controls, #RCIContainer, #statusBox, #notifications').hide();
+  $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #notifications').hide();
   window.dispatchEvent(new CustomEvent('micropolis:newgame', {
     detail: {tileSet: this.tileSet, snowTileSet: this.snowTileSet, spriteSheet: this.spriteSheet}
   }));
@@ -269,7 +269,7 @@ Game.prototype.revealControls = function() {
    $(this).removeClass('initialHidden');
  });
  // Re-show panels hidden by newGame() via .hide() (inline display:none)
- $('#infobar, #miscButtons, #controls, #RCIContainer, #statusBox').show();
+ $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox').show();
 
  this._notificationBar.news({subject: Messages.WELCOME});
  this.rci.update({residential: 750, commercial: 750, industrial: 750});
