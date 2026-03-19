@@ -342,7 +342,8 @@ nav li {
 
 #controls {
   position: absolute;
-  top: 40px;
+  top: 16px;
+  right: 16px;
   width: 365px;
   height: auto;
   max-height: calc(100vh - 60px);
@@ -366,8 +367,8 @@ nav li {
 
 #statusBox {
   position: absolute;
-  right: 0;
-  bottom: 60px;
+  right: 16px;
+  bottom: 16px;
   background-color: #ffe0f0;
   width: 140px;
 }
@@ -603,7 +604,7 @@ nav li {
 
 #RCIContainer {
   position: absolute;
-  top: 472px;
+  bottom: 16px;
   width: 140px;
   height: 200px;
   margin: 0px;
@@ -905,10 +906,6 @@ nav li {
     top: 563px;
   }
 
-  #RCIContainer {
-    top: 442px;
-  }
-
   #tw {
     top: 280px;
   }
@@ -916,7 +913,7 @@ nav li {
 
 @media (max-height: 672px) {
   #controls {
-    top: 20px;
+    top: 16px;
   }
 
   #debug {
@@ -935,10 +932,6 @@ nav li {
     top: 533px;
   }
 
-  #RCIContainer {
-    top: 412px;
-  }
-
   #tw {
     top: 260px;
   }
@@ -953,7 +946,7 @@ nav li {
   }
 
   #controls {
-    top: 10px;
+    top: 16px;
   }
 
   #debug {
@@ -972,10 +965,6 @@ nav li {
     top: 503px;
   }
 
-  #RCIContainer {
-    top: 382px;
-  }
-
   #tw {
     top: 240px;
   }
@@ -983,7 +972,7 @@ nav li {
 
 @media (max-height: 612px) {
   #controls {
-    top: 0px;
+    top: 16px;
   }
 
   #debug {
@@ -1000,10 +989,6 @@ nav li {
 
   #notifications {
     top: 473px;
-  }
-
-  #RCIContainer {
-    top: 352px;
   }
 
   #tw {
