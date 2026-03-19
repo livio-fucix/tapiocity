@@ -789,6 +789,74 @@ nav li {
   box-sizing: border-box;
 }
 
+#analisiBox {
+  position: absolute;
+  bottom: 224px;
+  left: 172px;
+  width: 160px;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+#analisi-title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 11px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #d090b0;
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.analisi-mayor-row {
+  margin-bottom: 4px;
+}
+
+.analisi-mayor-verdict {
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.analisi-votes {
+  display: flex;
+  justify-content: space-around;
+  font-size: 10px;
+}
+
+.analisi-yes { color: #228822; font-weight: bold; }
+.analisi-no  { color: #cc2222; font-weight: bold; }
+
+#analisi-problems {
+  margin-bottom: 2px;
+}
+
+.analisi-prob {
+  font-size: 10px;
+  color: #cc5500;
+  padding: 0 0 1px 0;
+}
+
+.analisi-divider {
+  border-top: 1px solid #d090b0;
+  margin: 4px 0;
+}
+
+.analisi-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  padding: 1px 0;
+}
+
+.analisi-lbl { font-size: 11px; color: #666; }
+.analisi-val { font-size: 11px; font-weight: bold; color: #333; }
+
 #newGameRequest {
   margin-top: 8px;
   border-top: 1px solid #d090b0;

@@ -32,9 +32,9 @@ var zoneTypes = ['Libero', 'Acqua', 'Alberi', 'Macerie', 'Alluvione', 'Scorie Ra
 
 // Evaluation window
 var gameLevel = {};
-gameLevel['' + Simulation.LEVEL_EASY] = 'Easy';
-gameLevel['' + Simulation.LEVEL_MED] = 'Medium';
-gameLevel['' + Simulation.LEVEL_HARD] = 'Hard';
+gameLevel['' + Simulation.LEVEL_EASY] = 'Facile';
+gameLevel['' + Simulation.LEVEL_MED] = 'Medio';
+gameLevel['' + Simulation.LEVEL_HARD] = 'Difficile';
 
 var cityClass = {};
 cityClass[Evaluation.CC_VILLAGE] = 'VILLAGGIO';
@@ -45,13 +45,13 @@ cityClass[Evaluation.CC_METROPOLIS] = 'METROPOLI';
 cityClass[Evaluation.CC_MEGALOPOLIS] = 'MEGALOPOLI';
 
 var problems = {};
-problems[Evaluation.CRIME] = 'Crime';
-problems[Evaluation.POLLUTION] = 'Pollution';
-problems[Evaluation.HOUSING] = 'Housing';
-problems[Evaluation.TAXES] = 'Taxes';
-problems[Evaluation.TRAFFIC] = 'Traffic';
-problems[Evaluation.UNEMPLOYMENT] = 'Unemployment';
-problems[Evaluation.FIRE] = 'Fire';
+problems[Evaluation.CRIME] = 'Crimine';
+problems[Evaluation.POLLUTION] = 'Inquinamento';
+problems[Evaluation.HOUSING] = 'Alloggi';
+problems[Evaluation.TAXES] = 'Tasse';
+problems[Evaluation.TRAFFIC] = 'Traffico';
+problems[Evaluation.UNEMPLOYMENT] = 'Disoccupazione';
+problems[Evaluation.FIRE] = 'Incendio';
 
 // months
 var months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',

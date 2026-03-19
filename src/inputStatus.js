@@ -280,7 +280,7 @@ var toolButtonHandler = function(e) {
 
 InputStatus.prototype.speedChangeHandler = function(e) {
   var requestedSpeed = $('#pauseRequest').text();
-  var newRequest = requestedSpeed === 'Pause' ? 'Play' : 'Pause';
+  var newRequest = requestedSpeed === 'Pausa' ? 'Riprendi' : 'Pausa';
   $('#pauseRequest').text(newRequest);
   this._emitEvent(Messages.SPEED_CHANGE, requestedSpeed);
 };

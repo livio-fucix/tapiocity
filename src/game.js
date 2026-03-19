@@ -249,7 +249,7 @@ Game.prototype.save = function() {
 
 Game.prototype.newGame = function() {
   this.stopped = true;
-  $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #notifications, #impostazioniBox').hide();
+  $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #notifications, #impostazioniBox, #analisiBox').hide();
   window.dispatchEvent(new CustomEvent('micropolis:newgame', {
     detail: {tileSet: this.tileSet, snowTileSet: this.snowTileSet, spriteSheet: this.spriteSheet}
   }));
@@ -275,7 +275,7 @@ Game.prototype.revealControls = function() {
    $(this).removeClass('initialHidden');
  });
  // Re-show panels hidden by newGame() via .hide() (inline display:none)
- $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #fotoBox, #impostazioniBox').show();
+ $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #fotoBox, #impostazioniBox, #analisiBox').show();
 
  this.initQuickSettings();
  this._notificationBar.news({subject: Messages.WELCOME});
@@ -531,9 +531,10 @@ Game.prototype.handleTool = function(data) {
 
 Game.prototype.handleSave = function() {
   this.save();
-  this.dialogOpen = true;
-  this._openWindow = 'saveWindow';
-  this.saveWindow.open();
+  var btn = $('#saveRequest');
+  var orig = btn.text();
+  btn.text('✓ Salvato');
+  setTimeout(function() { btn.text(orig); }, 10000);
 };
 
 
@@ -633,6 +634,42 @@ Game.prototype.updateStatusBox = function() {
   remEl.text('R:' + rem)
     .toggleClass('status-bad', rem < 0)
     .toggleClass('status-warn', rem >= 0 && rem < supply * 0.1 && supply > 0);
+
+  this.updateAnalysisBox();
+};
+
+
+Game.prototype.updateAnalysisBox = function() {
+  var evaluation = this.simulation.evaluation;
+
+  var yes = evaluation.cityYes || 0;
+  var no = 100 - yes;
+  $('#analisi-yes').text('Sì: ' + yes + '%');
+  $('#analisi-no').text('No: ' + no + '%');
+
+  var verdictEl = $('#analisi-mayor-label');
+  if (yes >= 50) {
+    verdictEl.text('Sta facendo bene').css('color', '#228822');
+  } else if (yes >= 35) {
+    verdictEl.text('Prestazione mediocre').css('color', '#cc8800');
+  } else {
+    verdictEl.text('Sta deludendo').css('color', '#cc2222');
+  }
+
+  for (var i = 0; i < 4; i++) {
+    var pNum = evaluation.getProblemNumber(i);
+    var el = $('#analisi-prob' + (i + 1));
+    if (pNum !== null && pNum !== undefined) {
+      el.text(Text.problems[pNum]).show();
+    } else {
+      el.text('').hide();
+    }
+  }
+
+  $('#analisi-migration').text(evaluation.cityPopDelta || 0);
+  $('#analisi-value').text('€ ' + (evaluation.cityAssessedValue || 0).toLocaleString('it-IT'));
+  $('#analisi-level').text(Text.gameLevel[evaluation.gameLevel] || '—');
+  $('#analisi-delta').text(evaluation.cityScoreDelta || 0);
 };
 
 
