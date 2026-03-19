@@ -294,6 +294,28 @@ nav li {
   font-size: 12px;
 }
 
+.tool-tile {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  background-image: url('../images/tiles.png');
+  background-size: 512px 512px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  margin-right: 3px;
+}
+
+.tool-icon-svg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-right: 3px;
+}
+
 .unselected {
   font-weight: normal;
 }
@@ -493,6 +515,24 @@ nav li {
   border-radius: 4px;
 }
 
+.date-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+#date-month {
+  display: inline-block;
+  min-width: 68px;
+  text-align: right;
+}
+
+#date-year {
+  display: inline-block;
+  min-width: 32px;
+  text-align: left;
+}
+
 #denaro {
   margin-top: 8px;
   border-radius: 4px;
@@ -546,10 +586,10 @@ nav li {
 }
 
 .gem-crystal {
-  background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.85), rgba(180,220,255,0.25));
+  background: radial-gradient(circle at 30% 30%, #e8f4ff, #a0c8f0 60%, #6aabdb);
   border-radius: 50%;
-  border: 1px solid rgba(160,210,255,0.9);
-  box-shadow: inset 0 0 4px rgba(255,255,255,0.8), 0 0 3px rgba(150,200,255,0.5);
+  border: 1px solid #5090c8;
+  box-shadow: inset 0 0 4px rgba(255,255,255,0.9), 0 0 4px rgba(80,160,220,0.6);
 }
 
 .gem-count {
@@ -566,7 +606,10 @@ nav li {
 }
 
 #miscButtons {
-  margin-top: 8px;
+  position: absolute;
+  bottom: 224px; /* 16px margin + 200px RCI + 8px gap */
+  left: 16px;
+  width: 140px;
   height: auto;
   border-radius: 4px;
 }

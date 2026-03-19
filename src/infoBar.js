@@ -51,12 +51,16 @@ function renderFundsGems(funds) {
 }
 
 
+function setDate(month, year) {
+  $('#date-month').text(Text.months[month]);
+  $('#date-year').text(String(year));
+}
+
 var InfoBar = function(classification, population, score, funds, date, name) {
   var classificationSelector = MiscUtils.normaliseDOMid(classification);
   var populationSelector = MiscUtils.normaliseDOMid(population);
   var scoreSelector = MiscUtils.normaliseDOMid(score);
   var fundsSelector = MiscUtils.normaliseDOMid(funds);
-  var dateSelector = MiscUtils.normaliseDOMid(date);
   var nameSelector = MiscUtils.normaliseDOMid(name);
 
   return function(dataSource, initialValues) {
@@ -64,7 +68,7 @@ var InfoBar = function(classification, population, score, funds, date, name) {
     $(populationSelector).text(fmt(initialValues.population));
     $(scoreSelector).text(fmt(initialValues.score));
     $(fundsSelector).text(fmt(initialValues.funds));
-    $(dateSelector).text([Text.months[initialValues.date.month], initialValues.date.year].join(' '));
+    setDate(initialValues.date.month, initialValues.date.year);
     $(nameSelector).text(initialValues.name);
     renderFundsGems(initialValues.funds);
 
@@ -87,7 +91,7 @@ var InfoBar = function(classification, population, score, funds, date, name) {
     });
 
     dataSource.addEventListener(Messages.DATE_UPDATED, function(date) {
-      $(dateSelector).text([Text.months[date.month], date.year].join(' '));
+      setDate(date.month, date.year);
     });
   };
 };
