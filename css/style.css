@@ -287,7 +287,8 @@ nav li {
   margin-left: 5px;
   margin-right: 5px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 16px;
   align-items: center;
   color: black;
   background-color: white;
@@ -420,9 +421,12 @@ nav li {
 }
 
 #statusBox {
+  position: absolute;
+  left: 172px;
+  top: 16px;
+  width: 140px;
   background-color: #ffe0f0;
   border-radius: 4px;
-  width: 100%;
   box-sizing: border-box;
 }
 
@@ -730,6 +734,11 @@ nav li {
   transition: background-color 0.2s, color 0.2s;
   color: white;
   cursor: default;
+}
+
+#footerNotif.notif-active {
+  background-color: #cc2222;
+  color: #ffffff;
 }
 
 #footerNotif.bad {

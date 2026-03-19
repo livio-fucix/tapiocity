@@ -52,7 +52,7 @@ var close = function(e) {
 
   // Restore default state
   this._element.text(this._defaultText);
-  this._element.removeClass('bad good neutral pointer');
+  this._element.removeClass('bad good neutral pointer notif-active');
 };
 
 
@@ -67,7 +67,7 @@ Notification.prototype._displayLink = function(text, x, y) {
   this._x = x;
   this._y = y;
 
-  this._element.addClass('pointer');
+  this._element.addClass('notif-active pointer');
 
   this._timeout = window.setTimeout(function() {this._timeout = null; this.close();}.bind(this), TIMEOUT_SECS * 1000);
 };
@@ -80,6 +80,7 @@ Notification.prototype._displayText = function(text) {
   }
 
   this._element.removeClass('pointer');
+  this._element.addClass('notif-active');
   this._element.text(text);
   this._x = -1;
   this._y = -1;

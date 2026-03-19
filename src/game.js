@@ -507,7 +507,7 @@ Game.prototype.updateStatusBox = function() {
   var taxStep = sim._cityTime % 48;
   var taxEl = $('#status-tax');
   if (taxStep === 0 && sim._cityTime > 0) {
-    taxEl.text('★ ora').addClass('status-active').removeClass('status-warn');
+    taxEl.text('ora').addClass('status-active').removeClass('status-warn');
   } else {
     var taxRemaining = 48 - taxStep;
     taxEl.text(taxRemaining + ' step').removeClass('status-active');
@@ -518,7 +518,7 @@ Game.prototype.updateStatusBox = function() {
   var censusStep = sim._cityTime % 4;
   var censusEl = $('#status-census');
   if (censusStep === 0 && sim._cityTime > 0) {
-    censusEl.text('★ ora').addClass('status-active');
+    censusEl.text('ora').addClass('status-active');
   } else {
     censusEl.text((4 - censusStep) + ' step').removeClass('status-active');
   }
