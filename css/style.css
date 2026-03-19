@@ -735,7 +735,7 @@ nav li {
 
 #wrapper {
   position: absolute;
-  top: 55px;
+  top: 0;
   left: 0px;
   right: 0px;
   bottom: 0px;
@@ -880,9 +880,6 @@ nav li {
     top: 593px;
   }
 
-  #wrapper {
-    top: 35px;
-  }
 }
 
 @media (max-height: 702px) {
