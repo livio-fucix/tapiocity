@@ -556,8 +556,6 @@ Game.prototype.updateStatusBox = function() {
   var taxStep = sim._cityTime % 48;
   var taxEl = $('#status-tax');
   if (taxStep === 47) {
-    // One step before tax collection: snapshot current funds as "previous"
-    this._bilPrevFunds = this.simulation.budget.totalFunds;
   }
   if (taxStep === 0 && sim._cityTime > 0) {
     taxEl.text('ora').addClass('status-active').removeClass('status-warn');
@@ -688,9 +686,6 @@ Game.prototype.initBilancio = function() {
   this._bilOrigFirePct  = Math.floor(budget.firePercent * 100);
   this._bilOrigPolicePct = Math.floor(budget.policePercent * 100);
   this._bilOrigTax      = budget.cityTax;
-  if (this._bilPrevFunds === undefined)
-    this._bilPrevFunds  = budget.totalFunds;
-
   $('#bil-road-rate').off('input').on('input', function() {
     budget.roadPercent = parseInt(this.value) / 100;
     budget.updateFundEffects();
@@ -734,8 +729,8 @@ Game.prototype.updateBilancioBox = function() {
 
   $('#bil-taxfund').text('€ ' + fmt(budget.taxFund));
   $('#bil-cashflow').text('€ ' + fmt(budget.cashFlow));
-  $('#bil-prevfunds').text('€ ' + fmt(this._bilPrevFunds));
-  $('#bil-funds').text('€ ' + fmt(budget.totalFunds));
+  $('#bil-prevfunds').text('€ ' + fmt(budget.totalFunds));
+  $('#bil-funds').text('€ ' + fmt(budget.totalFunds + (budget.cashFlow || 0)));
 
   var roadPct  = Math.floor(budget.roadPercent * 100);
   var firePct  = Math.floor(budget.firePercent * 100);

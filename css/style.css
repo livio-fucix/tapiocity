@@ -288,7 +288,7 @@ nav li {
   margin-right: 5px;
   display: flex;
   justify-content: flex-start;
-  gap: 16px;
+  gap: 8px;
   align-items: center;
   color: black;
   background-color: white;
@@ -304,7 +304,6 @@ nav li {
   background-size: 512px 512px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
-  margin-right: 3px;
 }
 
 .tool-icon-svg {
@@ -314,7 +313,6 @@ nav li {
   width: 16px;
   height: 16px;
   flex-shrink: 0;
-  margin-right: 3px;
 }
 
 .unselected {
@@ -382,8 +380,8 @@ nav li {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 20ch;
-  flex-shrink: 0;
+  flex-grow: 1;
+  min-width: 0;
   border-radius: 3px;
   padding: 0 3px;
 }
