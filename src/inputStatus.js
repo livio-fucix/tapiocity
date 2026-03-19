@@ -72,6 +72,7 @@ var InputStatus = EventEmitter(function(map, tileWidth) {
   $('#settingsRequest').click(settingsHandler.bind(this));
   $('#saveRequest').click(saveHandler.bind(this));
   $('#debugRequest').click(debugHandler.bind(this));
+  $('#newGameRequest').click(function() { window.location.reload(); });
 });
 
 

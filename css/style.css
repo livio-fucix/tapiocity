@@ -538,6 +538,13 @@ nav li {
   height: auto;
 }
 
+#newGameRequest {
+  margin-top: 8px;
+  border-top: 1px solid #d090b0;
+  padding-top: 6px;
+  width: 100%;
+}
+
 #infobar-population {
   font-size: 13px;
   text-align: center;
