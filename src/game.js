@@ -275,10 +275,11 @@ Game.prototype.revealControls = function() {
    $(this).removeClass('initialHidden');
  });
  // Re-show panels hidden by newGame() via .hide() (inline display:none)
- $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #fotoBox, #impostazioniBox, #analisiBox, #bilancioBox').show();
+ $('#infobar, #cityHeader, #controls, #RCIContainer, #statusBox, #fotoBox, #impostazioniBox, #analisiBox, #bilancioBox, #disastriBox').show();
 
  this.initQuickSettings();
  this.initBilancio();
+ this.initDisastriBox();
  this._notificationBar.news({subject: Messages.WELCOME});
  this.rci.update({residential: 750, commercial: 750, industrial: 750});
 };
@@ -732,22 +733,28 @@ Game.prototype.updateBilancioBox = function() {
   $('#bil-prevfunds').text('€ ' + fmt(budget.totalFunds));
   $('#bil-funds').text('€ ' + fmt(budget.totalFunds + (budget.cashFlow || 0)));
 
-  var roadPct  = Math.floor(budget.roadPercent * 100);
-  var firePct  = Math.floor(budget.firePercent * 100);
-  var policePct = Math.floor(budget.policePercent * 100);
-  var taxRate  = budget.cityTax || 0;
+  var roadPct   = parseInt($('#bil-road-rate').val());
+  var firePct   = parseInt($('#bil-fire-rate').val());
+  var policePct = parseInt($('#bil-police-rate').val());
+  var taxRate   = parseInt($('#bil-tax-rate').val());
 
-  $('#bil-road-rate').val(roadPct);
   $('#bil-road-label').text(roadPct + '% → €' + fmt(Math.floor(budget.roadMaintenanceBudget * roadPct / 100)));
-
-  $('#bil-fire-rate').val(firePct);
   $('#bil-fire-label').text(firePct + '% → €' + fmt(Math.floor(budget.fireMaintenanceBudget * firePct / 100)));
-
-  $('#bil-police-rate').val(policePct);
   $('#bil-police-label').text(policePct + '% → €' + fmt(Math.floor(budget.policeMaintenanceBudget * policePct / 100)));
-
-  $('#bil-tax-rate').val(taxRate);
   $('#bil-tax-label').text(taxRate + '%');
+};
+
+
+Game.prototype.initDisastriBox = function() {
+  var dm = this.simulation.disasterManager;
+  var sm = this.simulation.spriteManager;
+
+  $('#dis-monster') .off('click').on('click', function() { sm.makeMonster(); });
+  $('#dis-fire')    .off('click').on('click', function() { dm.makeFire(); });
+  $('#dis-flood')   .off('click').on('click', function() { dm.makeFlood(); });
+  $('#dis-crash')   .off('click').on('click', function() { dm.makeCrash(); });
+  $('#dis-meltdown').off('click').on('click', function() { dm.makeMeltdown(); });
+  $('#dis-tornado') .off('click').on('click', function() { sm.makeTornado(); });
 };
 
 

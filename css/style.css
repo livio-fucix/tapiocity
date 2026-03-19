@@ -475,6 +475,24 @@ nav li {
   color: #333;
 }
 
+#disastriBox {
+  border-radius: 4px;
+  padding: 6px 8px 8px;
+  box-sizing: border-box;
+}
+
+#disastri-title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 11px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #d090b0;
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #555;
+}
+
 #impostazioniBox {
   border-radius: 4px;
   padding: 6px 8px 8px;
