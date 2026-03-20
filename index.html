@@ -124,68 +124,65 @@
           <div id="cityHeader-class"><span id="cclass">VILLAGE</span></div>
         </div>
         <div id="rightColumn">
-          <div id="impostazioniBox" class="controlShadow open mintcream z1 initialHidden">
-            <div id="impostazioni-title">IMPOSTAZIONI</div>
-            <div class="qs-row">
-              <span class="qs-label">Auto-budget</span>
-              <button id="qs-autobudget" class="qs-toggle">Auto</button>
+          <div id="impostazioniFinanzeRow">
+            <div id="finanzeBox" class="controlShadow open mintcream z1 initialHidden">
+              <div id="finanze-title">FINANZE</div>
+              <div class="bil-slider-group">
+                <div class="bil-slider-label">Strade <span id="bil-road-label" class="bil-slider-info"></span></div>
+                <input type="range" id="bil-road-rate" class="bil-slider" min="0" max="100" step="1" value="100">
+              </div>
+              <div class="bil-slider-group">
+                <div class="bil-slider-label">Vigili <span id="bil-fire-label" class="bil-slider-info"></span></div>
+                <input type="range" id="bil-fire-rate" class="bil-slider" min="0" max="100" step="1" value="100">
+              </div>
+              <div class="bil-slider-group">
+                <div class="bil-slider-label">Polizia <span id="bil-police-label" class="bil-slider-info"></span></div>
+                <input type="range" id="bil-police-rate" class="bil-slider" min="0" max="100" step="1" value="100">
+              </div>
+              <div class="bil-slider-group">
+                <div class="bil-slider-label">Tasse <span id="bil-tax-label" class="bil-slider-info"></span></div>
+                <input type="range" id="bil-tax-rate" class="bil-slider" min="0" max="20" step="1" value="7">
+              </div>
+              <div class="bil-reset-row">
+                <button id="bil-reset" class="bil-reset-btn">↺ Reset</button>
+              </div>
             </div>
-            <div class="qs-row">
-              <span class="qs-label">Auto-ruspa</span>
-              <button id="qs-autobulldoze" class="qs-toggle">Auto</button>
-            </div>
-            <div class="qs-row">
-              <span class="qs-label">Velocità</span>
-              <span class="qs-speed-group">
-                <button class="qs-speed" data-speed="1">L</button>
-                <button class="qs-speed" data-speed="2">M</button>
-                <button class="qs-speed" data-speed="3">V</button>
-              </span>
-            </div>
-            <div class="qs-row">
-              <span class="qs-label">Disastri</span>
-              <button id="qs-disasters" class="qs-toggle">Off</button>
-            </div>
-            <div class="qs-row qs-row-pause">
-              <button id="pauseRequest" class="qs-pause-btn">Pausa</button>
+            <div id="impostazioniBox" class="controlShadow open mintcream z1 initialHidden">
+              <div id="impostazioni-title">IMPOSTAZIONI</div>
+              <div class="qs-row">
+                <span class="qs-label">Auto-budget</span>
+                <button id="qs-autobudget" class="qs-toggle">Auto</button>
+              </div>
+              <div class="qs-row">
+                <span class="qs-label">Auto-ruspa</span>
+                <button id="qs-autobulldoze" class="qs-toggle">Auto</button>
+              </div>
+              <div class="qs-row">
+                <span class="qs-label">Velocità</span>
+                <span class="qs-speed-group">
+                  <button class="qs-speed" data-speed="1">L</button>
+                  <button class="qs-speed" data-speed="2">M</button>
+                  <button class="qs-speed" data-speed="3">V</button>
+                </span>
+              </div>
+              <div class="qs-row">
+                <span class="qs-label">Disastri</span>
+                <button id="qs-disasters" class="qs-toggle">Off</button>
+              </div>
+              <div class="qs-row qs-row-pause">
+                <button id="pauseRequest" class="qs-pause-btn">Pausa</button>
+              </div>
             </div>
           </div>
-          <div id="disFotoRow">
-            <div id="fotoBox" class="controlShadow open mintcream z1 initialHidden">
-              <div id="foto-title">FOTO</div>
-              <div class="foto-buttons">
-                <button id="screenshotAreaBtn" class="fotoButton">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
-                    <rect x="1" y="1" width="20" height="16" rx="2" fill="none" stroke="#555" stroke-width="1.5"/>
-                    <rect x="4" y="4" width="14" height="10" rx="1" fill="none" stroke="#888" stroke-width="1" stroke-dasharray="2,1"/>
-                    <circle cx="11" cy="9" r="2.5" fill="none" stroke="#555" stroke-width="1.2"/>
-                  </svg>
-                  <span>Foto Area</span>
-                </button>
-                <button id="screenshotCityBtn" class="fotoButton">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
-                    <rect x="1" y="1" width="20" height="16" rx="2" fill="none" stroke="#555" stroke-width="1.5"/>
-                    <rect x="3" y="3" width="5" height="5" fill="#a8d8a8" stroke="#555" stroke-width="0.8"/>
-                    <rect x="9" y="3" width="5" height="5" fill="#d8a8a8" stroke="#555" stroke-width="0.8"/>
-                    <rect x="15" y="3" width="5" height="5" fill="#a8a8d8" stroke="#555" stroke-width="0.8"/>
-                    <rect x="3" y="9" width="5" height="5" fill="#d8d8a8" stroke="#555" stroke-width="0.8"/>
-                    <rect x="9" y="9" width="5" height="5" fill="#a8d8d8" stroke="#555" stroke-width="0.8"/>
-                    <rect x="15" y="9" width="5" height="5" fill="#d8a8d8" stroke="#555" stroke-width="0.8"/>
-                  </svg>
-                  <span>Foto Città</span>
-                </button>
-              </div>
-            </div>
-            <div id="disastriBox" class="controlShadow open mintcream z1 initialHidden">
-              <div id="disastri-title">DISASTRI</div>
-              <div class="foto-buttons">
-                <button id="dis-monster"  class="fotoButton">🐲 <span>Mostro</span></button>
-                <button id="dis-fire"     class="fotoButton">🔥 <span>Incendio</span></button>
-                <button id="dis-flood"    class="fotoButton">🌊 <span>Alluvione</span></button>
-                <button id="dis-crash"    class="fotoButton">✈️ <span>Incidente</span></button>
-                <button id="dis-meltdown" class="fotoButton">☢️ <span>Fusione nucl.</span></button>
-                <button id="dis-tornado"  class="fotoButton">🌪️ <span>Tornado</span></button>
-              </div>
+          <div id="disastriBox" class="controlShadow open mintcream z1 initialHidden">
+            <div id="disastri-title">DISASTRI</div>
+            <div class="foto-buttons">
+              <button id="dis-monster"  class="fotoButton">🐲 <span>Mostro</span></button>
+              <button id="dis-fire"     class="fotoButton">🔥 <span>Incendio</span></button>
+              <button id="dis-flood"    class="fotoButton">🌊 <span>Alluvione</span></button>
+              <button id="dis-crash"    class="fotoButton">✈️ <span>Incidente</span></button>
+              <button id="dis-meltdown" class="fotoButton">☢️ <span>Fusione nucl.</span></button>
+              <button id="dis-tornado"  class="fotoButton">🌪️ <span>Tornado</span></button>
             </div>
           </div>
         </div>
@@ -229,26 +226,6 @@
             <span class="bil-lbl">Saldo att.</span>
             <span id="bil-funds" class="bil-val">—</span>
           </div>
-          <div class="bil-divider"></div>
-          <div class="bil-slider-group">
-            <div class="bil-slider-label">Strade <span id="bil-road-label" class="bil-slider-info"></span></div>
-            <input type="range" id="bil-road-rate" class="bil-slider" min="0" max="100" step="1" value="100">
-          </div>
-          <div class="bil-slider-group">
-            <div class="bil-slider-label">Vigili <span id="bil-fire-label" class="bil-slider-info"></span></div>
-            <input type="range" id="bil-fire-rate" class="bil-slider" min="0" max="100" step="1" value="100">
-          </div>
-          <div class="bil-slider-group">
-            <div class="bil-slider-label">Polizia <span id="bil-police-label" class="bil-slider-info"></span></div>
-            <input type="range" id="bil-police-rate" class="bil-slider" min="0" max="100" step="1" value="100">
-          </div>
-          <div class="bil-slider-group">
-            <div class="bil-slider-label">Tasse <span id="bil-tax-label" class="bil-slider-info"></span></div>
-            <input type="range" id="bil-tax-rate" class="bil-slider" min="0" max="20" step="1" value="7">
-          </div>
-          <div class="bil-reset-row">
-            <button id="bil-reset" class="bil-reset-btn">↺ Reset</button>
-          </div>
         </div>
         </div>
         <div id="RCIContainer" class="controlShadow leftedge width140 mintcream open z1 initialHidden">
@@ -260,7 +237,8 @@
             <span id="rci-i-val" class="rci-num rci-i">0</span>
           </div>
         </div>
-        <div id="controls" class="controlShadow mintcream z1 initialHidden rightedge open">
+        <div id="rightEdgeCol">
+        <div id="controls" class="controlShadow mintcream z1 initialHidden open">
           <div id="toolInfo" class="alignCenter"><span id="toolOutput">UNITA'</span></div>
           <div id="buttons">
             <button id="queryButton" data-size="1" data-tool="query" data-colour="cyan" class="toolButton unselected"><span class="tool-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="none" stroke="#555" stroke-width="1.5"/><path d="M6 6C6 4.9 6.9 4 8 4C9.1 4 10 4.9 10 6C10 6.8 9.5 7.4 8.8 7.7L8 8.2V9.5" fill="none" stroke="#555" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="11.5" r="0.9" fill="#555"/></svg></span><span class="tool-name">Informazioni</span></button>
@@ -272,7 +250,7 @@
             <button id="commercialButton" data-size="3" data-tool="commercial" data-colour="blue" class="toolButton unselected"><span class="tool-tile" style="background-position:-176px -208px"></span><span class="tool-name">Negozi</span><span class="tool-gems"><span class="tg-icon gem-silver"></span><span class="tg-count">1</span></span><span class="tool-price">€ 100</span></button>
             <button id="industrialButton" data-size="3" data-tool="industrial" data-colour="yellow" class="toolButton unselected"><span class="tool-tile" style="background-position:-128px -304px"></span><span class="tool-name">Industrie</span><span class="tool-gems"><span class="tg-icon gem-silver"></span><span class="tg-count">1</span></span><span class="tool-price">€ 100</span></button>
             <button id="policeButton" data-size="3" data-tool="police" data-colour="darkblue" class="toolButton unselected"><span class="tool-tile" style="background-position:-96px -384px"></span><span class="tool-name">Polizia</span><span class="tool-gems"><span class="tg-icon gem-silver"></span><span class="tg-count">5</span></span><span class="tool-price">€ 500</span></button>
-            <button id="fireButton" data-size="3" data-tool="fire" data-colour="red" class="toolButton unselected"><span class="tool-tile" style="background-position:-464px -368px"></span><span class="tool-name">Vigili del Fuoco</span><span class="tool-gems"><span class="tg-icon gem-silver"></span><span class="tg-count">5</span></span><span class="tool-price">€ 500</span></button>
+            <button id="fireButton" data-size="3" data-tool="fire" data-colour="red" class="toolButton unselected"><span class="tool-tile" style="background-position:-464px -368px"></span><span class="tool-name">Pompieri</span><span class="tool-gems"><span class="tg-icon gem-silver"></span><span class="tg-count">5</span></span><span class="tool-price">€ 500</span></button>
             <button id="portButton" data-size="4" data-tool="port" data-colour="dodgerblue" class="toolButton unselected"><span class="tool-tile" style="background-position:-416px -336px"></span><span class="tool-name">Porto</span><span class="tool-gems"><span class="tg-icon gem-gold"></span><span class="tg-count">3</span></span><span class="tool-price">€ 3.000</span></button>
             <button id="airportButton" data-size="6" data-tool="airport" data-colour="violet" class="toolButton unselected"><span class="tool-tile" style="background-position:-192px -352px"></span><span class="tool-name">Aeroporto</span><span class="tool-gems"><span class="tg-icon gem-diamond"></span><span class="tg-count">1</span></span><span class="tool-price">€ 10.000</span></button>
             <button id="stadiumButton" data-size="4" data-tool="stadium" data-colour="indigo" class="toolButton unselected"><span class="tool-tile" style="background-position:-256px -384px"></span><span class="tool-name">Stadio</span><span class="tool-gems"><span class="tg-icon gem-gold"></span><span class="tg-count">5</span></span><span class="tool-price">€ 5.000</span></button>
@@ -282,6 +260,32 @@
             <button id="parkButton" data-size="1" data-tool="park" data-colour="darkgreen" class="toolButton unselected"><span class="tool-tile" style="background-position:-128px -16px"></span><span class="tool-name">Parco</span><span class="tool-gems"><span class="tg-icon gem-bronze"></span><span class="tg-count">1</span></span><span class="tool-price">€ 10</span></button>
             <button id="bulldozerButton" data-size="1" data-tool="bulldozer" data-colour="salmon" class="toolButton unselected"><span class="tool-tile" style="background-position:0px 0px"></span><span class="tool-name">Ruspa</span><span class="tool-gems"><span class="tg-icon gem-crystal"></span><span class="tg-count">1</span></span><span class="tool-price">€ 1</span></button>
           </div>
+        </div>
+        <div id="fotoBox" class="controlShadow open mintcream z1 initialHidden">
+          <div id="foto-title">FOTO</div>
+          <div class="foto-buttons">
+            <button id="screenshotAreaBtn" class="fotoButton">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
+                <rect x="1" y="1" width="20" height="16" rx="2" fill="none" stroke="#555" stroke-width="1.5"/>
+                <rect x="4" y="4" width="14" height="10" rx="1" fill="none" stroke="#888" stroke-width="1" stroke-dasharray="2,1"/>
+                <circle cx="11" cy="9" r="2.5" fill="none" stroke="#555" stroke-width="1.2"/>
+              </svg>
+              <span>Foto Area</span>
+            </button>
+            <button id="screenshotCityBtn" class="fotoButton">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
+                <rect x="1" y="1" width="20" height="16" rx="2" fill="none" stroke="#555" stroke-width="1.5"/>
+                <rect x="3" y="3" width="5" height="5" fill="#a8d8a8" stroke="#555" stroke-width="0.8"/>
+                <rect x="9" y="3" width="5" height="5" fill="#d8a8a8" stroke="#555" stroke-width="0.8"/>
+                <rect x="15" y="3" width="5" height="5" fill="#a8a8d8" stroke="#555" stroke-width="0.8"/>
+                <rect x="3" y="9" width="5" height="5" fill="#d8d8a8" stroke="#555" stroke-width="0.8"/>
+                <rect x="9" y="9" width="5" height="5" fill="#a8d8d8" stroke="#555" stroke-width="0.8"/>
+                <rect x="15" y="9" width="5" height="5" fill="#d8a8d8" stroke="#555" stroke-width="0.8"/>
+              </svg>
+              <span>Foto Città</span>
+            </button>
+          </div>
+        </div>
         </div>
         <div id="tw" class="z1 rightedge initialHidden">
           <a class="twitter-share-button" href="https://twitter.com/share?count=none" data-text="I'm city-building like it's 1989! Playing micropolisJS, a HTML5 retro city-builder https://graememcc.github.io/micropolisJS">Tweet</a><script type="text/javascript">window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));</script>
