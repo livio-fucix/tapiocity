@@ -1131,9 +1131,12 @@ nav li {
   margin: 0px;
   padding: 6px 10px 6px;
   box-sizing: border-box;
+  border-radius: 4px;
+}
+
+#RCIContainer:not(.initialHidden) {
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
 }
 
 #rci-label {
