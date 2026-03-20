@@ -74,11 +74,6 @@
             <div id="funds-gems"></div>
           </div>
         </div>
-        <div id="miscButtons" class="alignCenter open controlShadow padding10 mintcream z1 initialHidden">
-            <div id="miscButtons-title">STRUMENTI</div>
-            <button id="saveRequest" class="miscButton loadSave" disabled>Salva</button>
-            <button id="newGameRequest" class="miscButton miscButton--new">Nuova Partita</button>
-          </div>
         <div id="bilancioBox" class="controlShadow padding10 z1 initialHidden mintcream">
           <div id="bilancio-title">BILANCIO</div>
           <div class="bil-row">
@@ -131,9 +126,31 @@
             <span id="analisi-delta" class="analisi-val">—</span>
           </div>
         </div>
-        <div id="cityHeader" class="alignCenter controlShadow mintcream padding10 z1 initialHidden">
-          <div id="cityHeader-name"><span id="name">Your Name Here</span></div>
-          <div id="cityHeader-class"><span id="cclass">VILLAGE</span></div>
+        <div id="topBar" class="z1 initialHidden">
+          <div id="topBar-left">
+            <button id="saveRequest" class="tb-btn loadSave" disabled>
+              <span class="tb-icon">💾</span>
+              <span class="tb-label">Salva</span>
+            </button>
+            <button id="newGameRequest" class="tb-btn tb-btn--new">
+              <span class="tb-icon">🔄</span>
+              <span class="tb-label">Nuova</span>
+            </button>
+          </div>
+          <div id="cityHeader" class="alignCenter controlShadow mintcream padding10">
+            <div id="cityHeader-name"><span id="name">Your Name Here</span></div>
+            <div id="cityHeader-class"><span id="cclass">VILLAGE</span></div>
+          </div>
+          <div id="topBar-right">
+            <button id="screenshotAreaBtn" class="tb-btn">
+              <span class="tb-icon">📷</span>
+              <span class="tb-label">Area</span>
+            </button>
+            <button id="screenshotCityBtn" class="tb-btn">
+              <span class="tb-icon">🗺️</span>
+              <span class="tb-label">Città</span>
+            </button>
+          </div>
         </div>
         <div id="rightColumn">
           <div id="impostazioniBox" class="controlShadow open mintcream z1 initialHidden">
@@ -250,31 +267,6 @@
             <button id="railButton" data-size="1" data-tool="rail" data-colour="brown" class="toolButton unselected"><span class="tool-tile" style="background-position:0px -112px"></span><span class="tool-name">Ferrovia</span><span class="tool-gems"><span class="tg-icon gem-bronze"></span><span class="tg-count">2</span></span><span class="tool-price">€ 20</span></button>
             <button id="parkButton" data-size="1" data-tool="park" data-colour="darkgreen" class="toolButton unselected"><span class="tool-tile" style="background-position:-128px -16px"></span><span class="tool-name">Parco</span><span class="tool-gems"><span class="tg-icon gem-bronze"></span><span class="tg-count">1</span></span><span class="tool-price">€ 10</span></button>
             <button id="bulldozerButton" data-size="1" data-tool="bulldozer" data-colour="salmon" class="toolButton unselected"><span class="tool-tile" style="background-position:0px 0px"></span><span class="tool-name">Ruspa</span><span class="tool-gems"><span class="tg-icon gem-crystal"></span><span class="tg-count">1</span></span><span class="tool-price">€ 1</span></button>
-          </div>
-        </div>
-        <div id="fotoBox" class="controlShadow open mintcream z1 initialHidden">
-          <div id="foto-title">FOTO</div>
-          <div class="foto-buttons">
-            <button id="screenshotAreaBtn" class="fotoButton">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
-                <rect x="1" y="1" width="20" height="16" rx="2" fill="none" stroke="#555" stroke-width="1.5"/>
-                <rect x="4" y="4" width="14" height="10" rx="1" fill="none" stroke="#888" stroke-width="1" stroke-dasharray="2,1"/>
-                <circle cx="11" cy="9" r="2.5" fill="none" stroke="#555" stroke-width="1.2"/>
-              </svg>
-              <span>Foto Area</span>
-            </button>
-            <button id="screenshotCityBtn" class="fotoButton">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
-                <rect x="1" y="1" width="20" height="16" rx="2" fill="none" stroke="#555" stroke-width="1.5"/>
-                <rect x="3" y="3" width="5" height="5" fill="#a8d8a8" stroke="#555" stroke-width="0.8"/>
-                <rect x="9" y="3" width="5" height="5" fill="#d8a8a8" stroke="#555" stroke-width="0.8"/>
-                <rect x="15" y="3" width="5" height="5" fill="#a8a8d8" stroke="#555" stroke-width="0.8"/>
-                <rect x="3" y="9" width="5" height="5" fill="#d8d8a8" stroke="#555" stroke-width="0.8"/>
-                <rect x="9" y="9" width="5" height="5" fill="#a8d8d8" stroke="#555" stroke-width="0.8"/>
-                <rect x="15" y="9" width="5" height="5" fill="#d8a8d8" stroke="#555" stroke-width="0.8"/>
-              </svg>
-              <span>Foto Città</span>
-            </button>
           </div>
         </div>
         </div>

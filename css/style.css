@@ -465,26 +465,6 @@ nav li {
   box-sizing: border-box;
 }
 
-#fotoBox {
-  border-radius: 4px;
-  padding: 6px 8px 8px;
-  box-sizing: border-box;
-  width: 140px;
-  flex-shrink: 0;
-  align-self: flex-end;
-}
-
-#foto-title {
-  font-weight: bold;
-  text-align: center;
-  font-size: 11px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #d090b0;
-  margin-bottom: 6px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #555;
-}
 
 .foto-buttons {
   display: flex;
@@ -639,7 +619,6 @@ nav li {
 }
 
 #infobar-title,
-#miscButtons-title,
 #denaro-title,
 #status-title,
 #rci-label,
@@ -739,21 +718,63 @@ nav li {
   box-sizing: border-box;
 }
 
-#miscButtons {
-  position: static;
-  bottom: auto;
-  left: auto;
-  width: 140px;
-  box-sizing: border-box;
-}
-
-#cityHeader {
+/* --- TOP BAR --- */
+#topBar {
   position: absolute;
   top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 316px;
+  right: 196px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+#topBar-left,
+#topBar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  pointer-events: all;
+}
+
+#topBar-left  { justify-content: flex-end;   padding-right: 14px; }
+#topBar-right { justify-content: flex-start; padding-left:  14px; }
+
+.tb-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 14px;
+  background: mintcream;
+  border: 1px solid #c8a0c0;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.18);
+  box-sizing: border-box;
+  min-width: 58px;
+  pointer-events: all;
+}
+.tb-btn:hover   { background: #e8ffe8; border-color: #a070a0; }
+.tb-btn:active  { box-shadow: none; transform: translateY(1px); }
+.tb-btn:disabled { opacity: 0.45; cursor: default; }
+
+.tb-btn .tb-icon  { font-size: 18px; line-height: 1; }
+.tb-btn .tb-label { font-size: 10px; font-weight: bold;
+                    text-transform: uppercase; letter-spacing: 0.06em;
+                    color: #444; }
+
+.tb-btn--new { border-color: #90b890; }
+.tb-btn--new:hover { background: #d8f8d8; border-color: #60a060; }
+
+#cityHeader {
+  position: static;
+  transform: none;
   min-width: 160px;
   border-radius: 4px;
+  flex-shrink: 0;
 }
 
 #cityHeader-name {
@@ -866,15 +887,6 @@ nav li {
   display: none;
 }
 
-#miscButtons {
-  height: auto;
-  border-radius: 4px;
-}
-
-.miscButton {
-  width: 100%;
-  box-sizing: border-box;
-}
 
 #analisiBox {
   position: absolute;
@@ -1031,16 +1043,6 @@ nav li {
   width: 100%;
 }
 
-.miscButton {
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  padding: 2px 4px;
-}
-
-#miscButtons {
-  padding-bottom: 6px;
-}
 
 #infobar-population {
   font-size: 13px;
