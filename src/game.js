@@ -728,10 +728,13 @@ Game.prototype.updateBilancioBox = function() {
 
   var fmt = function(n) { return (n || 0).toLocaleString('it-IT'); };
 
+  var cashFlow = budget.cashFlow || 0;
+  var costs = (budget.taxFund || 0) - cashFlow;
+  $('#bil-costs').text('€ ' + fmt(costs));
   $('#bil-taxfund').text('€ ' + fmt(budget.taxFund));
-  $('#bil-cashflow').text('€ ' + fmt(budget.cashFlow));
-  $('#bil-prevfunds').text('€ ' + fmt(budget.totalFunds));
-  $('#bil-funds').text('€ ' + fmt(budget.totalFunds + (budget.cashFlow || 0)));
+  $('#bil-cashflow').text('€ ' + fmt(cashFlow))
+    .css('color', cashFlow < 0 ? '#cc2200' : '#226600');
+  $('#bil-funds').text('€ ' + fmt(budget.totalFunds));
 
   var roadPct   = Math.floor(budget.roadPercent * 100);
   var firePct   = Math.floor(budget.firePercent * 100);

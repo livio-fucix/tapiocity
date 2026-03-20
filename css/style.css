@@ -992,6 +992,32 @@ nav li {
   color: #555;
 }
 
+#bil-cols {
+  display: flex;
+  justify-content: space-between;
+  gap: 2px;
+  margin-bottom: 5px;
+}
+
+.bil-col {
+  flex: 1;
+  text-align: center;
+}
+
+.bil-col-label {
+  font-size: 9px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.bil-col-val {
+  font-size: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
 .bil-row {
   display: flex;
   justify-content: space-between;
@@ -1005,7 +1031,7 @@ nav li {
 
 .bil-divider {
   border-top: 1px solid #d090b0;
-  margin: 5px 0;
+  margin: 4px 0;
 }
 
 .bil-slider-group {
