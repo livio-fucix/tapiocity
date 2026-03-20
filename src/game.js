@@ -661,7 +661,7 @@ Game.prototype.updateAnalysisBox = function() {
     verdictEl.text('Sta deludendo').css('color', '#cc2222');
   }
 
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 3; i++) {
     var pNum = evaluation.getProblemNumber(i);
     var el = $('#analisi-prob' + (i + 1));
     if (pNum !== null && pNum !== undefined) {

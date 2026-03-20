@@ -419,7 +419,7 @@ nav li {
   flex-shrink: 0;
   text-align: right;
   min-width: 50px;
-  margin-left: -10px;
+  margin-left: -14px;
 }
 
 .tg-count {
@@ -467,8 +467,9 @@ nav li {
   border-radius: 4px;
   padding: 6px 8px 8px;
   box-sizing: border-box;
-  width: 100%;
+  width: 140px;
   flex-shrink: 0;
+  align-self: flex-end;
 }
 
 #foto-title {
@@ -530,18 +531,12 @@ nav li {
   width: 140px;
 }
 
-#impostazioniFinanzeRow {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: flex-start;
-}
-
 #finanzeBox {
   border-radius: 4px;
   padding: 6px 8px 8px;
   box-sizing: border-box;
   width: 140px;
+  margin-top: 48px;
 }
 
 #finanze-title {
@@ -882,7 +877,7 @@ nav li {
 
 #analisiBox {
   position: absolute;
-  bottom: 199px; /* 16px + 175px (RCI height) + 8px gap */
+  bottom: 134px; /* 16px + 110px (RCI height) + 8px gap */
   left: 16px;
   width: 140px;
   box-sizing: border-box;
@@ -1031,10 +1026,19 @@ nav li {
 }
 
 #newGameRequest {
-  margin-top: 8px;
-  border-top: 1px solid #d090b0;
-  padding-top: 6px;
+  margin-top: 4px;
   width: 100%;
+}
+
+.miscButton {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding: 2px 4px;
+}
+
+#miscButtons {
+  padding-bottom: 6px;
 }
 
 #infobar-population {
@@ -1121,13 +1125,17 @@ nav li {
   position: absolute;
   bottom: 16px;
   width: 140px;
-  height: 175px;
+  height: 110px;
   margin: 0px;
-  padding: 6px 10px 8px;
+  padding: 6px 10px 6px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
+}
+
+#rci-label {
+  margin-bottom: 2px;
 }
 
 #rci-population {

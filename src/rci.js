@@ -40,7 +40,7 @@ function RCI(parentNode, eventSource, id) {
   // is 1 unit of padding
   this._padding = 3; // 3 rectangles in each bit of padding
   this._buckets = 10; // 0.2000 is scaled in to 10 buckets
-  this._rectSize = 5; // Each rect is 5px
+  this._rectSize = 3; // Each rect is 3px → bars max 30px ≈ 2 tiles
   this._scale = Math.floor(2000 / this._buckets);
 
   this._canvas = $('<canvas></canvas>', {id: id})[0];
