@@ -79,6 +79,25 @@
             <button id="saveRequest" class="miscButton loadSave" disabled>Salva</button>
             <button id="newGameRequest" class="miscButton miscButton--new">Nuova Partita</button>
           </div>
+        <div id="bilancioBox" class="controlShadow padding10 z1 initialHidden mintcream">
+          <div id="bilancio-title">BILANCIO</div>
+          <div class="bil-row">
+            <span class="bil-lbl">Entrate tasse</span>
+            <span id="bil-taxfund" class="bil-val">—</span>
+          </div>
+          <div class="bil-row">
+            <span class="bil-lbl">Flusso cassa</span>
+            <span id="bil-cashflow" class="bil-val">—</span>
+          </div>
+          <div class="bil-row">
+            <span class="bil-lbl">Saldo prec.</span>
+            <span id="bil-prevfunds" class="bil-val">—</span>
+          </div>
+          <div class="bil-row">
+            <span class="bil-lbl">Saldo att.</span>
+            <span id="bil-funds" class="bil-val">—</span>
+          </div>
+        </div>
         </div>
         <div id="analisiBox" class="controlShadow padding10 open mintcream z1 initialHidden">
           <div id="analisi-title">ANALISI</div>
@@ -199,25 +218,6 @@
             <div class="status-divider"></div>
             <div class="status-row"><span class="status-label">Score</span><span id="score" class="status-val">0</span></div>
         </div>
-        <div id="bilancioBox" class="controlShadow padding10 z1 initialHidden mintcream">
-          <div id="bilancio-title">BILANCIO</div>
-          <div class="bil-row">
-            <span class="bil-lbl">Entrate tasse</span>
-            <span id="bil-taxfund" class="bil-val">—</span>
-          </div>
-          <div class="bil-row">
-            <span class="bil-lbl">Flusso cassa</span>
-            <span id="bil-cashflow" class="bil-val">—</span>
-          </div>
-          <div class="bil-row">
-            <span class="bil-lbl">Saldo prec.</span>
-            <span id="bil-prevfunds" class="bil-val">—</span>
-          </div>
-          <div class="bil-row">
-            <span class="bil-lbl">Saldo att.</span>
-            <span id="bil-funds" class="bil-val">—</span>
-          </div>
-        </div>
         </div>
         <div id="RCIContainer" class="controlShadow leftedge width140 mintcream open z1 initialHidden">
           <div id="rci-label">Domanda RCI</div>
@@ -309,7 +309,6 @@
         </noscript>
       </main>
       <footer id="footer" class="chunk white">
-        <div id="build">Build: 4bca801</div>
         <div class="nameLicense" id="footerNotif"></div>
         <a href="about.html" target="_blank" id="footerAbout">Circa</a>
       </footer>

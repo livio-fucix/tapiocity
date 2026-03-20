@@ -65,7 +65,7 @@ header h1 {
 main {
   position: absolute;
   top: 0;
-  bottom: 28px;
+  bottom: 0;
   width: 100%;
   overflow: hidden;
 }
@@ -394,8 +394,9 @@ nav li {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex-grow: 1;
-  min-width: 0;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 68px;
   border-radius: 3px;
   padding: 0 3px;
 }
