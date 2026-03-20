@@ -128,28 +128,34 @@
         </div>
         <div id="topBar" class="z1 initialHidden">
           <div id="topBar-left">
-            <button id="saveRequest" class="tb-btn loadSave" disabled>
-              <span class="tb-icon">💾</span>
-              <span class="tb-label">Salva</span>
-            </button>
-            <button id="newGameRequest" class="tb-btn tb-btn--new">
-              <span class="tb-icon">🔄</span>
-              <span class="tb-label">Nuova</span>
-            </button>
+            <div class="tb-group controlShadow mintcream">
+              <button id="saveRequest" class="tb-row loadSave" disabled>
+                <span class="tb-icon">💾</span>
+                <span class="tb-label">Salva</span>
+              </button>
+              <div class="tb-divider"></div>
+              <button id="newGameRequest" class="tb-row">
+                <span class="tb-icon">🔄</span>
+                <span class="tb-label">Nuova</span>
+              </button>
+            </div>
           </div>
           <div id="cityHeader" class="alignCenter controlShadow mintcream padding10">
             <div id="cityHeader-name"><span id="name">Your Name Here</span></div>
             <div id="cityHeader-class"><span id="cclass">VILLAGE</span></div>
           </div>
           <div id="topBar-right">
-            <button id="screenshotAreaBtn" class="tb-btn">
-              <span class="tb-icon">📷</span>
-              <span class="tb-label">Area</span>
-            </button>
-            <button id="screenshotCityBtn" class="tb-btn">
-              <span class="tb-icon">🗺️</span>
-              <span class="tb-label">Città</span>
-            </button>
+            <div class="tb-group controlShadow mintcream">
+              <button id="screenshotAreaBtn" class="tb-row">
+                <span class="tb-icon">📷</span>
+                <span class="tb-label">Area</span>
+              </button>
+              <div class="tb-divider"></div>
+              <button id="screenshotCityBtn" class="tb-row">
+                <span class="tb-icon">🗺️</span>
+                <span class="tb-label">Città</span>
+              </button>
+            </div>
           </div>
         </div>
         <div id="rightColumn">
@@ -214,7 +220,10 @@
             <div class="status-row"><span class="status-label">Score</span><span id="score" class="status-val">0</span></div>
         </div>
           <div id="finanzeBox" class="controlShadow open mintcream z1 initialHidden">
-              <div id="finanze-title">FINANZE</div>
+              <div id="finanze-header">
+                <div id="finanze-title">FINANZE</div>
+                <button id="bil-reset" class="bil-reset-btn" title="Reset">↺</button>
+              </div>
               <div class="bil-slider-group">
                 <div class="bil-slider-label">Strade <span id="bil-road-label" class="bil-slider-info"></span></div>
                 <input type="range" id="bil-road-rate" class="bil-slider" min="0" max="100" step="1" value="100">
@@ -230,9 +239,6 @@
               <div class="bil-slider-group">
                 <div class="bil-slider-label">Tasse <span id="bil-tax-label" class="bil-slider-info"></span></div>
                 <input type="range" id="bil-tax-rate" class="bil-slider" min="0" max="20" step="1" value="7">
-              </div>
-              <div class="bil-reset-row">
-                <button id="bil-reset" class="bil-reset-btn">↺ Reset</button>
               </div>
             </div>
         </div>

@@ -515,18 +515,23 @@ nav li {
 
 #finanzeBox {
   border-radius: 4px;
-  padding: 6px 8px 8px;
+  padding: 5px 8px 5px;
   box-sizing: border-box;
   width: 140px;
 }
 
+#finanze-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #d090b0;
+  margin-bottom: 4px;
+  padding-bottom: 3px;
+}
+
 #finanze-title {
   font-weight: bold;
-  text-align: center;
   font-size: 11px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #d090b0;
-  margin-bottom: 6px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #555;
@@ -742,32 +747,44 @@ nav li {
 #topBar-left  { justify-content: flex-end;   padding-right: 14px; }
 #topBar-right { justify-content: flex-start; padding-left:  14px; }
 
-.tb-btn {
+.tb-group {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  padding: 6px 14px;
-  background: mintcream;
   border: 1px solid #c8a0c0;
   border-radius: 6px;
-  cursor: pointer;
   box-shadow: 1px 1px 3px rgba(0,0,0,0.18);
-  box-sizing: border-box;
-  min-width: 58px;
+  overflow: hidden;
   pointer-events: all;
+  min-width: 80px;
 }
-.tb-btn:hover   { background: #e8ffe8; border-color: #a070a0; }
-.tb-btn:active  { box-shadow: none; transform: translateY(1px); }
-.tb-btn:disabled { opacity: 0.45; cursor: default; }
 
-.tb-btn .tb-icon  { font-size: 18px; line-height: 1; }
-.tb-btn .tb-label { font-size: 10px; font-weight: bold;
+.tb-divider {
+  height: 1px;
+  background: #d8b0d0;
+  margin: 0;
+}
+
+.tb-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+}
+.tb-row:hover   { background: #e8ffe8; }
+.tb-row:active  { background: #d0f0d0; }
+.tb-row:disabled { opacity: 0.45; cursor: default; }
+
+.tb-row .tb-icon  { font-size: 17px; line-height: 1; flex-shrink: 0; }
+.tb-row .tb-label { font-size: 10px; font-weight: bold;
                     text-transform: uppercase; letter-spacing: 0.06em;
                     color: #444; }
-
-.tb-btn--new { border-color: #90b890; }
-.tb-btn--new:hover { background: #d8f8d8; border-color: #60a060; }
 
 #cityHeader {
   position: static;
@@ -992,7 +1009,7 @@ nav li {
 }
 
 .bil-slider-group {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .bil-slider-label {
@@ -1011,37 +1028,30 @@ nav li {
 
 .bil-slider {
   width: 100%;
-  height: 14px;
+  height: 12px;
   cursor: pointer;
   accent-color: #a05080;
   box-sizing: border-box;
 }
 
-.bil-reset-row {
-  margin-top: 5px;
-  text-align: center;
-}
-
 .bil-reset-btn {
-  width: auto;
-  height: 17px;
-  font-size: 10px;
-  padding: 0 10px;
+  width: 20px;
+  height: 20px;
+  font-size: 13px;
+  padding: 0;
+  line-height: 1;
   background-color: #e0c8d8;
   border: 1px solid #c090a0;
   border-radius: 3px;
   cursor: pointer;
   color: #444;
+  flex-shrink: 0;
 }
 
 .bil-reset-btn:hover {
   background-color: #d0b0c8;
 }
 
-#newGameRequest {
-  margin-top: 4px;
-  width: 100%;
-}
 
 
 #infobar-population {
