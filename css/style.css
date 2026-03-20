@@ -40,14 +40,15 @@ button, input[type="submit"] {
 
 footer {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 172px;  /* right edge of #RCIContainer (16+140) + 1 tile (16) */
+  right: 172px; /* left edge of #disastriBox (16+140) + 1 tile (16) */
   bottom: 0;
   height: 28px;
   background-color: darkslategray;
   display: flex;
   align-items: center;
   padding: 0 10px;
+  border-radius: 4px 4px 0 0;
 }
 
 header {
