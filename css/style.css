@@ -513,23 +513,22 @@ nav li {
   width: 140px;
 }
 
-#finanzeBox {
-  border-radius: 4px;
-  padding: 5px 8px 5px;
-  box-sizing: border-box;
+#finanzaBox {
   width: 140px;
+  box-sizing: border-box;
+  border-radius: 4px;
 }
 
-#finanze-header {
+#finanza-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #d090b0;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
   padding-bottom: 3px;
 }
 
-#finanze-title {
+#finanza-title {
   font-weight: bold;
   font-size: 11px;
   letter-spacing: 0.08em;
@@ -973,24 +972,7 @@ nav li {
 .analisi-lbl { font-size: 11px; color: #666; }
 .analisi-val { font-size: 11px; font-weight: bold; color: #333; }
 
-/* ── BILANCIO box ─────────────────────────────────────────────────────────── */
-#bilancioBox {
-  width: 140px;
-  box-sizing: border-box;
-  border-radius: 4px;
-}
-
-#bilancio-title {
-  font-weight: bold;
-  text-align: center;
-  font-size: 11px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #d090b0;
-  margin-bottom: 6px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #555;
-}
+/* ── FINANZA box (merged bilancio + finanze) ──────────────────────────────── */
 
 #bil-cols {
   display: flex;

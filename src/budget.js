@@ -97,63 +97,36 @@ var FLevels = [1.4, 1.2, 0.8];
 // we can actually afford to spend. Returns an object containing the amount of cash
 // that would be spent on each service.
 Budget.prototype._calculateBestPercentages = function() {
-  // How much would we be spending based on current percentages?
+  // How much would we be spending based on current user percentages?
   // Note: the *Budget items are updated every January by collectTax
-  this.roadSpend = Math.round(this.roadMaintenanceBudget * this.roadPercent);
-  this.fireSpend = Math.round(this.fireMaintenanceBudget * this.firePercent);
+  this.roadSpend   = Math.round(this.roadMaintenanceBudget   * this.roadPercent);
+  this.fireSpend   = Math.round(this.fireMaintenanceBudget   * this.firePercent);
   this.policeSpend = Math.round(this.policeMaintenanceBudget * this.policePercent);
   var total = this.roadSpend + this.fireSpend + this.policeSpend;
 
-  // If we don't have any services on the map, we can bail early
+  // No services on map yet: preserve user percentages, cost is zero
   if (total === 0) {
-    this.roadPercent = 1;
-    this.firePercent = 1;
-    this.policePercent = 1;
-    return {road: 1, fire: 1, police: 1};
+    return {road: 0, fire: 0, police: 0};
   }
-
-  // How much are we actually going to spend?
-  var roadCost = 0;
-  var fireCost = 0;
-  var policeCost = 0;
 
   var cashRemaining = this.totalFunds + this.taxFund;
 
-  // Spending priorities: road, fire, police
-  if (cashRemaining >= this.roadSpend)
-    roadCost = this.roadSpend;
-  else
-    roadCost = cashRemaining;
-  cashRemaining -= roadCost;
+  // Budget sufficient: honour user's percentages exactly, do not overwrite them
+  if (cashRemaining >= total) {
+    return {road: this.roadSpend, fire: this.fireSpend, police: this.policeSpend};
+  }
 
-  if (cashRemaining >= this.fireSpend)
-    fireCost = this.fireSpend;
-  else
-    fireCost = cashRemaining;
-  cashRemaining -= fireCost;
+  // Budget insufficient: spend what we can (priority: road > fire > police)
+  // and update percentages only for services that were forced lower
+  var roadCost   = Math.min(this.roadSpend,   cashRemaining); cashRemaining -= roadCost;
+  var fireCost   = Math.min(this.fireSpend,   cashRemaining); cashRemaining -= fireCost;
+  var policeCost = Math.min(this.policeSpend, cashRemaining);
 
-  if (cashRemaining >= this.policeSpend)
-    policeCost = this.policeSpend;
-  else
-    policeCost = cashRemaining;
-  cashRemaining -= policeCost;
+  if (this.roadMaintenanceBudget   > 0) this.roadPercent   = roadCost   / this.roadMaintenanceBudget;
+  if (this.fireMaintenanceBudget   > 0) this.firePercent   = fireCost   / this.fireMaintenanceBudget;
+  if (this.policeMaintenanceBudget > 0) this.policePercent = policeCost / this.policeMaintenanceBudget;
 
-  if (this.roadMaintenanceBudget > 0)
-    this.roadPercent = (roadCost / this.roadMaintenanceBudget).toPrecision(2) - 0;
-  else
-    this.roadPercent = 1;
-
-  if (this.fireMaintenanceBudget > 0)
-    this.firePercent = (fireCost / this.fireMaintenanceBudget).toPrecision(2) - 0;
-  else
-    this.firePercent = 1;
-
-  if (this.policeMaintenanceBudget > 0)
-    this.policePercent = (policeCost / this.policeMaintenanceBudget).toPrecision(2) - 0;
-  else
-    this.policePercent = 1;
-
-  return {road: roadCost, police: policeCost, fire: fireCost};
+  return {road: roadCost, fire: fireCost, police: policeCost};
 };
 
 
