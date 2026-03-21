@@ -533,10 +533,16 @@ Game.prototype.handleTool = function(data) {
 
 Game.prototype.handleSave = function() {
   this.save();
-  var btn = $('#saveRequest');
-  var orig = btn.text();
-  btn.text('✓ Salvato');
-  setTimeout(function() { btn.text(orig); }, 10000);
+  var iconEl  = $('#saveRequest .tb-icon');
+  var labelEl = $('#saveRequest .tb-label');
+  var origIcon  = iconEl.text();
+  var origLabel = labelEl.text();
+  iconEl.text('✓');
+  labelEl.text('Salvato');
+  setTimeout(function() {
+    iconEl.text(origIcon);
+    labelEl.text(origLabel);
+  }, 10000);
 };
 
 
@@ -575,10 +581,6 @@ Game.prototype.updateStatusBox = function() {
     censusEl.text((4 - censusStep) + ' step').removeClass('status-active');
   }
 
-  // Velocità
-  var speedNames = ['Pausa', 'Lenta', 'Media', 'Veloce'];
-  $('#status-speed').text(speedNames[sim._speed] || '?');
-
   // Crimine (0-255, soglia avviso 100)
   var crime = census.crimeAverage || 0;
   $('#status-crime')
@@ -609,13 +611,6 @@ Game.prototype.updateStatusBox = function() {
     .text(unemp)
     .toggleClass('status-bad', unemp > 100)
     .toggleClass('status-warn', unemp > 50 && unemp <= 100);
-
-  // Approvazione sindaco (0-100)
-  var approval = evaluation.cityYes || 0;
-  $('#status-approval')
-    .text(approval + '%')
-    .toggleClass('status-bad', approval < 40)
-    .toggleClass('status-warn', approval >= 40 && approval < 60);
 
   // Zone alimentate
   var powered = census.poweredZoneCount || 0;
