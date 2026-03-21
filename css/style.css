@@ -386,7 +386,7 @@ nav li {
 }
 
 #buttons {
-  padding-bottom: 0;
+  padding-bottom: 5px;
 }
 
 .tool-name {
@@ -420,9 +420,8 @@ nav li {
   color: #555;
   flex-shrink: 0;
   text-align: right;
-  min-width: 50px;
-  margin-left: -14px;
-  padding-right: 5px;
+  min-width: 44px;
+  margin-left: auto;
 }
 
 .tg-count {
