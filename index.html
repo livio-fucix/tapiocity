@@ -149,35 +149,9 @@
           </div>
         </div>
         <div id="topBar" class="z1 initialHidden">
-          <div id="topBar-left">
-            <div class="tb-group controlShadow mintcream">
-              <button id="saveRequest" class="tb-row loadSave" disabled>
-                <span class="tb-icon">💾</span>
-                <span class="tb-label">Salva</span>
-              </button>
-              <div class="tb-divider"></div>
-              <button id="newGameRequest" class="tb-row">
-                <span class="tb-icon">🔄</span>
-                <span class="tb-label">Nuova</span>
-              </button>
-            </div>
-          </div>
           <div id="cityHeader" class="alignCenter controlShadow mintcream padding10">
             <div id="cityHeader-name"><span id="name">Your Name Here</span></div>
             <div id="cityHeader-class"><span id="cclass">VILLAGE</span></div>
-          </div>
-          <div id="topBar-right">
-            <div class="tb-group controlShadow mintcream">
-              <button id="screenshotAreaBtn" class="tb-row">
-                <span class="tb-icon">📷</span>
-                <span class="tb-label">Area</span>
-              </button>
-              <div class="tb-divider"></div>
-              <button id="screenshotCityBtn" class="tb-row">
-                <span class="tb-icon">🗺️</span>
-                <span class="tb-label">Città</span>
-              </button>
-            </div>
           </div>
         </div>
         <div id="rightColumn">
@@ -221,6 +195,7 @@
         </div>
         <div id="statusBilancioCol">
         <div id="statusBox" class="controlShadow padding10 z1 initialHidden">
+          <div id="status-inner">
             <div id="status-title">STATUS</div>
             <div id="status-cols">
 
@@ -279,50 +254,39 @@
               </div>
 
             </div>
+          </div>
         </div>
 
         <div id="infoBox" class="controlShadow padding10 z1 initialHidden">
-          <div id="info-title">INFO</div>
-          <div id="info-cols">
+          <div id="info-inner">
+            <div id="info-title">INFO</div>
+            <div id="info-cols">
 
-            <div class="info-section">
-              <div class="info-head">Crimine</div>
-              <div class="info-body">
-                Cresce con densità abitativa e basso valore dei terreni.
-                Le stazioni di polizia (slider %) lo riducono nel raggio d'azione.
+              <div class="info-col">
+                <div class="info-section">
+                  <div class="info-head">Crimine</div>
+                  <div class="info-body">Cresce con densità abitativa e basso valore terreni. Polizia (slider %) lo riduce nel raggio d'azione.</div>
+                </div>
+                <div class="info-divider"></div>
+                <div class="info-section">
+                  <div class="info-head">Inquinamento</div>
+                  <div class="info-body">Industrie +50, carbone +100, traffico +75, incendi +90, radiazioni +255. Smoothing sulla mappa.</div>
+                </div>
               </div>
-            </div>
 
-            <div class="info-divider"></div>
-
-            <div class="info-section">
-              <div class="info-head">Inquinamento</div>
-              <div class="info-body">
-                Industrie +50, carbone +100, traffico intenso +75,
-                incendi +90, radiazioni +255. Si diffonde sulla mappa.
+              <div class="info-col">
+                <div class="info-section">
+                  <div class="info-head">Traffico</div>
+                  <div class="info-body">+50/veicolo (max 240). Decade 24/turno. Media zone sviluppate × 2.4.</div>
+                </div>
+                <div class="info-divider"></div>
+                <div class="info-section">
+                  <div class="info-head">Disoccupazione</div>
+                  <div class="info-body">(residenti/(comm+ind)×8 − 1)×255. Ogni zona C/I = 8 lavori. Equilibrio=0.</div>
+                </div>
               </div>
+
             </div>
-
-            <div class="info-divider"></div>
-
-            <div class="info-section">
-              <div class="info-head">Traffico</div>
-              <div class="info-body">
-                Ogni veicolo aggiunge +50 alla strada (max 240).
-                Decade di 24 pt/turno. Media zone sviluppate × 2.4.
-              </div>
-            </div>
-
-            <div class="info-divider"></div>
-
-            <div class="info-section">
-              <div class="info-head">Disoccupazione</div>
-              <div class="info-body">
-                (residenti / (comm+ind)×8 − 1) × 255.
-                Ogni zona C/I genera 8 lavori. Equilibrio = 0.
-              </div>
-            </div>
-
           </div>
         </div>
 
@@ -358,6 +322,30 @@
             <button id="railButton" data-size="1" data-tool="rail" data-colour="brown" class="toolButton unselected"><span class="tool-tile" style="background-position:0px -112px"></span><span class="tool-name">Ferrovia</span><span class="tool-gems"><span class="tg-icon gem-bronze"></span><span class="tg-count">2</span></span><span class="tool-price">€ 20</span></button>
             <button id="parkButton" data-size="1" data-tool="park" data-colour="darkgreen" class="toolButton unselected"><span class="tool-tile" style="background-position:-128px -16px"></span><span class="tool-name">Parco</span><span class="tool-gems"><span class="tg-icon gem-bronze"></span><span class="tg-count">1</span></span><span class="tool-price">€ 10</span></button>
             <button id="bulldozerButton" data-size="1" data-tool="bulldozer" data-colour="salmon" class="toolButton unselected"><span class="tool-tile" style="background-position:0px 0px"></span><span class="tool-name">Ruspa</span><span class="tool-gems"><span class="tg-icon gem-crystal"></span><span class="tg-count">1</span></span><span class="tool-price">€ 1</span></button>
+          </div>
+        </div>
+        <div id="topButtons">
+          <div class="tb-group controlShadow mintcream">
+            <button id="saveRequest" class="tb-row loadSave" disabled>
+              <span class="tb-icon">💾</span>
+              <span class="tb-label">Salva</span>
+            </button>
+            <div class="tb-divider"></div>
+            <button id="newGameRequest" class="tb-row">
+              <span class="tb-icon">🔄</span>
+              <span class="tb-label">Nuova</span>
+            </button>
+          </div>
+          <div class="tb-group controlShadow mintcream">
+            <button id="screenshotAreaBtn" class="tb-row">
+              <span class="tb-icon">📷</span>
+              <span class="tb-label">Area</span>
+            </button>
+            <div class="tb-divider"></div>
+            <button id="screenshotCityBtn" class="tb-row">
+              <span class="tb-icon">🗺️</span>
+              <span class="tb-label">Città</span>
+            </button>
           </div>
         </div>
         </div>

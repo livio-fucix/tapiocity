@@ -451,7 +451,7 @@ nav li {
 #statusBilancioCol {
   position: absolute;
   left: 172px;
-  bottom: 16px;
+  bottom: 44px;
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -459,24 +459,44 @@ nav li {
 }
 
 #infoBox {
-  width: 220px;
+  width: 300px;
   background-color: #ffe0f0;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
+#info-inner {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: stretch;
+}
+
 #info-title {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
   font-weight: bold;
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: 10px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #555;
-  padding-bottom: 4px;
-  border-bottom: 1px solid #d090b0;
-  margin-bottom: 5px;
+  border-right: 1px solid #d090b0;
+  padding-right: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #info-cols {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex: 1;
+}
+
+.info-col {
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
@@ -702,7 +722,6 @@ nav li {
 
 #infobar-title,
 #denaro-title,
-#status-title,
 #rci-label,
 #toolInfo {
   font-weight: bold;
@@ -714,6 +733,33 @@ nav li {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #555;
+}
+
+#status-inner {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: stretch;
+}
+
+#status-title {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  font-weight: bold;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #555;
+  border-right: 1px solid #d090b0;
+  padding-right: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#status-cols {
+  flex: 1;
 }
 
 
@@ -800,20 +846,14 @@ nav li {
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
 }
 
-#topBar-left,
-#topBar-right {
+#topButtons {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  flex: 1;
-  pointer-events: all;
+  flex-direction: row;
+  gap: 8px;
+  flex-shrink: 0;
 }
-
-#topBar-left  { justify-content: flex-end;   padding-right: 14px; }
-#topBar-right { justify-content: flex-start; padding-left:  14px; }
 
 .tb-group {
   display: flex;
@@ -975,7 +1015,7 @@ nav li {
 
 #analisiBox {
   position: absolute;
-  bottom: 134px; /* 16px + 110px (RCI height) + 8px gap */
+  bottom: 162px; /* 44px + 110px (RCI height) + 8px gap */
   left: 16px;
   width: 140px;
   box-sizing: border-box;
@@ -1213,7 +1253,7 @@ nav li {
 
 #RCIContainer {
   position: absolute;
-  bottom: 16px;
+  bottom: 44px;
   width: 140px;
   height: 110px;
   margin: 0px;
@@ -1254,6 +1294,8 @@ nav li {
 .rci-num {
   font-size: 10px;
   font-weight: bold;
+  flex: 1;
+  text-align: center;
 }
 
 .rci-r { color: rgb(0, 180, 0); }
