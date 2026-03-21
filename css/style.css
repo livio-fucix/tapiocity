@@ -453,9 +453,55 @@ nav li {
   left: 172px;
   bottom: 16px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
-  align-items: flex-start;
+  align-items: flex-end;
+}
+
+#infoBox {
+  width: 220px;
+  background-color: #ffe0f0;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#info-title {
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #555;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #d090b0;
+  margin-bottom: 5px;
+}
+
+#info-cols {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-section {
+  padding: 3px 0;
+}
+
+.info-divider {
+  height: 1px;
+  background: #f0c8e0;
+  margin: 2px 0;
+}
+
+.info-head {
+  font-size: 10px;
+  font-weight: bold;
+  color: #885070;
+  margin-bottom: 2px;
+}
+
+.info-body {
+  font-size: 9px;
+  color: #555;
+  line-height: 1.4;
 }
 
 #statusBox {

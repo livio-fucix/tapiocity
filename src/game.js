@@ -249,7 +249,7 @@ Game.prototype.save = function() {
 
 Game.prototype.newGame = function() {
   this.stopped = true;
-  $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #notifications, #impostazioniBox, #analisiBox, #finanzaBox').hide();
+  $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #notifications, #impostazioniBox, #analisiBox, #finanzaBox').hide();
   window.dispatchEvent(new CustomEvent('micropolis:newgame', {
     detail: {tileSet: this.tileSet, snowTileSet: this.snowTileSet, spriteSheet: this.spriteSheet}
   }));
@@ -275,7 +275,7 @@ Game.prototype.revealControls = function() {
    $(this).removeClass('initialHidden');
  });
  // Re-show panels hidden by newGame() via .hide() (inline display:none)
- $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #impostazioniBox, #analisiBox, #finanzaBox, #disastriBox').show();
+ $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #impostazioniBox, #analisiBox, #finanzaBox, #disastriBox').show();
 
  this.initQuickSettings();
  this.initBilancio();
