@@ -368,7 +368,7 @@ nav li {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 180px;
+  width: 190px;
   max-height: calc(100vh - 60px);
   overflow: hidden;
 }
@@ -420,7 +420,7 @@ nav li {
   color: #555;
   flex-shrink: 0;
   text-align: right;
-  min-width: 44px;
+  min-width: 50px;
   margin-left: auto;
 }
 
@@ -459,7 +459,7 @@ nav li {
 }
 
 #infoBox {
-  width: 480px;
+  width: 640px;
   background-color: #ffe0f0;
   border-radius: 4px;
   box-sizing: border-box;
@@ -530,7 +530,7 @@ nav li {
 
 #statusBox {
   width: auto;
-  min-width: 252px;
+  min-width: 172px;
   background-color: #ffe0f0;
   border-radius: 4px;
   box-sizing: border-box;
