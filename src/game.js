@@ -38,6 +38,7 @@ import { SettingsWindow } from './settingsWindow.js';
 import { Simulation } from './simulation.js';
 import { Storage } from './storage.js';
 import { Text } from './text.js';
+import { ROADBASE, POWERBASE, RAILBASE, RESBASE, COMBASE, INDBASE } from './tileValues.ts';
 import { TouchWarnWindow } from './touchWarnWindow.js';
 
 var disasterTimeout = 20 * 1000;
@@ -45,6 +46,7 @@ var disasterTimeout = 20 * 1000;
 
 function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name) {
   difficulty = difficulty || 0;
+  this._bulldozeDragCategory = null;
   var savedGame;
 
   if (!gameMap.isSavedGame) {
@@ -497,6 +499,17 @@ Game.prototype.handleMandatoryBudget = function() {
 };
 
 
+Game.prototype._getBulldozeTileCategory = function(tileValue) {
+  if (tileValue >= INDBASE)  return 'industrial';
+  if (tileValue >= COMBASE)  return 'commercial';
+  if (tileValue >= RESBASE)  return 'residential';
+  if (tileValue >= RAILBASE) return 'rail';
+  if (tileValue >= POWERBASE) return 'power';
+  if (tileValue >= ROADBASE) return 'road';
+  return 'natural';
+};
+
+
 Game.prototype.handleTool = function(data) {
   var x = data.x;
   var y = data.y;
@@ -511,6 +524,17 @@ Game.prototype.handleTool = function(data) {
 
   var budget = this.simulation.budget;
   var evaluation = this.simulation.evaluation;
+
+  // Bulldozer smart drag: only apply to tiles of the same category as the first clicked tile
+  if (this.inputStatus.toolName === 'bulldozer') {
+    var tileValue = this.simulation.map.getTileValue(tileCoords.x, tileCoords.y);
+    var category = this._getBulldozeTileCategory(tileValue);
+    if (!data.drag) {
+      this._bulldozeDragCategory = category;
+    } else if (category !== this._bulldozeDragCategory) {
+      return;
+    }
+  }
 
   // do it!
   tool.doTool(tileCoords.x, tileCoords.y, this.simulation.blockMaps);

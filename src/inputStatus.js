@@ -175,7 +175,7 @@ var mouseDownHandler = function(e) {
   this.mouseY = coords.y;
 
   this._dragging = true;
-  this._emitEvent(Messages.TOOL_CLICKED, {x: this.mouseX, y: this.mouseY});
+  this._emitEvent(Messages.TOOL_CLICKED, {x: this.mouseX, y: this.mouseY, drag: false});
 
   this._lastDragX = Math.floor(this.mouseX / this._tileWidth);
   this._lastDragY = Math.floor(this.mouseY / this._tileWidth);
@@ -227,7 +227,7 @@ var mouseMoveHandler = function(e) {
     var lastX = this._lastDragX;
     var lastY = this._lastDragY;
     if (x !== lastX || y !== lastY) {
-      this._emitEvent(Messages.TOOL_CLICKED, {x: this.mouseX, y: this.mouseY});
+      this._emitEvent(Messages.TOOL_CLICKED, {x: this.mouseX, y: this.mouseY, drag: true});
       this._lastDragX = x;
       this._lastDragY = y;
     }

@@ -451,7 +451,7 @@ nav li {
 #statusBilancioCol {
   position: absolute;
   left: 172px;
-  bottom: 44px;
+  bottom: 28px;
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -520,6 +520,12 @@ nav li {
   font-size: 10px;
   font-weight: bold;
   color: #333;
+}
+
+.freq-rt, .freq-ann {
+  font-size: 8px;
+  vertical-align: middle;
+  cursor: help;
 }
 
 .info-body {
