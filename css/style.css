@@ -422,6 +422,7 @@ nav li {
   text-align: right;
   min-width: 50px;
   margin-left: -14px;
+  padding-right: 5px;
 }
 
 .tg-count {
@@ -459,7 +460,7 @@ nav li {
 }
 
 #infoBox {
-  width: 300px;
+  width: 480px;
   background-color: #ffe0f0;
   border-radius: 4px;
   box-sizing: border-box;
@@ -501,21 +502,25 @@ nav li {
   flex-direction: column;
 }
 
-.info-section {
-  padding: 3px 0;
-}
-
-.info-divider {
-  height: 1px;
-  background: #f0c8e0;
-  margin: 2px 0;
+.info-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #d090b0;
+  margin-bottom: 3px;
+  padding-bottom: 2px;
 }
 
 .info-head {
   font-size: 10px;
   font-weight: bold;
   color: #885070;
-  margin-bottom: 2px;
+}
+
+.info-val {
+  font-size: 10px;
+  font-weight: bold;
+  color: #333;
 }
 
 .info-body {
@@ -1015,7 +1020,7 @@ nav li {
 
 #analisiBox {
   position: absolute;
-  bottom: 162px; /* 44px + 110px (RCI height) + 8px gap */
+  bottom: 134px; /* 16px + 110px (RCI height) + 8px gap */
   left: 16px;
   width: 140px;
   box-sizing: border-box;
@@ -1253,7 +1258,7 @@ nav li {
 
 #RCIContainer {
   position: absolute;
-  bottom: 44px;
+  bottom: 16px;
   width: 140px;
   height: 110px;
   margin: 0px;

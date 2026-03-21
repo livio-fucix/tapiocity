@@ -263,27 +263,35 @@
             <div id="info-cols">
 
               <div class="info-col">
-                <div class="info-section">
-                  <div class="info-head">Crimine</div>
-                  <div class="info-body">Cresce con densità abitativa e basso valore terreni. Polizia (slider %) lo riduce nel raggio d'azione.</div>
+                <div class="info-head-row">
+                  <span class="info-head">Crimine</span>
+                  <span class="info-val" id="info-crime-val">0</span>
                 </div>
-                <div class="info-divider"></div>
-                <div class="info-section">
-                  <div class="info-head">Inquinamento</div>
-                  <div class="info-body">Industrie +50, carbone +100, traffico +75, incendi +90, radiazioni +255. Smoothing sulla mappa.</div>
-                </div>
+                <div class="info-body">Cresce con densità abitativa e basso valore terreni. Polizia (slider %) lo riduce nel raggio d'azione.</div>
               </div>
 
               <div class="info-col">
-                <div class="info-section">
-                  <div class="info-head">Traffico</div>
-                  <div class="info-body">+50/veicolo (max 240). Decade 24/turno. Media zone sviluppate × 2.4.</div>
+                <div class="info-head-row">
+                  <span class="info-head">Inquin.</span>
+                  <span class="info-val" id="info-pollution-val">0</span>
                 </div>
-                <div class="info-divider"></div>
-                <div class="info-section">
-                  <div class="info-head">Disoccupazione</div>
-                  <div class="info-body">(residenti/(comm+ind)×8 − 1)×255. Ogni zona C/I = 8 lavori. Equilibrio=0.</div>
+                <div class="info-body">Industrie +50, carbone +100, traffico +75, incendi +90, radiazioni +255. Smoothing sulla mappa.</div>
+              </div>
+
+              <div class="info-col">
+                <div class="info-head-row">
+                  <span class="info-head">Traffico</span>
+                  <span class="info-val" id="info-traffic-val">0</span>
                 </div>
+                <div class="info-body">+50/veicolo (max 240). Decade 24/turno. Media zone sviluppate × 2.4.</div>
+              </div>
+
+              <div class="info-col">
+                <div class="info-head-row">
+                  <span class="info-head">Disoccup.</span>
+                  <span class="info-val" id="info-unemp-val">0</span>
+                </div>
+                <div class="info-body">(residenti/(comm+ind)×8 − 1)×255. Ogni zona C/I = 8 lavori. Equilibrio=0.</div>
               </div>
 
             </div>

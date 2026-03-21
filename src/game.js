@@ -533,14 +533,10 @@ Game.prototype.handleTool = function(data) {
 
 Game.prototype.handleSave = function() {
   this.save();
-  var iconEl  = $('#saveRequest .tb-icon');
   var labelEl = $('#saveRequest .tb-label');
-  var origIcon  = iconEl.text();
   var origLabel = labelEl.text();
-  iconEl.text('✓');
   labelEl.text('Salvato');
   setTimeout(function() {
-    iconEl.text(origIcon);
     labelEl.text(origLabel);
   }, 10000);
 };
@@ -587,6 +583,7 @@ Game.prototype.updateStatusBox = function() {
     .text(crime)
     .toggleClass('status-bad', crime > 100)
     .toggleClass('status-warn', crime > 60 && crime <= 100);
+  $('#info-crime-val').text(crime);
 
   // Inquinamento (0-255, soglia avviso 60)
   var pollution = census.pollutionAverage || 0;
@@ -594,6 +591,7 @@ Game.prototype.updateStatusBox = function() {
     .text(pollution)
     .toggleClass('status-bad', pollution > 100)
     .toggleClass('status-warn', pollution > 60 && pollution <= 100);
+  $('#info-pollution-val').text(pollution);
 
   // Traffico (0-240, soglia avviso 60)
   var traffic = Math.round(census.trafficAverage || 0);
@@ -601,6 +599,7 @@ Game.prototype.updateStatusBox = function() {
     .text(traffic)
     .toggleClass('status-bad', traffic > 100)
     .toggleClass('status-warn', traffic > 60 && traffic <= 100);
+  $('#info-traffic-val').text(traffic);
 
   // Disoccupazione (stessa formula di evaluation.js)
   var laborBase = (census.comPop + census.indPop) * 8;
@@ -611,6 +610,7 @@ Game.prototype.updateStatusBox = function() {
     .text(unemp)
     .toggleClass('status-bad', unemp > 100)
     .toggleClass('status-warn', unemp > 50 && unemp <= 100);
+  $('#info-unemp-val').text(unemp);
 
   // Zone alimentate
   var powered = census.poweredZoneCount || 0;
