@@ -19,3 +19,4 @@ export const SPRITE_MONSTER = 5;
 export const SPRITE_TORNADO = 6;
 export const SPRITE_EXPLOSION = 7;
 export const SPRITE_CAR = 8;
+export const SPRITE_FOX = 9;
