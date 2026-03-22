@@ -114,6 +114,7 @@ var densityTable = [TileValues.ROADBASE, TileValues.LTRFBASE, TileValues.HTRFBAS
 
 var roadFound = function(map, x, y, simData) {
   simData.census.roadTotal += 1;
+  simData.spriteManager.generateCar(simData.census, x, y);
 
   var currentTile = map.getTile(x, y);
   var tileValue = currentTile.getValue();

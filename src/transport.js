@@ -17,11 +17,6 @@ import { ANIMBIT, CONDBIT, BURNBIT } from "./tileFlags.ts";
 import { TileUtils } from './tileUtils.js';
 import * as TileValues from "./tileValues.ts";
 
-var roadFound = function(map, x, y, simData) {
-  simData.spriteManager.generateCar(simData.census, x, y);
-};
-
-
 var railFound = function(map, x, y, simData) {
   simData.census.railTotal += 1;
   simData.spriteManager.generateTrain(simData.census, x, y);
@@ -81,7 +76,6 @@ var portFound = function(map, x, y, simData) {
 
 var Transport = {
   registerHandlers: function(mapScanner, repairManager) {
-    mapScanner.addAction(TileUtils.isRoad, roadFound);
     mapScanner.addAction(TileUtils.isRail, railFound);
     mapScanner.addAction(TileValues.PORT, portFound);
     mapScanner.addAction(TileValues.AIRPORT, airportFound);
