@@ -20,6 +20,7 @@ import { MouseBox } from './mouseBox.js';
 import { Position } from './position.ts';
 import { TileSet } from './tileSet.js';
 import { TILE_INVALID } from "./tileValues.ts";
+import { SPRITE_CAR } from './spriteConstants.ts';
 
 function GameCanvas(id, parentNode) {
   if (!(this instanceof GameCanvas))
@@ -406,31 +407,54 @@ GameCanvas.prototype.shoogle = function() {
 };
 
 
+GameCanvas.prototype._drawCar = function(ctx, sprite, dx, dy) {
+  var f = sprite.frame;
+  ctx.save();
+  ctx.fillStyle = '#CC2222';
+  if (f === 1 || f === 3 || f === 4) {
+    ctx.fillRect(dx + 10, dy + 4, 12, 24);
+    ctx.fillStyle = '#881111';
+    ctx.fillRect(dx + 12, dy + 7, 8, 10);
+  } else {
+    ctx.fillRect(dx + 4, dy + 10, 24, 12);
+    ctx.fillStyle = '#881111';
+    ctx.fillRect(dx + 7, dy + 12, 10, 8);
+  }
+  ctx.restore();
+};
+
+
 GameCanvas.prototype._processSprites = function(ctx, spriteList) {
   var spriteDamage = [];
   var tileWidth = this._tileSet.tileWidth;
 
   for (var i = 0, l = spriteList.length; i < l; i++) {
     var sprite = spriteList[i];
-    try {
-      ctx.drawImage(this._spriteSheet,
-                    (sprite.frame - 1) * 48,
-                    (sprite.type - 1) * 48,
-                    sprite.width,
-                    sprite.width,
-                    sprite.x + sprite.xOffset - this._originX * 16,
-                    sprite.y + sprite.yOffset - this._originY * 16,
-                    sprite.width,
-                    sprite.width);
-    } catch (e) {
-      throw new Error('Failed to draw sprite ' + sprite.type + ' frame ' + sprite.frame + ' at ' + sprite.x +  ', ' + sprite.y);
+    var dx = sprite.x + sprite.xOffset - this._originX * 16;
+    var dy = sprite.y + sprite.yOffset - this._originY * 16;
+
+    if (sprite.type === SPRITE_CAR) {
+      this._drawCar(ctx, sprite, dx, dy);
+    } else {
+      try {
+        ctx.drawImage(this._spriteSheet,
+                      (sprite.frame - 1) * 48,
+                      (sprite.type - 1) * 48,
+                      sprite.width,
+                      sprite.width,
+                      dx, dy,
+                      sprite.width,
+                      sprite.width);
+      } catch (e) {
+        throw new Error('Failed to draw sprite ' + sprite.type + ' frame ' + sprite.frame + ' at ' + sprite.x +  ', ' + sprite.y);
+      }
     }
 
     // sprite values are in pixels
-    spriteDamage.push({x: Math.floor((sprite.x + sprite.xOffset - this._originX * 16) / tileWidth),
-                       xBound: Math.ceil((sprite.x + sprite.xOffset + sprite.width - this._originX * 16) / tileWidth),
-                       y: Math.floor((sprite.y + sprite.yOffset - this._originY * 16) / tileWidth),
-                       yBound: Math.ceil((sprite.y + sprite.yOffset + sprite.height - this._originY * 16) / tileWidth)});
+    spriteDamage.push({x: Math.floor((dx) / tileWidth),
+                       xBound: Math.ceil((dx + sprite.width) / tileWidth),
+                       y: Math.floor((dy) / tileWidth),
+                       yBound: Math.ceil((dy + sprite.height) / tileWidth)});
   }
 
   return spriteDamage;

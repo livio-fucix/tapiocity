@@ -13,6 +13,7 @@
 
 import { AirplaneSprite } from './airplaneSprite.js';
 import { BoatSprite } from './boatSprite.js';
+import { CarSprite } from './carSprite.js';
 import { CopterSprite } from './copterSprite.js';
 import { EventEmitter } from './eventEmitter.js';
 import { ExplosionSprite } from './explosionSprite.js';
@@ -156,6 +157,16 @@ SpriteManager.prototype.generateTrain = function(census, x, y) {
 };
 
 
+SpriteManager.prototype.generateCar = function(census, x, y) {
+  if (census.totalPop > 10 &&
+      this.getSprite(SpriteConstants.SPRITE_CAR) === null &&
+      Random.getRandom(25) === 0)
+    this.makeSprite(SpriteConstants.SPRITE_CAR,
+                    SpriteUtils.worldToPix(x) + 8,
+                    SpriteUtils.worldToPix(y) + 8);
+};
+
+
 SpriteManager.prototype.generateShip = function() {
   // XXX This code is borked. The map generator will never
   // place a channel tile on the edges of the map
@@ -284,6 +295,7 @@ constructors[SpriteConstants.SPRITE_HELICOPTER] = CopterSprite;
 constructors[SpriteConstants.SPRITE_AIRPLANE] = AirplaneSprite;
 constructors[SpriteConstants.SPRITE_TORNADO] = TornadoSprite;
 constructors[SpriteConstants.SPRITE_EXPLOSION] = ExplosionSprite;
+constructors[SpriteConstants.SPRITE_CAR] = CarSprite;
 
 
 export { SpriteManager };
