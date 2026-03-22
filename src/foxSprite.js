@@ -20,10 +20,10 @@ import * as TileValues from "./tileValues.ts";
 
 function FoxSprite(map, spriteManager, x, y) {
   this.init(SPRITE_FOX, map, spriteManager, x, y);
-  this.width = 48;
-  this.height = 48;
-  this.xOffset = -24;
-  this.yOffset = -24;
+  this.width = 32;
+  this.height = 32;
+  this.xOffset = -16;
+  this.yOffset = -16;
   this.frame = 1;
   this.dir = 4;
 }
@@ -100,7 +100,7 @@ FoxSprite.prototype.move = function(spriteCycle, disasterManager, blockMaps) {
 
 Object.defineProperties(FoxSprite, {
   ID:     MiscUtils.makeConstantDescriptor(9),
-  width:  MiscUtils.makeConstantDescriptor(48),
+  width:  MiscUtils.makeConstantDescriptor(32),
   frames: MiscUtils.makeConstantDescriptor(4)
 });
 

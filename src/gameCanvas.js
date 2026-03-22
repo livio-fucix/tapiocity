@@ -20,7 +20,7 @@ import { MouseBox } from './mouseBox.js';
 import { Position } from './position.ts';
 import { TileSet } from './tileSet.js';
 import { TILE_INVALID } from "./tileValues.ts";
-import { SPRITE_CAR } from './spriteConstants.ts';
+import { SPRITE_CAR, SPRITE_FOX } from './spriteConstants.ts';
 
 function GameCanvas(id, parentNode) {
   if (!(this instanceof GameCanvas))
@@ -407,6 +407,23 @@ GameCanvas.prototype.shoogle = function() {
 };
 
 
+GameCanvas.prototype._drawFox = function(ctx, sprite, dx, dy) {
+  var f = sprite.frame;
+  ctx.save();
+  ctx.fillStyle = '#CC6600';
+  if (f === 1 || f === 3 || f === 4) {
+    ctx.fillRect(dx + 10, dy + 4, 12, 24);
+    ctx.fillStyle = '#884400';
+    ctx.fillRect(dx + 12, dy + 7, 8, 10);
+  } else {
+    ctx.fillRect(dx + 4, dy + 10, 24, 12);
+    ctx.fillStyle = '#884400';
+    ctx.fillRect(dx + 7, dy + 12, 10, 8);
+  }
+  ctx.restore();
+};
+
+
 GameCanvas.prototype._drawCar = function(ctx, sprite, dx, dy) {
   var f = sprite.frame;
   ctx.save();
@@ -435,6 +452,8 @@ GameCanvas.prototype._processSprites = function(ctx, spriteList) {
 
     if (sprite.type === SPRITE_CAR) {
       this._drawCar(ctx, sprite, dx, dy);
+    } else if (sprite.type === SPRITE_FOX) {
+      this._drawFox(ctx, sprite, dx, dy);
     } else {
       try {
         ctx.drawImage(this._spriteSheet,
