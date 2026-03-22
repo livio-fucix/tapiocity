@@ -284,6 +284,7 @@ nav li {
 }
 
 .toolButton {
+  position: relative;
   width: calc(100% - 10px);
   margin-left: 5px;
   margin-right: 5px;
@@ -294,6 +295,7 @@ nav li {
   color: black;
   background-color: white;
   font-size: 12px;
+  padding-right: 56px;
 }
 
 .tool-tile {
@@ -370,7 +372,7 @@ nav li {
   gap: 8px;
   width: 190px;
   max-height: calc(100vh - 60px);
-  overflow: hidden;
+  overflow: visible;
 }
 
 #controls {
@@ -416,12 +418,13 @@ nav li {
 }
 
 .tool-price {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 10px;
   color: #555;
-  flex-shrink: 0;
-  text-align: right;
-  min-width: 50px;
-  margin-left: auto;
+  white-space: nowrap;
 }
 
 .tg-count {
@@ -429,6 +432,31 @@ nav li {
   font-weight: bold;
   color: #555;
   min-width: 10px;
+}
+
+.tool-count {
+  position: absolute;
+  left: -24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #bbb;
+  font-size: 8px;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tool-count:empty {
+  display: none;
 }
 
 #rightColumn {
@@ -451,7 +479,7 @@ nav li {
 #statusBilancioCol {
   position: absolute;
   left: 172px;
-  bottom: 28px;
+  bottom: 29px;
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -734,7 +762,11 @@ nav li {
 }
 
 #fasiBox {
+  position: absolute;
+  left: 16px;
+  width: 140px;
   border-radius: 4px;
+  /* top set dynamically by JS in revealControls() */
 }
 
 #fasi-title {

@@ -279,6 +279,19 @@ Game.prototype.revealControls = function() {
  // Re-show panels hidden by newGame() via .hide() (inline display:none)
  $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #impostazioniBox, #analisiBox, #finanzaBox, #disastriBox, #fasiBox').show();
 
+ // Position fasiBox just below leftTopCol
+ var leftTopBottom = $('#leftTopCol').offset().top + $('#leftTopCol').outerHeight(true);
+ $('#fasiBox').css('top', (leftTopBottom + 8) + 'px');
+
+ // Initialize unit count circles for tools with census data
+ var toolsWithCounts = ['coal','nuclear','eolico','solare','residential','commercial','industrial','police','fire','port','airport','stadium','road','rail'];
+ toolsWithCounts.forEach(function(tool) {
+   var btn = $('[data-tool="' + tool + '"]');
+   if (btn.length && !btn.find('.tool-count').length) {
+     btn.prepend('<span class="tool-count"></span>');
+   }
+ });
+
  this.initQuickSettings();
  this.initBilancio();
  this.initDisastriBox();
@@ -544,7 +557,7 @@ Game.prototype.handleTool = function(data) {
     var category = this._getBulldozeTileCategory(tileValue);
     if (!data.drag) {
       this._bulldozeDragCategory = category;
-    } else if (category !== this._bulldozeDragCategory) {
+    } else if (category !== 'natural' && category !== this._bulldozeDragCategory) {
       return;
     }
   }
@@ -674,6 +687,22 @@ Game.prototype.updateStatusBox = function() {
   remEl.text('R:' + rem)
     .toggleClass('status-bad', rem < 0)
     .toggleClass('status-warn', rem >= 0 && rem < supply * 0.1 && supply > 0);
+
+  // Update unit count circles
+  var toolCounts = {
+    'coal': census.coalPowerPop, 'nuclear': census.nuclearPowerPop,
+    'eolico': census.eolicoPowerPop, 'solare': census.solarPowerPop,
+    'residential': census.resZonePop, 'commercial': census.comZonePop, 'industrial': census.indZonePop,
+    'police': census.policeStationPop, 'fire': census.fireStationPop,
+    'port': census.seaportPop, 'airport': census.airportPop, 'stadium': census.stadiumPop,
+    'road': census.roadTotal, 'rail': census.railTotal
+  };
+  $('.toolButton').each(function() {
+    var tool = $(this).attr('data-tool');
+    if (toolCounts[tool] !== undefined) {
+      $(this).find('.tool-count').text(toolCounts[tool] || 0);
+    }
+  });
 
   this.updateAnalysisBox();
   this.updateBilancioBox();
