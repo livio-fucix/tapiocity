@@ -391,6 +391,39 @@ nav li {
   padding-bottom: 5px;
 }
 
+.tool-with-help {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+}
+
+.tool-help-btn {
+  font-size: 11px;
+  font-weight: bold;
+  width: 18px;
+  flex-shrink: 0;
+  background: #e8f0fe;
+  border: 1px solid #aac;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #336;
+  padding: 0;
+  line-height: 1;
+}
+
+.tool-help-btn:hover {
+  background: #c8d8ff;
+}
+
+#queryLegendWindow .queryItem {
+  padding: 3px 0;
+}
+
+#queryLegendWindow dd.queryItem {
+  color: #555;
+  font-size: 12px;
+}
+
 .tool-name {
   text-align: center;
   white-space: nowrap;
@@ -760,9 +793,10 @@ nav li {
 }
 
 #fasiBox {
+  position: absolute;
+  left: 164px;
+  top: 16px;
   border-radius: 4px;
-  align-self: flex-start;
-  flex-shrink: 0;
 }
 
 #fasi-title {

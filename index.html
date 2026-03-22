@@ -148,31 +148,31 @@
             <span id="analisi-delta" class="analisi-val">—</span>
           </div>
         </div>
+        <div id="fasiBox" class="controlShadow padding10 mintcream z1 initialHidden">
+          <div id="fasi-title">FASI</div>
+          <div id="fasi-grid">
+            <span class="fasi-item" id="phase-0">0 Ciclo</span>
+            <span class="fasi-item" id="phase-8">8 Mappa 8</span>
+            <span class="fasi-item" id="phase-1">1 Mappa 1</span>
+            <span class="fasi-item" id="phase-9">9 Cens.</span>
+            <span class="fasi-item" id="phase-2">2 Mappa 2</span>
+            <span class="fasi-item" id="phase-10">10 Traffico</span>
+            <span class="fasi-item" id="phase-3">3 Mappa 3</span>
+            <span class="fasi-item" id="phase-11">11 Energia</span>
+            <span class="fasi-item" id="phase-4">4 Mappa 4</span>
+            <span class="fasi-item" id="phase-12">12 Ambiente</span>
+            <span class="fasi-item" id="phase-5">5 Mappa 5</span>
+            <span class="fasi-item" id="phase-13">13 Crimine</span>
+            <span class="fasi-item" id="phase-6">6 Mappa 6</span>
+            <span class="fasi-item" id="phase-14">14 Densità</span>
+            <span class="fasi-item" id="phase-7">7 Mappa 7</span>
+            <span class="fasi-item" id="phase-15">15 Disastri</span>
+          </div>
+        </div>
         <div id="topBar" class="z1 initialHidden">
           <div id="cityHeader" class="alignCenter controlShadow mintcream padding10">
             <div id="cityHeader-name"><span id="name">Your Name Here</span></div>
             <div id="cityHeader-class"><span id="cclass">VILLAGE</span></div>
-          </div>
-          <div id="fasiBox" class="controlShadow padding10 mintcream z1 initialHidden">
-            <div id="fasi-title">FASI</div>
-            <div id="fasi-grid">
-              <span class="fasi-item" id="phase-0">0 Ciclo</span>
-              <span class="fasi-item" id="phase-8">8 Mappa 8</span>
-              <span class="fasi-item" id="phase-1">1 Mappa 1</span>
-              <span class="fasi-item" id="phase-9">9 Cens.</span>
-              <span class="fasi-item" id="phase-2">2 Mappa 2</span>
-              <span class="fasi-item" id="phase-10">10 Traffico</span>
-              <span class="fasi-item" id="phase-3">3 Mappa 3</span>
-              <span class="fasi-item" id="phase-11">11 Energia</span>
-              <span class="fasi-item" id="phase-4">4 Mappa 4</span>
-              <span class="fasi-item" id="phase-12">12 Ambiente</span>
-              <span class="fasi-item" id="phase-5">5 Mappa 5</span>
-              <span class="fasi-item" id="phase-13">13 Crimine</span>
-              <span class="fasi-item" id="phase-6">6 Mappa 6</span>
-              <span class="fasi-item" id="phase-14">14 Densità</span>
-              <span class="fasi-item" id="phase-7">7 Mappa 7</span>
-              <span class="fasi-item" id="phase-15">15 Disastri</span>
-            </div>
           </div>
         </div>
         <div id="rightColumn">
@@ -324,7 +324,10 @@
         <div id="controls" class="controlShadow mintcream z1 initialHidden open">
           <div id="toolInfo" class="alignCenter"><span id="toolOutput">UNITA'</span></div>
           <div id="buttons">
-            <button id="queryButton" data-size="1" data-tool="query" data-colour="cyan" class="toolButton unselected"><span class="tool-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="none" stroke="#555" stroke-width="1.5"/><path d="M6 6C6 4.9 6.9 4 8 4C9.1 4 10 4.9 10 6C10 6.8 9.5 7.4 8.8 7.7L8 8.2V9.5" fill="none" stroke="#555" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="11.5" r="0.9" fill="#555"/></svg></span><span class="tool-name">Informazioni</span></button>
+            <div class="tool-with-help">
+              <button id="queryButton" data-size="1" data-tool="query" data-colour="cyan" class="toolButton unselected"><span class="tool-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="none" stroke="#555" stroke-width="1.5"/><path d="M6 6C6 4.9 6.9 4 8 4C9.1 4 10 4.9 10 6C10 6.8 9.5 7.4 8.8 7.7L8 8.2V9.5" fill="none" stroke="#555" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="11.5" r="0.9" fill="#555"/></svg></span><span class="tool-name">Informazioni</span></button>
+              <button id="queryLegendBtn" class="tool-help-btn" title="Legenda valori possibili">?</button>
+            </div>
             <button id="coalButton" data-size="4" data-tool="coal" data-colour="gray" class="toolButton unselected"><span class="tool-tile" style="background-position:-224px -368px"></span><span class="tool-name">Carbone</span><span class="tool-gems"><span class="tg-icon gem-gold"></span><span class="tg-count">3</span></span><span class="tool-price">€ 3.000</span></button>
             <button id="nuclearButton" data-size="4" data-tool="nuclear" data-colour="mistyrose" class="toolButton unselected"><span class="tool-tile" style="background-position:-256px -400px"></span><span class="tool-name">Nucleare</span><span class="tool-gems"><span class="tg-icon gem-gold"></span><span class="tg-count">5</span></span><span class="tool-price">€ 5.000</span></button>
             <button id="eolicoButton" data-size="4" data-tool="eolico" data-colour="mistyrose" class="toolButton unselected"><span class="tool-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="11" viewBox="0 0 16 11"><path d="M4 9 Q1.5 9 1.5 6.5 Q1.5 4.5 3.5 4.5 Q3.5 2 6.5 2 Q8.5 2 9.5 3.5 Q11 2.5 12.5 4 Q14.5 4 14.5 6.5 Q14.5 9 12 9 Z" fill="white" stroke="#888" stroke-width="0.8"/></svg></span><span class="tool-name">Eolico</span><span class="tool-gems"><span class="tg-icon gem-gold"></span><span class="tg-count">7</span></span><span class="tool-price">€ 7.000</span></button>
@@ -569,6 +572,24 @@
           <form id="queryForm" class="alignCenter margin10">
             <input type="submit" id="queryOK" class="dialogOK" value="OK">
           </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="queryLegendWindow">
+        <header class="queryHeader padding10 chunk alignCenter">
+          Legenda valori
+        </header>
+        <div class="padding10 open">
+          <dl class="queryList">
+            <dt class="queryItem">Livello città</dt><dd class="queryItem queryRight">Villaggio · Borgo · Città · Capitale · Metropoli · Megalopoli</dd>
+            <dt class="queryItem">Densità</dt><dd class="queryItem queryRight">Low · Medium · High · Very High</dd>
+            <dt class="queryItem">Valore</dt><dd class="queryItem queryRight">Slum · Lower Class · Middle Class · High</dd>
+            <dt class="queryItem">Crimine</dt><dd class="queryItem queryRight">Safe · Light · Moderate · Dangerous</dd>
+            <dt class="queryItem">Inquinamento</dt><dd class="queryItem queryRight">None · Moderate · Heavy · Very Heavy</dd>
+            <dt class="queryItem">Crescita</dt><dd class="queryItem queryRight">Declining · Stable · Slow Growth · Fast Growth</dd>
+          </dl>
+          <div class="alignCenter margin10">
+            <button id="queryLegendOK" class="dialogOK">OK</button>
+          </div>
         </div>
       </div>
       <div class="hidden modal shadow" id="congratsWindow">

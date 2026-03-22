@@ -291,6 +291,7 @@ Game.prototype.revealControls = function() {
  this.initQuickSettings();
  this.initBilancio();
  this.initDisastriBox();
+ this.initQueryLegend();
  this._notificationBar.news({subject: Messages.WELCOME});
  this.rci.update({residential: 750, commercial: 750, industrial: 750});
 };
@@ -817,6 +818,16 @@ Game.prototype.updateBilancioBox = function() {
 
   $('#bil-tax-rate').val(taxRate);
   $('#bil-tax-label').text(taxRate + '%');
+};
+
+
+Game.prototype.initQueryLegend = function() {
+  $('#queryLegendBtn').off('click').on('click', function() {
+    $('#queryLegendWindow').toggleClass('hidden');
+  });
+  $('#queryLegendOK').off('click').on('click', function() {
+    $('#queryLegendWindow').addClass('hidden');
+  });
 };
 
 
