@@ -279,16 +279,12 @@ Game.prototype.revealControls = function() {
  // Re-show panels hidden by newGame() via .hide() (inline display:none)
  $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #impostazioniBox, #analisiBox, #finanzaBox, #disastriBox, #fasiBox').show();
 
- // Position fasiBox just below leftTopCol
- var leftTopBottom = $('#leftTopCol').offset().top + $('#leftTopCol').outerHeight(true);
- $('#fasiBox').css('top', (leftTopBottom + 8) + 'px');
-
- // Initialize unit count circles for tools with census data
+ // Initialize unit count circles for tools with census data (appended to rightEdgeCol for overflow:visible)
  var toolsWithCounts = ['coal','nuclear','eolico','solare','residential','commercial','industrial','police','fire','port','airport','stadium','road','rail'];
  toolsWithCounts.forEach(function(tool) {
-   var btn = $('[data-tool="' + tool + '"]');
-   if (btn.length && !btn.find('.tool-count').length) {
-     btn.prepend('<span class="tool-count"></span>');
+   if (!$('[data-count-tool="' + tool + '"]').length) {
+     $('<span class="tool-count" data-count-tool="' + tool + '"></span>')
+       .appendTo('#rightEdgeCol');
    }
  });
 
@@ -688,7 +684,7 @@ Game.prototype.updateStatusBox = function() {
     .toggleClass('status-bad', rem < 0)
     .toggleClass('status-warn', rem >= 0 && rem < supply * 0.1 && supply > 0);
 
-  // Update unit count circles
+  // Update unit count circles (children of #rightEdgeCol, positioned via JS offset)
   var toolCounts = {
     'coal': census.coalPowerPop, 'nuclear': census.nuclearPowerPop,
     'eolico': census.eolicoPowerPop, 'solare': census.solarPowerPop,
@@ -697,10 +693,14 @@ Game.prototype.updateStatusBox = function() {
     'port': census.seaportPop, 'airport': census.airportPop, 'stadium': census.stadiumPop,
     'road': census.roadTotal, 'rail': census.railTotal
   };
-  $('.toolButton').each(function() {
-    var tool = $(this).attr('data-tool');
-    if (toolCounts[tool] !== undefined) {
-      $(this).find('.tool-count').text(toolCounts[tool] || 0);
+  var colTop = $('#rightEdgeCol').offset().top;
+  $('[data-count-tool]').each(function() {
+    var tool = $(this).data('count-tool');
+    var btn = $('[data-tool="' + tool + '"]');
+    if (btn.length) {
+      var btnMid = btn.offset().top - colTop + btn.outerHeight() / 2;
+      $(this).css('top', (btnMid - 9) + 'px');
+      $(this).text(toolCounts[tool] || 0);
     }
   });
 

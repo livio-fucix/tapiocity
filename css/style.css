@@ -436,9 +436,7 @@ nav li {
 
 .tool-count {
   position: absolute;
-  left: -24px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: -20px;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -479,7 +477,7 @@ nav li {
 #statusBilancioCol {
   position: absolute;
   left: 172px;
-  bottom: 29px;
+  bottom: 33px;
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -762,11 +760,9 @@ nav li {
 }
 
 #fasiBox {
-  position: absolute;
-  left: 16px;
-  width: 140px;
   border-radius: 4px;
-  /* top set dynamically by JS in revealControls() */
+  align-self: flex-start;
+  flex-shrink: 0;
 }
 
 #fasi-title {
