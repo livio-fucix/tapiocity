@@ -251,7 +251,7 @@ Game.prototype.save = function() {
 
 Game.prototype.newGame = function() {
   this.stopped = true;
-  $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #notifications, #impostazioniBox, #analisiBox, #finanzaBox').hide();
+  $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #notifications, #impostazioniBox, #analisiBox, #finanzaBox, #fasiBox').hide();
   window.dispatchEvent(new CustomEvent('micropolis:newgame', {
     detail: {tileSet: this.tileSet, snowTileSet: this.snowTileSet, spriteSheet: this.spriteSheet}
   }));
@@ -277,7 +277,7 @@ Game.prototype.revealControls = function() {
    $(this).removeClass('initialHidden');
  });
  // Re-show panels hidden by newGame() via .hide() (inline display:none)
- $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #impostazioniBox, #analisiBox, #finanzaBox, #disastriBox').show();
+ $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #impostazioniBox, #analisiBox, #finanzaBox, #disastriBox, #fasiBox').show();
 
  this.initQuickSettings();
  this.initBilancio();
@@ -301,10 +301,16 @@ Game.prototype.initQuickSettings = function() {
     $('.qs-speed[data-speed="' + spd + '"]').addClass('qs-speed-active');
   };
 
+  var updateDifficulty = function(level) {
+    $('.qs-difficulty').removeClass('qs-difficulty-active');
+    $('.qs-difficulty[data-level="' + level + '"]').addClass('qs-difficulty-active');
+  };
+
   updateToggle('qs-autobudget', this.simulation.budget.autoBudget);
   updateToggle('qs-autobulldoze', BaseTool.getAutoBulldoze());
   updateToggle('qs-disasters', this.simulation.disasterManager.disastersEnabled);
   updateSpeed(this.defaultSpeed);
+  updateDifficulty(this.simulation._gameLevel);
 
   $('#qs-autobudget').off('click').on('click', function() {
     var newVal = !self.simulation.budget.autoBudget;
@@ -329,6 +335,13 @@ Game.prototype.initQuickSettings = function() {
     var newVal = !self.simulation.disasterManager.disastersEnabled;
     self.simulation.disasterManager.disastersEnabled = newVal;
     updateToggle('qs-disasters', newVal);
+  });
+
+  $('.qs-difficulty').off('click').on('click', function() {
+    var level = parseInt($(this).attr('data-level'));
+    self.simulation.setLevel(level);
+    self.simulation.disasterManager._gameLevel = level;
+    updateDifficulty(level);
   });
 };
 
@@ -527,7 +540,7 @@ Game.prototype.handleTool = function(data) {
 
   // Bulldozer smart drag: only apply to tiles of the same category as the first clicked tile
   if (this.inputStatus.toolName === 'bulldozer') {
-    var tileValue = this.simulation.map.getTileValue(tileCoords.x, tileCoords.y);
+    var tileValue = this.gameMap.getTileValue(tileCoords.x, tileCoords.y);
     var category = this._getBulldozeTileCategory(tileValue);
     if (!data.drag) {
       this._bulldozeDragCategory = category;
@@ -578,6 +591,10 @@ Game.prototype.updateStatusBox = function() {
 
   // Step: phase (0-15) e simCycle (0-1023)
   $('#status-step').text(sim._phaseCycle + ' / ' + sim._simCycle);
+
+  // Fasi box: highlight current phase
+  $('.fasi-item').removeClass('phase-active');
+  $('#phase-' + sim._phaseCycle).addClass('phase-active');
 
   // Tasse: TAX_FREQUENCY = 48
   var taxStep = sim._cityTime % 48;

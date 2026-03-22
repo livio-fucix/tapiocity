@@ -459,7 +459,7 @@ nav li {
 }
 
 #infoBox {
-  width: 640px;
+  width: 850px;
   background-color: #ffe0f0;
   border-radius: 4px;
   box-sizing: border-box;
@@ -709,6 +709,59 @@ nav li {
 .qs-speed.qs-speed-active {
   background-color: #4455cc;
   color: white;
+}
+
+.qs-difficulty-group {
+  display: flex;
+  gap: 3px;
+}
+
+.qs-difficulty {
+  width: 22px;
+  height: auto;
+  padding: 1px 0;
+  font-size: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  border: none;
+  background-color: #ccc;
+  color: #333;
+}
+
+.qs-difficulty.qs-difficulty-active {
+  background-color: #cc4400;
+  color: white;
+}
+
+#fasiBox {
+  border-radius: 4px;
+}
+
+#fasi-title {
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+#fasi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px 4px;
+}
+
+.fasi-item {
+  font-size: 8px;
+  color: #888;
+  padding: 1px 2px;
+  border-radius: 2px;
+}
+
+.fasi-item.phase-active {
+  background: #4a90d9;
+  color: white;
+  font-weight: bold;
 }
 
 .qs-row-pause {
