@@ -98,6 +98,14 @@ var normalizeRoad = unwrapTile(function(tile) {
 });
 
 
+var isPark = unwrapTile(function(tile) {
+  return (tile >= TileValues.TREEBASE && tile <= TileValues.LASTTREE) ||
+          tile === TileValues.WOODS ||
+         (tile >= TileValues.WOODS2 && tile <= TileValues.WOODS5) ||
+          tile === TileValues.FOUNTAIN;
+});
+
+
 var randomFire = function() {
   return new Tile(TileValues.FIRE + (Random.getRandom16() & 3), ANIMBIT);
 };
@@ -118,6 +126,7 @@ var TileUtils = {
   isIndustrial: isIndustrial,
   isIndustrialZone: isIndustrialZone,
   isManualExplosion: isManualExplosion,
+  isPark: isPark,
   isRail: isRail,
   isResidential: isResidential,
   isResidentialZone: isResidentialZone,

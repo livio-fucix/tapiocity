@@ -78,11 +78,17 @@ var floodFound = function(map, x, y, simData) {
 };
 
 
+var parkFound = function(map, x, y, simData) {
+  simData.spriteManager.generateFox(x, y);
+};
+
+
 var MiscTiles = {
   registerHandlers: function(mapScanner, repairManager) {
     mapScanner.addAction(TileUtils.isFire, fireFound, true);
     mapScanner.addAction(RADTILE, radiationFound, true);
     mapScanner.addAction(TileUtils.isFlood, floodFound, true);
+    mapScanner.addAction(TileUtils.isPark, parkFound);
   }
 };
 
