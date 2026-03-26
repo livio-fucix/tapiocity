@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<!--
+ * micropolisJS. Adapted by Graeme McCutcheon from Micropolis.
+ *
+ * This code is released under the GNU GPL v3, with some additional terms.
+ * Please see the files LICENSE and COPYING for details. Alternatively,
+ * consult https://graememcc.github.io/micropolisJS/LICENSE and
+ * https://graememcc.github.io/micropolisJS/COPYING
+ *
+ * The name/term "MICROPOLIS" is a registered trademark of Micropolis (https://www.micropolis.com) GmbH
+ * (Micropolis Corporation, the "licensor") and is licensed here to the authors/publishers of the "Micropolis"
+ * city simulation game and its source code (the project or "licensee(s)") as a courtesy of the owner.
+ *
+ * -->
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Informazioni su micropolisJS, un port Javascript di Micropolis.">
+    <link rel="stylesheet" media="screen" type="text/css" href="css/style.css">
+    <title>Informazioni | micropolisJS</title>
+  </head>
+  <body>
+    <header id="aboutHeader" class="chunk border-bottom padding10">
+      <div class="left inlineblock">
+        <h1 id="title" class="white fontlarge">&nbsp;</h1>
+      </div>
+    </header>
+    <main id="aboutMain">
+      <div id="aboutContainer" class="mintcream open padding10">
+        <div id="appeal" class="padding10">
+          <p>Questo è un fork di micropolisJS. Se questi progetti vi piacciono... fate donazioni a chi ha bisogno del vostro aiuto!</p>
+        </div>
+        <h3 class="alignCenter chunk">Benvenuto nella tua città!</h3>
+        <p>
+          micropolisJS è un port artigianale di <a href="http://code.google.com/p/micropolis/">Micropolis</a> in Javascript. (Micropolis è la versione open-source di un gioco commerciale venduto da Electronic Arts). L'obiettivo è far crescere la tua città, bilanciando le varie esigenze in competizione. Usa i pulsanti nella casella degli strumenti per selezionare le varie zone ed edifici, poi clicca sulla posizione desiderata per costruire.
+        </p>
+        <ul>
+          <li><strong>Zone residenziali:</strong> I tuoi cittadini hanno bisogno di un posto dove vivere! Usa questo strumento per delimitare le zone residenziali e guarda la gente che si trasferisce. Attenzione però: nessuno vuole vivere in un posto inquinato!</li>
+          <li><strong>Zone commerciali:</strong> A volte i tuoi cittadini hanno bisogno di fare la spesa. Ma sarebbero nei guai se non ci fossero negozi! Le zone commerciali ospitano negozi e uffici che alimenteranno l'economia.</li>
+          <li><strong>Zone industriali:</strong> C'è un limite alla televisione che i tuoi cittadini possono guardare. Crea zone industriali e metti quei fannulloni al lavoro!</li>
+          <li><strong>Stazioni di Polizia:</strong> Ci sono sempre alcune mele marce. Costruisci delle stazioni di polizia per far valere la legge e tenere la criminalità sotto controllo!</li>
+          <li><strong>Stazioni dei Vigili del Fuoco:</strong> Ad alcuni piace giocare con i fiammiferi. A volte arriva un mostro gigante che calpesta la tua città. Spegni le fiamme costruendo stazioni dei vigili del fuoco.</li>
+          <li><strong>Centrale a Carbone:</strong> Mostra il tuo dominio sulla natura riempiendo l'aria fresca di nuvole di fumo e tieni le luci accese!</li>
+          <li><strong>Centrale Nucleare:</strong> Più costosa del carbone, ma meno inquinante. Queste cose sono totalmente sicure. Vero?</li>
+          <li><strong>Stadio:</strong> Dopo una giornata di duro lavoro in quelle fabbriche infernali, i tuoi cittadini meritano di rilassarsi guardando la partita!</li>
+          <li><strong>Aeroporto:</strong> Man mano che la tua creazione cresce, i tuoi cittadini saranno sedotti dal sogno romantico del volo. Costruisci un aeroporto e falli atterrare nella realtà di ritardi e servizi scadenti!</li>
+          <li><strong>Porto:</strong> Produrre cose è un lavoro duro! Con la crescita della città, i tuoi cittadini vorranno grandi navi container che importano merci da ogni angolo del mondo.</li>
+          <li><strong>Parco:</strong> A volte hai bisogno di staccare. I parchi offrono un luogo per rilassarsi, tornare a contatto con la natura e fissare le nuvole di fumo della centrale elettrica in lontananza.</li>
+          <li><strong>Strada, Ferrovia:</strong> I tuoi cittadini vanno da qualche parte. A meno che tu non ti dimentichi di costruirle.</li>
+          <li><strong>Cavi:</strong> Collega i tuoi cittadini alla rete elettrica.</li>
+        </ul>
+        <h3 class="alignCenter chunk">Consigli</h3>
+        <p>
+          Se stai esaurendo i soldi, usa lo strumento budget per modificare l'aliquota fiscale e i finanziamenti ai vari servizi cittadini. Non tagliare troppo, o le cose inizieranno a cadere a pezzi!</p>
+        <p>
+          Lo strumento di valutazione può fornire informazioni sull'opinione degli abitanti della città, e lo strumento di interrogazione offre dettagli più precisi.
+        </p>
+        <h3 class="alignCenter chunk">Disastri</h3>
+        <p>
+          Alcune persone vogliono solo vedere il mondo bruciare. Se sei uno di loro, il pulsante disastri ti darà i fiammiferi. Scegli una delle opzioni per scatenare il caos!
+        </p>
+        <ul>
+          <li><strong>Incendio:</strong> Trasforma la tua città in una pubblicità per i rilevatori di fumo.</li>
+          <li><strong>Alluvione:</strong> Speriamo che i tuoi cittadini sappiano nuotare.</li>
+          <li><strong>Fusione:</strong> <i>Accarezza nervosamente il reattore nucleare</i> <q>Queste cose sono sicure&mdash;vero?</q></li>
+          <li><strong>Mostro:</strong> È un uccello? È un aereo? È grande, rosso e spaventoso, quindi non aspetto a scoprirlo!</li>
+          <li><strong>Schianto aereo:</strong> Quello che sale...</li>
+          <li><strong>Tornado:</strong> I tuoi cittadini non vorranno guardare <cite>Twister</cite> su Netflix per un bel po'.</li>
+        </ul>
+        <h3 class="alignCenter chunk">Impostazioni</h3>
+        <p>
+          Troverai vari controlli utili cliccando sul pulsante impostazioni.
+        </p>
+        <ul>
+          <li><strong>Budget automatico:</strong> Il simulatore gestisce le finanze per te&mdash;almeno finché non fallisci&mdash;. Se preferisci più controllo, puoi attivarlo o disattivarlo qui e spendere ogni gennaio.</li>
+          <li><strong>Ruspa automatica:</strong> Quando si costruisce su aree con terreno diverso dalla terra semplice, queste devono essere prima sgombrate, a un costo. Puoi disattivarlo e preparare manualmente i tuoi cantieri.</li>
+          <li><strong>Disastri automatici:</strong> Cosa c'è di più divertente che scatenare il caos manualmente? Ovviamente lasciarlo arrivare di sorpresa!</li>
+          <li><strong>Velocità:</strong> Il tempo vola quando porti la velocità al massimo.</li>
+        </ul>
+      </div>
+    </main>
+    <footer id="aboutFooter" class="alignCenter chunk white padding10">
+        <div id="author" class="open">Sviluppato da <a rel="author" href="http://www.graememcc.co.uk" target="_blank">Graeme McCutcheon</a> e <a rel="author" href="https://github.com/graememcc/micropolisJS/graphs/contributors" target="_blank">contributori</a>
+          <div id="build">Build: <%= htmlWebpackPlugin.options.gitHash %></div>
+        </div>
+        <div class="nameLicense">
+          Micropolis è un marchio registrato di <a href="https://www.micropolis.com">Micropolis Corporation (Micropolis GmbH)</a> ed è utilizzato qui per gentile concessione del proprietario sotto la <a href="name_license.html">Micropolis Public Name License</a>.
+        </div>
+    </footer>
+  </body>
+</html>

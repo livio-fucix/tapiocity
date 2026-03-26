@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+<!--
+ * micropolisJS. Adapted by Graeme McCutcheon from Micropolis.
+ *
+ * This code is released under the GNU GPL v3, with some additional terms.
+ * Please see the files LICENSE and COPYING for details. Alternatively,
+ * consult https://graememcc.github.io/micropolisJS/LICENSE and
+ * https://graememcc.github.io/micropolisJS/COPYING
+ *
+ * The name/term "MICROPOLIS" is a registered trademark of Micropolis (https://www.micropolis.com) GmbH
+ * (Micropolis Corporation, the "licensor") and is licensed here to the authors/publishers of the "Micropolis"
+ * city simulation game and its source code (the project or "licensee(s)") as a courtesy of the owner.
+ *
+ * -->
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no">
+    <meta name="description" content="Play micropolisJS and build a virtual city in your browser! micropolisJS is a handwritten HTML5/Javascript port of Micropolis, the open-source release of SimCity (the 1989 version).">
+    <link rel="stylesheet" media="screen" type="text/css" href="css/style.css">
+    <title>Tapiocity</title>
+  </head>
+  <body>
+    <img id="tiles" class="imageData" src="images/tiles.png" alt="These are the game's principal tiles">
+    <img id="snowtiles" class="imageData" src="images/tilessnow.png" alt="These are the game's alternate tiles">
+    <img id="sprites" class="imageData" src="images/sprites.png" alt="These are the game's sprites">
+    <div id="wrapper">
+      <main id="canvasContainer">
+        <div class="hidden" id="opaque"></div>
+        <div data-hasscript="false" id="loadingBanner" class="alignCenter padding10 mintcream chunk shadow centred">Loading</div>
+        <div id="splash" class="mintcream awaitGeneration open shadow padding10 centred">
+          <h2 class="chunk alignCenter">Benvenuto!</h2>
+          <p>micropolisJS è un port Javascript artigianale del simulatore di città open-source <cite>Micropolis</cite></p>
+          <div id="splashContainer"></div>
+          <div id="splashButtonContainer">
+            <div id="splashButtons">
+              <button id="splashLoad" class="width140 block loadSave splashButton" disabled>Carica partita</button>
+              <button id="splashPlay" class="width140 block margin10 splashButton">Gioca questa mappa</button>
+              <button id="splashGenerate" class="width140 block margin10 splashButton">Genera un'altra</button>
+            </div>
+          </div>
+        </div>
+        <div id="start" class="mintcream open shadow padding10 centred">
+          <h2 class="chunk alignCenter">Nuova Partita</h2>
+          <form id="playForm">
+            <label for="nameForm">Nome della città (max 15 lettere)</label>
+            <input id="nameForm" autofocus required class="margin10" type="text" maxlength="15">
+            Difficoltà
+            <input type="radio" class="difficulty" name="difficulty" id="difficultyEasy" value="0" checked="checked"><label for="difficultyEasy">Facile</label>
+            <input type="radio" class="difficulty" name="difficulty" id="difficultyMed" value="1"><label for="difficultyMed">Media</label>
+            <input type="radio" class="difficulty" name="difficulty" id="difficultyHard" value="2"><label for="difficultyHard">Difficile</label>
+            <div id="playSubmitDiv">
+              <input id="playit" type="submit" value="Gioca!">
+            </div>
+          </form>
+        </div>
+        <div id="leftTopCol">
+        <div id="infobar" class="alignCenter leftedge open width140 z1 initialHidden">
+          <div id="infobar-info" class="inner padding10 controlShadow mintcream">
+            <div id="infobar-title">TAPIOCITY</div>
+            <div class="date-row">
+              <span id="date-month">Gen</span>
+              <span id="date-year">1900</span>
+            </div>
+            <div id="infobar-population">&#128100;&#128100;&#128100; <span id="population">0</span></div>
+          </div>
+          <div id="denaro" class="inner padding10 controlShadow mintcream">
+            <div id="denaro-title">DENARO</div>
+            <div class="elided">
+              Fondi € <span id="funds">20000</span>
+            </div>
+            <div id="funds-gems"></div>
+          </div>
+        </div>
+        <div id="finanzaBox" class="controlShadow padding10 z1 initialHidden mintcream">
+          <div id="finanza-header">
+            <div id="finanza-title">FINANZA</div>
+            <button id="bil-reset" class="bil-reset-btn" title="Reset">↺</button>
+          </div>
+          <div id="bil-cols">
+            <div class="bil-col">
+              <div class="bil-col-label">Costi</div>
+              <div id="bil-costs" class="bil-col-val">—</div>
+            </div>
+            <div class="bil-col">
+              <div class="bil-col-label">Ricavi</div>
+              <div id="bil-taxfund" class="bil-col-val">—</div>
+            </div>
+            <div class="bil-col">
+              <div class="bil-col-label">Saldo</div>
+              <div id="bil-cashflow" class="bil-col-val">—</div>
+            </div>
+          </div>
+          <div class="bil-row">
+            <span class="bil-lbl">Saldo attuale</span>
+            <span id="bil-funds" class="bil-val">—</span>
+          </div>
+          <div class="bil-divider"></div>
+          <div class="bil-slider-group">
+            <div class="bil-slider-label">Strade <span id="bil-road-label" class="bil-slider-info"></span></div>
+            <input type="range" id="bil-road-rate" class="bil-slider" min="0" max="100" step="1" value="100">
+          </div>
+          <div class="bil-slider-group">
+            <div class="bil-slider-label">Vigili <span id="bil-fire-label" class="bil-slider-info"></span></div>
+            <input type="range" id="bil-fire-rate" class="bil-slider" min="0" max="100" step="1" value="100">
+          </div>
+          <div class="bil-slider-group">
+            <div class="bil-slider-label">Polizia <span id="bil-police-label" class="bil-slider-info"></span></div>
+            <input type="range" id="bil-police-rate" class="bil-slider" min="0" max="100" step="1" value="100">
+          </div>
+          <div class="bil-slider-group">
+            <div class="bil-slider-label">Tasse <span id="bil-tax-label" class="bil-slider-info"></span></div>
+            <input type="range" id="bil-tax-rate" class="bil-slider" min="0" max="20" step="1" value="7">
+          </div>
+        </div>
+        </div>
+        <div id="analisiBox" class="controlShadow padding10 open mintcream z1 initialHidden">
+          <div id="analisi-title">ANALISI <span class="freq-ann" title="Aggiornato ogni anno (48 step)">📅</span></div>
+          <div class="analisi-mayor-row">
+            <div id="analisi-mayor-label" class="analisi-mayor-verdict">—</div>
+            <div class="analisi-votes">
+              <span id="analisi-yes" class="analisi-yes">Sì: —%</span>
+              <span id="analisi-no" class="analisi-no">No: —%</span>
+            </div>
+          </div>
+          <div id="analisi-problems">
+            <div class="analisi-prob" id="analisi-prob1"></div>
+            <div class="analisi-prob" id="analisi-prob2"></div>
+            <div class="analisi-prob" id="analisi-prob3"></div>
+          </div>
+          <div class="analisi-divider"></div>
+          <div class="analisi-row">
+            <span class="analisi-lbl">Migrazione</span>
+            <span id="analisi-migration" class="analisi-val">—</span>
+          </div>
+          <div class="analisi-row">
+            <span class="analisi-lbl">Valore</span>
+            <span id="analisi-value" class="analisi-val">—</span>
+          </div>
+          <div class="analisi-row">
+            <span class="analisi-lbl">Livello</span>
+            <span id="analisi-level" class="analisi-val">—</span>
+          </div>
+          <div class="analisi-row">
+            <span class="analisi-lbl">Variazione</span>
+            <span id="analisi-delta" class="analisi-val">—</span>
+          </div>
+        </div>
+        <div id="fasiBox" class="controlShadow padding10 mintcream z1 initialHidden">
+          <div id="fasi-title">FASI</div>
+          <div id="fasi-grid">
+            <span class="fasi-item" id="phase-0">0 Ciclo</span>
+            <span class="fasi-item" id="phase-8">8 Mappa 8</span>
+            <span class="fasi-item" id="phase-1">1 Mappa 1</span>
+            <span class="fasi-item" id="phase-9">9 Cens.</span>
+            <span class="fasi-item" id="phase-2">2 Mappa 2</span>
+            <span class="fasi-item" id="phase-10">10 Traffico</span>
+            <span class="fasi-item" id="phase-3">3 Mappa 3</span>
+            <span class="fasi-item" id="phase-11">11 Energia</span>
+            <span class="fasi-item" id="phase-4">4 Mappa 4</span>
+            <span class="fasi-item" id="phase-12">12 Ambiente</span>
+            <span class="fasi-item" id="phase-5">5 Mappa 5</span>
+            <span class="fasi-item" id="phase-13">13 Crimine</span>
+            <span class="fasi-item" id="phase-6">6 Mappa 6</span>
+            <span class="fasi-item" id="phase-14">14 Densità</span>
+            <span class="fasi-item" id="phase-7">7 Mappa 7</span>
+            <span class="fasi-item" id="phase-15">15 Disastri</span>
+          </div>
+        </div>
+        <div id="topBar" class="z1 initialHidden">
+          <div id="cityHeader" class="alignCenter controlShadow mintcream padding10">
+            <div id="cityHeader-name"><span id="name">Your Name Here</span></div>
+            <div id="cityHeader-class"><span id="cclass">VILLAGE</span></div>
+          </div>
+        </div>
+        <div id="rightColumn">
+          <div id="impostazioniBox" class="controlShadow open mintcream z1 initialHidden">
+              <div id="impostazioni-title">IMPOSTAZIONI</div>
+              <div class="qs-row">
+                <span class="qs-label">Auto-budget</span>
+                <button id="qs-autobudget" class="qs-toggle">Auto</button>
+              </div>
+              <div class="qs-row">
+                <span class="qs-label">Auto-ruspa</span>
+                <button id="qs-autobulldoze" class="qs-toggle">Auto</button>
+              </div>
+              <div class="qs-row">
+                <span class="qs-label">Disastri</span>
+                <button id="qs-disasters" class="qs-toggle">Off</button>
+              </div>
+              <div class="qs-row">
+                <span class="qs-label">Velocità</span>
+                <span class="qs-speed-group">
+                  <button class="qs-speed" data-speed="1">L</button>
+                  <button class="qs-speed" data-speed="2">M</button>
+                  <button class="qs-speed" data-speed="3">V</button>
+                </span>
+              </div>
+              <div class="qs-row">
+                <span class="qs-label">Difficoltà</span>
+                <span class="qs-difficulty-group">
+                  <button class="qs-difficulty" data-level="0">F</button>
+                  <button class="qs-difficulty" data-level="1">M</button>
+                  <button class="qs-difficulty" data-level="2">D</button>
+                </span>
+              </div>
+              <div class="qs-row qs-row-pause">
+                <button id="pauseRequest" class="qs-pause-btn">Pausa</button>
+              </div>
+            </div>
+          <div id="disastriBox" class="controlShadow open mintcream z1 initialHidden">
+            <div id="disastri-title">DISASTRI</div>
+            <div class="foto-buttons">
+              <button id="dis-monster"  class="fotoButton">🐲 <span>Mostro</span></button>
+              <button id="dis-fire"     class="fotoButton">🔥 <span>Incendio</span></button>
+              <button id="dis-flood"    class="fotoButton">🌊 <span>Alluvione</span></button>
+              <button id="dis-crash"    class="fotoButton">✈️ <span>Incidente</span></button>
+              <button id="dis-meltdown" class="fotoButton">☢️ <span>Fusione nucl.</span></button>
+              <button id="dis-tornado"  class="fotoButton">🌪️ <span>Tornado</span></button>
+            </div>
+          </div>
+        </div>
+        <div id="statusBilancioCol">
+        <div id="statusBox" class="controlShadow padding10 z1 initialHidden">
+          <div id="status-inner">
+            <div id="status-title">STATUS</div>
+            <div id="status-cols">
+
+              <div class="status-col">
+                <div class="status-col-row">
+                  <span class="status-label">Step</span>
+                  <span id="status-step" class="status-val">0/0</span>
+                </div>
+                <div class="status-col-row">
+                  <span class="status-label">Tasse tra</span>
+                  <span id="status-tax" class="status-val">48</span>
+                </div>
+                <div class="status-col-row">
+                  <span class="status-label">Censimento</span>
+                  <span id="status-census" class="status-val">4</span>
+                </div>
+              </div>
+
+              <div class="status-col-divider"></div>
+
+              <div class="status-col">
+                <div class="status-col-row">
+                  <span class="status-label">Zone alim.</span>
+                  <span id="status-powered" class="status-val">0/0</span>
+                </div>
+                <div class="status-col-row status-energy-row">
+                  <span id="status-eprod" class="status-energy-item">P:0</span>
+                  <span id="status-econs" class="status-energy-item">C:0</span>
+                  <span id="status-erem"  class="status-energy-item">R:0</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div id="infoBox" class="controlShadow padding10 z1 initialHidden">
+          <div id="info-inner">
+            <div id="info-title">INFO</div>
+            <div id="info-cols">
+
+              <div class="info-col">
+                <div class="info-head-row">
+                  <span class="info-head">Crimine <span class="freq-rt" title="Aggiornato ogni 4 step">⚡</span></span>
+                  <span class="info-val" id="info-crime-val">0</span>
+                </div>
+                <div class="info-body">Alta densità e bassi valori terreni = più crimine. Polizia (con budget) lo riduce nel raggio.</div>
+              </div>
+
+              <div class="info-col">
+                <div class="info-head-row">
+                  <span class="info-head">Inquin. <span class="freq-rt" title="Aggiornato ogni 4 step">⚡</span></span>
+                  <span class="info-val" id="info-pollution-val">0</span>
+                </div>
+                <div class="info-body">Industrie +50, carbone +100, traffico +75, incendi +90, radiazioni +255. Smoothing sulla mappa.</div>
+              </div>
+
+              <div class="info-col">
+                <div class="info-head-row">
+                  <span class="info-head">Traffico <span class="freq-rt" title="Aggiornato ogni 4 step">⚡</span></span>
+                  <span class="info-val" id="info-traffic-val">0</span>
+                </div>
+                <div class="info-body">+50/veicolo (max 240). Decade 24/turno. Media zone sviluppate × 2.4.</div>
+              </div>
+
+              <div class="info-col">
+                <div class="info-head-row">
+                  <span class="info-head">Disoccup. <span class="freq-rt" title="Aggiornato ogni 4 step">⚡</span></span>
+                  <span class="info-val" id="info-unemp-val">0</span>
+                </div>
+                <div class="info-body">(resPop/(C+I)×8 − 1)×255. Zona C o I = 8 lavori. Equilibrio = 0.</div>
+              </div>
+
+              <div class="info-col">
+                <div class="info-head-row">
+                  <span class="info-head">Score <span class="freq-ann" title="Aggiornato ogni anno (48 step)">📅</span></span>
+                  <span class="info-val" id="info-score-val">0</span>
+                </div>
+                <div class="info-body">0–1000. Decresce per problemi, tasse alte, incendi e servizi sottofinanziati.</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        </div>
+        <div id="RCIContainer" class="controlShadow leftedge width140 mintcream open z1 initialHidden">
+          <div id="rci-label">Domanda RCI</div>
+          <div id="RCICanvasWrapper"></div>
+          <div id="rci-values">
+            <span id="rci-r-val" class="rci-num rci-r">0</span>
+            <span id="rci-c-val" class="rci-num rci-c">0</span>
+            <span id="rci-i-val" class="rci-num rci-i">0</span>
+          </div>
+        </div>
+        <div id="rightEdgeCol">
+        <div id="controls" class="controlShadow mintcream z1 initialHidden open">
+          <div id="toolInfo" class="alignCenter"><span id="toolOutput">UNITA'</span></div>
+          <div id="buttons">
+            <div class="tool-with-help">
+              <button id="queryButton" data-size="1" data-tool="query" data-colour="cyan" class="toolButton unselected"><span class="tool-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="none" stroke="#555" stroke-width="1.5"/><path d="M6 6C6 4.9 6.9 4 8 4C9.1 4 10 4.9 10 6C10 6.8 9.5 7.4 8.8 7.7L8 8.2V9.5" fill="none" stroke="#555" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="11.5" r="0.9" fill="#555"/></svg></span><span class="tool-name">Informazioni</span></button>
+              <button id="queryLegendBtn" class="tool-help-btn" title="Legenda valori possibili">?</button>
+            </div>
+            <button id="coalButton" data-size="4" data-tool="coal" data-colour="gray" class="toolButton unselected"><span class="tool-tile" style="background-position:-224px -368px"></span><span class="tool-name">Carbone</span><span class="tool-gems"><span class="tg-icon gem-gold"></span><span class="tg-count">3</span></span><span class="tool-price">€ 3.000</span></button>
+            <button id="nuclearButton" data-size="4" data-tool="nuclear" data-colour="mistyrose" class="toolButton unselected"><span class="tool-tile" style="background-position:-256px -400px"></span><span class="tool-name">Nucleare</span><span class="tool-gems"><span class="tg-icon gem-gold"></span><span class="tg-count">5</span></span><span class="tool-price">€ 5.000</span></button>
+            <button id="eolicoButton" data-size="4" data-tool="eolico" data-colour="mistyrose" class="toolButton unselected"><span class="tool-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="11" viewBox="0 0 16 11"><path d="M4 9 Q1.5 9 1.5 6.5 Q1.5 4.5 3.5 4.5 Q3.5 2 6.5 2 Q8.5 2 9.5 3.5 Q11 2.5 12.5 4 Q14.5 4 14.5 6.5 Q14.5 9 12 9 Z" fill="white" stroke="#888" stroke-width="0.8"/></svg></span><span class="tool-name">Eolico</span><span class="tool-gems"><span class="tg-icon gem-gold"></span><span class="tg-count">7</span></span><span class="tool-price">€ 7.000</span></button>
+            <button id="solareButton" data-size="4" data-tool="solare" data-colour="gray" class="toolButton unselected"><span class="tool-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="2.8" fill="gold" stroke="orange" stroke-width="0.5"/><line x1="7" y1="0.5" x2="7" y2="2.5" stroke="orange" stroke-width="1.2" stroke-linecap="round"/><line x1="7" y1="11.5" x2="7" y2="13.5" stroke="orange" stroke-width="1.2" stroke-linecap="round"/><line x1="0.5" y1="7" x2="2.5" y2="7" stroke="orange" stroke-width="1.2" stroke-linecap="round"/><line x1="11.5" y1="7" x2="13.5" y2="7" stroke="orange" stroke-width="1.2" stroke-linecap="round"/><line x1="2.4" y1="2.4" x2="3.8" y2="3.8" stroke="orange" stroke-width="1.2" stroke-linecap="round"/><line x1="10.2" y1="10.2" x2="11.6" y2="11.6" stroke="orange" stroke-width="1.2" stroke-linecap="round"/><line x1="11.6" y1="2.4" x2="10.2" y2="3.8" stroke="orange" stroke-width="1.2" stroke-linecap="round"/><line x1="3.8" y1="10.2" x2="2.4" y2="11.6" stroke="orange" stroke-width="1.2" stroke-linecap="round"/></svg></span><span class="tool-name">Solare</span><span class="tool-gems"><span class="tg-icon gem-gold"></span><span class="tg-count">9</span></span><span class="tool-price">€ 9.000</span></button>
+            <button id="residentialButton" data-size="3" data-tool="residential" data-colour="lime" class="toolButton unselected"><span class="tool-tile" style="background-position:-320px -112px"></span><span class="tool-name">Case</span><span class="tool-gems"><span class="tg-icon gem-silver"></span><span class="tg-count">1</span></span><span class="tool-price">€ 100</span></button>
+            <button id="commercialButton" data-size="3" data-tool="commercial" data-colour="blue" class="toolButton unselected"><span class="tool-tile" style="background-position:-176px -208px"></span><span class="tool-name">Negozi</span><span class="tool-gems"><span class="tg-icon gem-silver"></span><span class="tg-count">1</span></span><span class="tool-price">€ 100</span></button>
+            <button id="industrialButton" data-size="3" data-tool="industrial" data-colour="yellow" class="toolButton unselected"><span class="tool-tile" style="background-position:-128px -304px"></span><span class="tool-name">Industrie</span><span class="tool-gems"><span class="tg-icon gem-silver"></span><span class="tg-count">1</span></span><span class="tool-price">€ 100</span></button>
+            <button id="policeButton" data-size="3" data-tool="police" data-colour="darkblue" class="toolButton unselected"><span class="tool-tile" style="background-position:-96px -384px"></span><span class="tool-name">Polizia</span><span class="tool-gems"><span class="tg-icon gem-silver"></span><span class="tg-count">5</span></span><span class="tool-price">€ 500</span></button>
+            <button id="fireButton" data-size="3" data-tool="fire" data-colour="red" class="toolButton unselected"><span class="tool-tile" style="background-position:-464px -368px"></span><span class="tool-name">Pompieri</span><span class="tool-gems"><span class="tg-icon gem-silver"></span><span class="tg-count">5</span></span><span class="tool-price">€ 500</span></button>
+            <button id="portButton" data-size="4" data-tool="port" data-colour="dodgerblue" class="toolButton unselected"><span class="tool-tile" style="background-position:-416px -336px"></span><span class="tool-name">Porto</span><span class="tool-gems"><span class="tg-icon gem-gold"></span><span class="tg-count">3</span></span><span class="tool-price">€ 3.000</span></button>
+            <button id="airportButton" data-size="6" data-tool="airport" data-colour="violet" class="toolButton unselected"><span class="tool-tile" style="background-position:-192px -352px"></span><span class="tool-name">Aeroporto</span><span class="tool-gems"><span class="tg-icon gem-diamond"></span><span class="tg-count">1</span></span><span class="tool-price">€ 10.000</span></button>
+            <button id="stadiumButton" data-size="4" data-tool="stadium" data-colour="indigo" class="toolButton unselected"><span class="tool-tile" style="background-position:-256px -384px"></span><span class="tool-name">Stadio</span><span class="tool-gems"><span class="tg-icon gem-gold"></span><span class="tg-count">5</span></span><span class="tool-price">€ 5.000</span></button>
+            <button id="wireButton" data-size="1" data-tool="wire" data-colour="khaki" class="toolButton unselected"><span class="tool-tile" style="background-position:-256px -96px"></span><span class="tool-name">Cavi</span><span class="tool-gems"><span class="tg-icon gem-crystal"></span><span class="tg-count">5</span></span><span class="tool-price">€ 5</span></button>
+            <button id="roadButton" data-size="1" data-tool="road" data-colour="black" class="toolButton unselected"><span class="tool-tile" style="background-position:-32px -32px"></span><span class="tool-name">Strada</span><span class="tool-gems"><span class="tg-icon gem-bronze"></span><span class="tg-count">1</span></span><span class="tool-price">€ 10</span></button>
+            <button id="railButton" data-size="1" data-tool="rail" data-colour="brown" class="toolButton unselected"><span class="tool-tile" style="background-position:0px -112px"></span><span class="tool-name">Ferrovia</span><span class="tool-gems"><span class="tg-icon gem-bronze"></span><span class="tg-count">2</span></span><span class="tool-price">€ 20</span></button>
+            <button id="parkButton" data-size="1" data-tool="park" data-colour="darkgreen" class="toolButton unselected"><span class="tool-tile" style="background-position:-128px -16px"></span><span class="tool-name">Parco</span><span class="tool-gems"><span class="tg-icon gem-bronze"></span><span class="tg-count">1</span></span><span class="tool-price">€ 10</span></button>
+            <button id="bulldozerButton" data-size="1" data-tool="bulldozer" data-colour="salmon" class="toolButton unselected"><span class="tool-tile" style="background-position:0px 0px"></span><span class="tool-name">Ruspa</span><span class="tool-gems"><span class="tg-icon gem-crystal"></span><span class="tg-count">1</span></span><span class="tool-price">€ 1</span></button>
+          </div>
+        </div>
+        <div id="topButtons">
+          <div class="tb-group controlShadow mintcream">
+            <button id="saveRequest" class="tb-row loadSave" disabled>
+              <span class="tb-icon">💾</span>
+              <span class="tb-label">Salva</span>
+            </button>
+            <div class="tb-divider"></div>
+            <button id="newGameRequest" class="tb-row">
+              <span class="tb-icon">🔄</span>
+              <span class="tb-label">Nuova</span>
+            </button>
+          </div>
+          <div class="tb-group controlShadow mintcream">
+            <button id="screenshotAreaBtn" class="tb-row">
+              <span class="tb-icon">📷</span>
+              <span class="tb-label">Area</span>
+            </button>
+            <div class="tb-divider"></div>
+            <button id="screenshotCityBtn" class="tb-row">
+              <span class="tb-icon">🗺️</span>
+              <span class="tb-label">Città</span>
+            </button>
+          </div>
+        </div>
+        </div>
+        <div id="tw" class="z1 rightedge initialHidden">
+          <a class="twitter-share-button" href="https://twitter.com/share?count=none" data-text="I'm city-building like it's 1989! Playing micropolisJS, a HTML5 retro city-builder https://graememcc.github.io/micropolisJS">Tweet</a><script type="text/javascript">window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));</script>
+        </div>
+        <div id="monstertv" class="alignCenter z1 hidden rightedge padding10 controlShadow open">
+          <div id="monsterTVContainer">
+            <div id="tvContainer">
+            </div>
+            <form id="monsterTVForm">
+              <input type="submit" value="Close" class="width140 cancel">
+            </form>
+          </div>
+        </div>
+        <div id="debug" class="alignCenter z1 rightedge padding10 mintcream controlShadow open">
+          <div id="fps">
+            <span id="fpsValue">0</span> FPS
+          </div>
+          <div>
+            <button id="debugRequest">Debug</button>
+          </div>
+        </div>
+        <div id="notifications" class="initialHidden neutral z1 rightedge alignCenter elided padding10 controlShadow"></div>
+        <div id="tooSmall" data-hasscript="false" class="mintcream open"><div id="tooSmallInner" class="alignCenter padding10"><h2 class="chunk">Uh-oh!</h2><p>This screen is too small&mdash;I won't be able to fit in all the controls, buttons and gizmos! Sorry!</p></div></div>
+        <noscript>
+          <div id="noscript" class="open mintcream centred padding10">
+            <h1 class="chunk alignCenter">micropolisJS</h1>
+            <p class="padding10">Hey, thanks for your interest in micropolisJS!</p>
+            <p class="padding10">Unfortunately, the <abbr title="Javascript">JS</abbr> stands for "<em>Javascript</em>", which appears to be disabled on your system. Consult your browser's documentation on how to enable Javascript!</p>
+          </div>
+        </noscript>
+      </main>
+      <footer id="footer" class="chunk white">
+        <div id="build" style="display:none"></div>
+        <div class="nameLicense" id="footerNotif"></div>
+        <a href="about.html" target="_blank" id="footerAbout">Circa</a>
+      </footer>
+      <div class="hidden modal shadow" id="budget">
+        <header id="budgetHeader" class="budgetHeader padding10 chunk alignCenter">
+           Budget
+        </header>
+        <div id="budgetFormContainer" class="padding10 open">
+          <form id="budgetForm">
+            <div id="taxInfo" class="elided budgetData">Tax Collected: <span id="taxesCollected"></span></div>
+            <div id="cashInfo" class="elided budgetRight budgetData">Cashflow: <span id="cashFlow"></span></div>
+            <div id="previousInfo" class="elided budgetData">Previous funds: <span id="previousFunds"></span></div>
+            <div id="currentInfo" class="elided budgetRight budgetData">Current funds: <span id="currentFunds"></span></div>
+            <fieldset>
+              <legend>Roads</legend>
+              <input type="range" id="roadRate" min="0" max="100" step="1" data-source="roadMaintenanceBudget">
+              <div>
+                <label for="roadRate" class="elided budgetData" id="roadRateLabel">100% of $100 = $100</label>
+              </div>
+            </fieldset>
+            <fieldset class="budgetRight">
+              <legend>Fire</legend>
+              <input type="range" id="fireRate" min="0" max="100" step="1" data-source="fireMaintenanceBudget">
+              <div>
+                <label for="fireRate" class="elided budgetData" id="fireRateLabel">100% of $100 = $100</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Police</legend>
+              <input type="range" id="policeRate" min="0" max="100" step="1" data-source="policeMaintenanceBudget">
+              <div>
+                <label for="policeRate" class="elided budgetData" id="policeRateLabel">100% of $100 = $100</label>
+              </div>
+            </fieldset>
+            <fieldset class="budgetRight">
+              <legend>Tax</legend>
+              <input type="range" id="taxRate" min="0" max="20" step="1">
+              <div>
+                <label for="taxRate" class="elided budgetData" id="taxRateLabel">100% of $100 = $100</label>
+              </div>
+            </fieldset>
+            <div id="budgetButtons" class="alignCenter">
+              <button id="budgetReset">Reset</button>
+              <button id="budgetCancel" class="width140 cancel">Cancel</button>
+              <input type="submit" id="budgetOK" class="width140 dialogOK" value="OK">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="evalWindow">
+        <header id="evalHeader" class="evalHeader padding10 chunk alignCenter">
+           Evaluation
+        </header>
+        <div id="evalContainer" class="padding10 open">
+          <section id="opinion">
+            <h2 class="alignCenter">Public opinion</h2>
+            <dl class="opinionList alignCenter">
+              <dt class="evalItem opinionItem">Is the mayor doing a good job?</dt>
+              <dd class="evalItem opinionItem opinionRight">Yes: <span id="evalYes"></span>% No: <span id="evalNo"></span>%</dd>
+              <dt>What are the worst problems?</dt>
+              <dd class="evalItem opinionItem opinionRight"><ol id="problemList">
+                <li id="evalProb1"></li> <li id="evalProb2"></li>
+                <li id="evalProb3"></li> <li id="evalProb4"></li>
+              </ol></dd>
+            </dl>
+          </section>
+          <section id="statistics">
+            <h2 class="alignCenter">Statistics</h2>
+            <dl id="statisticsList">
+              <dt class="evalItem statisticsItem">Population:</dt><dd class="elided statisticsRight evalItem evalRight" id="evalPopulation"></dd>
+              <dt class="evalItem statisticsItem">Net Migration:</dt><dd class="elided statisticsRight evalItem evalRight" id="evalMigration"></dd>
+              <dt class="evalItem statisticsItem">Assessed Value:</dt><dd class="elided statisticsRight evalItem evalRight" id="evalValue"></dd>
+              <dt class="evalItem statisticsItem">Category:</dt><dd class="elided statisticsRight evalItem evalRight" id="evalClass"></dd>
+              <dt class="evalItem statisticsItem">Game Level:</dt><dd class="elided statisticsRight evalItem evalRight" id="evalLevel"></dd>
+              <dt class="evalItem statisticsItem">Score:</dt><dd class="elided statisticsRight evalItem evalRight" id="evalScore"></dd>
+              <dt class="evalItem statisticsItem">Annual change:</dt><dd class=" elided statisticsRight evalItem evalRight" id="evalScoreDelta"></dd>
+	    </dl>
+	  </section>
+          <form id="evalButtons" class="alignCenter margin10">
+            <input type="submit" id="evalOK" class="width140 dialogOK" value="OK">
+          </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="disasterWindow">
+        <header id="disasterHeader" class="disasterHeader padding10 chunk alignCenter">
+           Disasters
+        </header>
+        <div id="disasterContainer" class="padding10 open">
+          <form id="disasterForm">
+            <div id="disasterSelectContainer" class="alignCenter">
+              <label id="disasterLabel" for="disasterSelect">What disaster do you want to befall this unsuspecting world?</label>
+              <select id="disasterSelect">
+                <option id="disasterNone" value="None">None</option>
+                <option id="disasterMonster" value="Monster">Monster</option>
+                <option id="disasterFire" value="None">Fire</option>
+                <option id="disasterFlood" value="Flood">Flood</option>
+                <option id="disasterCrash" value="Crash">Crash</option>
+                <option id="disasterMeltdown" value="Meltdown">Meltdown</option>
+                <option id="disasterTornado" value="Tornado">Tornado</option>
+              </select>
+            </div>
+            <div id="disasterButtons" class="alignCenter margin10">
+              <button id="disasterCancel" class="cancel">Cancel</button>
+              <input type="submit" id="disasterOK" class="dialogOK" value="OK">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="queryWindow">
+        <header id="queryHeader" class="queryHeader padding10 chunk alignCenter">
+           Query
+        </header>
+        <div id="queryContainer" class="padding10 open">
+          <div class="queryList">
+            <dl>
+              <dt class="queryItem">Zone</dt><dd class="queryItem queryRight" id="queryZoneType"></dd>
+              <dt class="queryItem">Density</dt><dd class="queryItem queryRight" id="queryDensity"></dd>
+              <dt class="queryItem">Value</dt><dd class="queryItem queryRight" id="queryLandValue"></dd>
+              <dt class="queryItem">Crime</dt><dd class="queryItem queryRight" id="queryCrime"></dd>
+              <dt class="queryItem">Pollution</dt><dd class="queryItem queryRight" id="queryPollution"></dd>
+              <dt class="queryItem">Growth</dt><dd class="queryItem queryRight" id="queryRate"></dd>
+            </dl>
+            <div id="queryDebugList" class="queryDebug hidden">
+              <dl>
+                <dt class="queryItem">Tile</dt><dd class="queryItem queryRight" id="queryTile"></dd>
+                <dt class="queryItem">TileValue</dt><dd class="queryItem queryRight" id="queryTileValue"></dd>
+                <dt class="queryItem">FireStation</dt><dd class="queryItem queryRight" id="queryFireStationRaw"></dd>
+                <dt class="queryItem">FireStationEffect</dt><dd class="queryItem queryRight" id="queryFireStationEffectRaw"></dd>
+                <dt class="queryItem">TerrainDensity</dt><dd class="queryItem queryRight" id="queryTerrainDensityRaw"></dd>
+                <dt class="queryItem">PoliceStation</dt><dd class="queryItem queryRight" id="queryPoliceStationRaw"></dd>
+                <dt class="queryItem">PoliceStationEffect</dt><dd class="queryItem queryRight" id="queryPoliceStationEffectRaw"></dd>
+                <dt class="queryItem">ComRate</dt><dd class="queryItem queryRight" id="queryComRateRaw"></dd>
+                <dt class="queryItem">RateOfGrowth</dt><dd class="queryItem queryRight" id="queryRateRaw"></dd>
+                <dt class="queryItem">Pollution</dt><dd class="queryItem queryRight" id="queryPollutionRaw"></dd>
+                <dt class="queryItem">Crime</dt><dd class="queryItem queryRight" id="queryCrimeRaw"></dd>
+                <dt class="queryItem">LandValue</dt><dd class="queryItem queryRight" id="queryLandValueRaw"></dd>
+                <dt class="queryItem">Traffic Density</dt><dd class="queryItem queryRight" id="queryTrafficDensityRaw"></dd>
+                <dt class="queryItem">Density</dt><dd class="queryItem queryRight" id="queryDensityRaw"></dd>
+              </dl>
+            </div>
+          </div>
+          <div id="queryDebugTable" class="margin10 queryDebug hidden">
+            <table id="flagsTable">
+              <thead>
+                <tr>
+                  <th>Burn</th>
+                  <th>Bull</th>
+                  <th>Cond</th>
+                  <th>Anim</th>
+                  <th>Pow</th>
+                  <th>Zone</th>
+                </tr>
+              </thead>
+              <tbody>
+	        <tr>
+                  <td id="queryTileBurnable"></td>
+                  <td id="queryTileBulldozable"></td>
+                  <td id="queryTileCond"></td>
+                  <td id="queryTileAnim"></td>
+                  <td id="queryTilePowered"></td>
+		  <td id="queryTileZone"></td>
+	        </tr>
+              </tbody>
+            </table>
+          </div>
+          <form id="queryForm" class="alignCenter margin10">
+            <input type="submit" id="queryOK" class="dialogOK" value="OK">
+          </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="queryLegendWindow">
+        <header class="queryHeader padding10 chunk alignCenter">
+          Legenda valori
+        </header>
+        <div class="padding10 open">
+          <dl class="queryList">
+            <dt class="queryItem">Livello città</dt><dd class="queryItem queryRight">Villaggio · Borgo · Città · Capitale · Metropoli · Megalopoli</dd>
+            <dt class="queryItem">Densità</dt><dd class="queryItem queryRight">Low · Medium · High · Very High</dd>
+            <dt class="queryItem">Valore</dt><dd class="queryItem queryRight">Slum · Lower Class · Middle Class · High</dd>
+            <dt class="queryItem">Crimine</dt><dd class="queryItem queryRight">Safe · Light · Moderate · Dangerous</dd>
+            <dt class="queryItem">Inquinamento</dt><dd class="queryItem queryRight">None · Moderate · Heavy · Very Heavy</dd>
+            <dt class="queryItem">Crescita</dt><dd class="queryItem queryRight">Declining · Stable · Slow Growth · Fast Growth</dd>
+          </dl>
+          <div class="alignCenter margin10">
+            <button id="queryLegendOK" class="dialogOK">OK</button>
+          </div>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="congratsWindow">
+        <header id="congratsHeader" class="congratsHeader padding10 chunk alignCenter">
+           Congratulations!
+        </header>
+        <div id="congratsContainer" class="padding10 open">
+          <div id="congratsMessage" class="alignCenter">Congratulations!</div>
+          <form id="congratsForm" class="alignCenter margin10">
+            <input type="submit" id="congratsOK" class="dialogOK" value="OK">
+          </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="nagWindow">
+        <header id="nagHeader" class="nagHeader padding10 chunk white alignCenter">
+           micropolisJS
+        </header>
+        <div id="nagContainer" class="padding10 open">
+          <div id="nagMessage" class="alignCenter">
+-            Whoa! You've been playing this thing for half an hour?!? This is the point I used to solicit donations, back when life was less kind. These days I'd prefer to see your money reach <a class="nag" href="https://www.refuweegee.co.uk/your-donations" target="_blank">Refuweegee</a>, a charity whose work I admire!
+          </div>
+          <form id="nagForm" class="alignCenter margin10">
+            <input type="submit" id="nagOK" class="dialogOK" value="OK">
+          </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="saveWindow">
+        <header id="saveHeader" class="saveHeader padding10 chunk alignCenter">
+          Save
+        </header>
+        <div id="saveContainer" class="alignCenter padding10 open">
+          Game Saved!
+          <form id="saveForm" class="alignCenter margin10">
+            <input type="submit" id="saveOK" class="dialogOK" value="OK">
+          </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="screenshotLinkWindow">
+        <header id="screenshotLinkHeader" class="screenshotHeader padding10 chunk alignCenter">
+           Take Picture
+        </header>
+        <div id="screenshotLinkContainer" class="padding10 open">
+          <div id="screenshotLinkMessage" class="alignCenter">
+            Click <a id="screenshotLink" target="_blank">here</a> to view your picture (right-click to save)
+          </div>
+          <form id="screenshotLinkForm" class="alignCenter margin10">
+            <input type="submit" id="screenshotLinkOK" class="dialogOK" value="OK">
+          </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="screenshotWindow">
+        <header id="screenshotHeader" class="screenshotHeader white padding10 chunk alignCenter">
+           Take Picture
+        </header>
+        <div id="screenshotContainer" class="padding10 open">
+          <form id="screenshotForm" class="alignCenter margin10">
+            <div id="screenshotContainerDiv">
+              Area to take picture of:
+              <input type="radio" class="screenshotType" name="screenshotType" id="screenshotVisible" value="visible" checked="checked"><label for="screenshotVisible">Visible Map</label>
+              <input type="radio" class="screenshotType" name="screenshotType" id="screenshotAll" value="all"><label for="screenshotAll">Full map</label>
+            </div>
+            <button id="screenshotCancel" class="cancel">Cancel</button>
+            <input type="submit" id="screenshotOK" class="dialogOK" value="OK">
+          </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="settingsWindow">
+        <header id="settingsHeader" class="settingsHeader white padding10 chunk alignCenter">
+           Settings
+        </header>
+        <div id="settingsContainer" class="padding10 open">
+          <form id="settingsForm" class="alignCenter margin10">
+            <div id="settingsFormContainer">
+              <div id="autoBudgetSelect" class="padding10">
+                Autobudget:
+                <input type="radio" class="autoBudgetSetting" name="autoBudgetSetting" id="autoBudgetYes" value="true" checked="checked"><label for="autoBudgetYes">Yes</label>
+                <input type="radio" class="autoBudgetSetting" name="autoBudgetSetting" id="autoBudgetNo" value="false"><label for="autoBudgetNo">No</label>
+              </div>
+              <div id="autoBulldozeSelect" class="padding10">
+                Autobulldoze:
+                <input type="radio" class="autoBulldozeSetting" name="autoBulldozeSetting" id="autoBulldozeYes" value="true" checked="checked"><label for="autoBulldozeYes">Yes</label>
+                <input type="radio" class="autoBulldozeSetting" name="autoBulldozeSetting" id="autoBulldozeNo" value="false"><label for="autoBulldozeNo">No</label>
+              </div>
+              <div id="speedSelect" class="padding10">
+                Speed:
+                <input type="radio" class="speedSetting" name="speedSetting" id="speedSlow" value="1" checked="checked"><label for="speedSlow">Slow</label>
+                <input type="radio" class="speedSetting" name="speedSetting" id="speedMed" value="2"><label for="speedMed">Medium</label>
+                <input type="radio" class="speedSetting" name="speedSetting" id="speedFast" value="3"><label for="speedFast">Fast</label>
+              </div>
+              <div id="disastersSelect" class="padding10">
+                Disasters:
+                <input type="radio" class="enableDisastersSetting" name="disastersSetting" id="disastersYes" value="true" checked="checked"><label for="disastersYes">Yes</label>
+                <input type="radio" class="enableDisastersSetting" name="disastersSetting" id="disastersNo" value="false"><label for="disastersNo">No</label>
+              </div>
+            </div>
+            <button id="settingsCancel" class="cancel">Cancel</button>
+            <input type="submit" id="settingsOK" class="dialogOK" value="OK">
+          </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="debugWindow">
+        <header id="debugHeader" class="debugHeader white padding10 chunk alignCenter">
+           Debug
+        </header>
+        <div id="debugContainer" class="padding10 open">
+          <form id="debugForm" class="alignCenter margin10">
+            <div id="debugFundContainer">
+              Add funds:
+              <input type="radio" class="debugAdd" name="debugAdd" id="fundsYes" value="true" checked="checked"><label for="fundsYes">Yes</label>
+              <input type="radio" class="debugAdd" name="debugAdd" id="fundsNo" value="false"><label for="fundsNo">No</label>
+            </div>
+            <button id="debugCancel" class="cancel">Cancel</button>
+            <input type="submit" id="debugOK" class="dialogOK" value="OK">
+          </form>
+        </div>
+      </div>
+      <div class="hidden modal shadow" id="touchWarnWindow">
+        <header id="touchHeader" class="touchHeader white padding10 chunk alignCenter">
+           Ciao, utente touchscreen!
+        </header>
+        <div id="touchContainer" class="padding10 open">
+          <h2 class="alignCenter">Ciao!</h2>
+          <p class="padding10">
+             Sembra che tu stia usando un dispositivo touchscreen!
+          </p>
+          <p class="padding10">
+            Solo per avvertirti, micropolisJS non è pensato per dispositivi touch&mdash;non ho un tablet&mdash;quindi potresti avere qualche difficoltà.
+          </p>
+          <p class="padding10">
+            Tuttavia, se vuoi provare lo stesso, non ti fermo!
+          </p>
+          <form id="touchForm" class="alignCenter margin10">
+            <input type="submit" id="touchOK" class="dialogOK" value="OK">
+          </form>
+        </div>
+      </div>
+    </div>
+    <script defer src="micropolis.bundle.js"></script>
+    <script>
+      // If we got here, then we have script. Note we don't necessarily have jQuery though
+      [].forEach.call(document.querySelectorAll('[data-hasscript]'), function(elem) {
+        elem.setAttribute('data-hasscript', 'true');
+      });
+    </script>
+  </body>
+</html>
