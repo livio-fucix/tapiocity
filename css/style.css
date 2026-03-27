@@ -510,6 +510,7 @@ nav li {
 #statusBilancioCol {
   position: absolute;
   left: 172px;
+  right: 184px; /* 172px pannello destro + 12px gap */
   bottom: 33px;
   display: flex;
   flex-direction: row;
@@ -518,7 +519,8 @@ nav li {
 }
 
 #infoBox {
-  width: 850px;
+  flex: 1;
+  min-width: 0;
   background-color: #ffe0f0;
   border-radius: 4px;
   box-sizing: border-box;
