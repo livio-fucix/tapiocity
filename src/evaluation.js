@@ -80,6 +80,8 @@ Evaluation.prototype.save = function(saveData) {
 Evaluation.prototype.load = function(saveData) {
   for (var i = 0, l = saveProps.length; i < l; i++)
     this[saveProps[i]] = saveData[saveProps[i]];
+  this.scoreHistory = [this.cityScore];
+  this.cityScoreAverage = this.cityScore;
 };
 
 
