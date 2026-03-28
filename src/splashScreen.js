@@ -212,7 +212,7 @@ var play = function(e) {
   $('#playForm').off('submit');
   $('#start').toggle();
 
-  var difficulty = $('.difficulty:checked').val() - 0;
+  var difficulty = 0; // Default to Easy difficulty
   var name = $('#nameForm').val();
   var nickname = $('#nicknameForm').val() || 'Anonimo';
 
