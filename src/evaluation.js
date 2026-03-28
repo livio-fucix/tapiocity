@@ -12,7 +12,7 @@
  */
 
 import { EventEmitter } from './eventEmitter.js';
-import { CLASSIFICATION_UPDATED, POPULATION_UPDATED, SCORE_UPDATED } from './messages.ts';
+import { CLASSIFICATION_UPDATED, POPULATION_UPDATED, SCORE_UPDATED, SCORE_AVG_UPDATED } from './messages.ts';
 import { MiscUtils } from './miscUtils.js';
 import { Random } from './random.ts';
 
@@ -59,6 +59,8 @@ Evaluation.prototype.evalInit = function() {
   this.cityClassLast = Evaluation.CC_VILLAGE;
   this.cityScore = 500;
   this.cityScoreDelta = 0;
+  this.scoreHistory = [];
+  this.cityScoreAverage = 0;
   for (var i = 0; i < NUMPROBLEMS; i++)
     this.problemVotes[i] = {index: i, voteCount: 0};
 
@@ -309,6 +311,16 @@ Evaluation.prototype.getScore = function(simData) {
 
   if (this.cityScoreDelta !== 0)
     this._emitEvent(SCORE_UPDATED, this.cityScore);
+
+  this.scoreHistory.push(this.cityScore);
+  var total = 0;
+  for (var j = 0; j < this.scoreHistory.length; j++)
+    total += this.scoreHistory[j];
+  var newAvg = Math.round(total / this.scoreHistory.length);
+  if (newAvg !== this.cityScoreAverage) {
+    this.cityScoreAverage = newAvg;
+    this._emitEvent(SCORE_AVG_UPDATED, this.cityScoreAverage);
+  }
 };
 
 

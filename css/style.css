@@ -571,6 +571,18 @@ nav li {
   padding-bottom: 2px;
 }
 
+.info-avg-row {
+  border-bottom: none;
+  margin-bottom: 2px;
+  padding-bottom: 0;
+}
+
+.info-avg-label {
+  font-size: 9px;
+  color: #885070;
+  font-style: italic;
+}
+
 .info-head {
   font-size: 10px;
   font-weight: bold;

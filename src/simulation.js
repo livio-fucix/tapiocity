@@ -248,7 +248,7 @@ Simulation.prototype.init = function() {
   this._lastTickTime = -1;
 
   // Add various listeners that we will in turn transmit upwards
-  var evaluationEvents = ['CLASSIFICATION_UPDATED', 'POPULATION_UPDATED', 'SCORE_UPDATED'].map(function(m) {
+  var evaluationEvents = ['CLASSIFICATION_UPDATED', 'POPULATION_UPDATED', 'SCORE_UPDATED', 'SCORE_AVG_UPDATED'].map(function(m) {
     return Messages[m];
   });
   for (var i = 0, l = evaluationEvents.length; i < l; i++)
