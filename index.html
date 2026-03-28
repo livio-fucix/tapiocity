@@ -45,8 +45,10 @@
         <div id="start" class="mintcream open shadow padding10 centred">
           <h2 class="chunk alignCenter">Nuova Partita</h2>
           <form id="playForm">
+            <label for="nicknameForm">Il tuo nickname (max 15 lettere)</label>
+            <input id="nicknameForm" autofocus required class="margin10" type="text" maxlength="15" placeholder="Nickname">
             <label for="nameForm">Nome della città (max 15 lettere)</label>
-            <input id="nameForm" autofocus required class="margin10" type="text" maxlength="15">
+            <input id="nameForm" required class="margin10" type="text" maxlength="15">
             Difficoltà
             <input type="radio" class="difficulty" name="difficulty" id="difficultyEasy" value="0" checked="checked"><label for="difficultyEasy">Facile</label>
             <input type="radio" class="difficulty" name="difficulty" id="difficultyMed" value="1"><label for="difficultyMed">Media</label>
@@ -55,6 +57,14 @@
               <input id="playit" type="submit" value="Gioca!">
             </div>
           </form>
+        </div>
+        <div id="loadScreen" class="mintcream open shadow padding10 centred">
+          <h2 class="chunk alignCenter">Carica Partita</h2>
+          <input id="loadFilter" type="text" placeholder="Filtra per nickname..." class="margin10">
+          <div id="savesList"></div>
+          <div id="loadScreenButtons">
+            <button id="loadBack" class="width140 margin10">Indietro</button>
+          </div>
         </div>
         <div id="leftTopCol">
         <div id="infobar" class="alignCenter leftedge open width140 z1 initialHidden">
@@ -147,6 +157,10 @@
             <span class="analisi-lbl">Variazione</span>
             <span id="analisi-delta" class="analisi-val">—</span>
           </div>
+        </div>
+        <div id="leaderboardBox" class="controlShadow padding10 mintcream z1 initialHidden">
+          <div id="leaderboard-title">CLASSIFICA</div>
+          <div id="leaderboardList"></div>
         </div>
         <div id="fasiBox" class="controlShadow padding10 mintcream z1 initialHidden">
           <div id="fasi-title">FASI</div>

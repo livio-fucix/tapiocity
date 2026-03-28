@@ -1507,6 +1507,207 @@ nav li {
   font-size: 18px;
 }
 
+/* Load screen (save list) */
+#loadScreen {
+  display: none;
+  text-align: center;
+  font-size: 14px;
+  width: 560px;
+  max-height: 480px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+#loadFilter {
+  width: 90%;
+  font-size: 13px;
+  padding: 4px 6px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+#savesList {
+  text-align: left;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: white;
+  margin-bottom: 8px;
+}
+
+.save-entry {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  border-bottom: 1px solid #eee;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.save-entry:last-child {
+  border-bottom: none;
+}
+
+.save-entry:hover {
+  background-color: #f5f5ff;
+}
+
+.save-nickname {
+  font-weight: bold;
+  color: #333;
+  min-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.save-city {
+  flex: 1;
+  color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.save-score {
+  color: #775;
+  font-weight: bold;
+  min-width: 40px;
+  text-align: right;
+}
+
+.save-date {
+  color: #999;
+  font-size: 10px;
+  min-width: 70px;
+  text-align: right;
+}
+
+.save-load-btn {
+  background-color: lightgreen;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  padding: 2px 7px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.save-load-btn:hover {
+  background-color: #90e090;
+}
+
+.save-delete-btn {
+  background-color: #ffaaaa;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  padding: 2px 7px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.save-delete-btn:hover {
+  background-color: #ff8888;
+}
+
+.saves-empty {
+  padding: 16px;
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}
+
+#loadScreenButtons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Leaderboard panel */
+#leaderboardBox {
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#leaderboard-title {
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #555;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+
+#leaderboardList {
+  font-size: 10px;
+}
+
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.lb-row:last-child {
+  border-bottom: none;
+}
+
+.lb-rank {
+  color: #aaa;
+  min-width: 14px;
+  font-size: 9px;
+  text-align: right;
+}
+
+.lb-nick {
+  font-weight: bold;
+  color: #333;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lb-city {
+  color: #666;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-style: italic;
+}
+
+.lb-score {
+  color: #557;
+  font-weight: bold;
+  min-width: 28px;
+  text-align: right;
+}
+
+.lb-current {
+  background-color: #ffe8f0;
+  border-radius: 2px;
+}
+
+.lb-sep {
+  color: #bbb;
+  font-size: 9px;
+  text-align: center;
+  padding: 2px 0;
+}
+
+/* Nickname field in new-game form */
+#nicknameForm {
+  font-size: 18px;
+  width: 150px;
+}
+
 #statisticsList, .queryList {
   width: 400px;
   margin: 0 auto;
