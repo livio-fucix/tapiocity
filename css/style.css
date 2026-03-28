@@ -1647,7 +1647,18 @@ nav li {
 
 /* Leaderboard panel */
 #leaderboardBox {
+  position: absolute;
+  right: -170px;
+  top: 60px;
+  width: 150px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #f5f5dc;
   border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: block !important;
+  z-index: 10;
   box-sizing: border-box;
 }
 
