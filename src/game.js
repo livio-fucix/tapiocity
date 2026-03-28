@@ -88,6 +88,7 @@ function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name, play
   this.simNeededBudget = false;
   this.isPaused = false;
   this.lastBadMessageTime = null;
+  this._stableToolCounts = {}; // Stable unit counts to prevent flickering
 
   var self = this;
 
@@ -748,14 +749,21 @@ Game.prototype.updateStatusBox = function() {
     .toggleClass('status-warn', rem >= 0 && rem < supply * 0.1 && supply > 0);
 
   // Update unit count circles (children of #rightEdgeCol, positioned via JS offset)
-  var toolCounts = {
-    'coal': census.coalPowerPop, 'nuclear': census.nuclearPowerPop,
-    'eolico': census.eolicoPowerPop, 'solare': census.solarPowerPop,
-    'residential': census.resZonePop, 'commercial': census.comZonePop, 'industrial': census.indZonePop,
-    'police': census.policeStationPop, 'fire': census.fireStationPop,
-    'port': census.seaportPop, 'airport': census.airportPop, 'stadium': census.stadiumPop,
-    'road': census.roadTotal, 'rail': census.railTotal
-  };
+  // Update stable counts only when census scan is complete (phaseCycle >= 9)
+  // This prevents flickering caused by zero values during phaseCycle 0 (census reset)
+  if (sim._phaseCycle >= 9) {
+    this._stableToolCounts = {
+      'coal': census.coalPowerPop, 'nuclear': census.nuclearPowerPop,
+      'eolico': census.eolicoPowerPop, 'solare': census.solarPowerPop,
+      'residential': census.resZonePop, 'commercial': census.comZonePop, 'industrial': census.indZonePop,
+      'police': census.policeStationPop, 'fire': census.fireStationPop,
+      'port': census.seaportPop, 'airport': census.airportPop, 'stadium': census.stadiumPop,
+      'road': census.roadTotal, 'rail': census.railTotal
+    };
+  }
+
+  // Always display stable counts (no flickering)
+  var toolCounts = this._stableToolCounts;
   var colTop = $('#rightEdgeCol').offset().top;
   $('[data-count-tool]').each(function() {
     var tool = $(this).data('count-tool');
@@ -767,7 +775,7 @@ Game.prototype.updateStatusBox = function() {
       var newValue = String(toolCounts[tool] || 0);
       var currentText = $(this).text();
 
-      // Only update if text actually changed (prevents flickering)
+      // Only update if text actually changed
       if (newValue !== currentText) {
         $(this).text(newValue);
       }
