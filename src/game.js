@@ -764,12 +764,12 @@ Game.prototype.updateStatusBox = function() {
       var btnMid = btn.offset().top - colTop + btn.outerHeight() / 2;
       $(this).css('top', (btnMid - 9) + 'px');
 
-      var newValue = toolCounts[tool] || 0;
-      var prevValue = $(this).data('prev-value');
+      var newValue = String(toolCounts[tool] || 0);
+      var currentText = $(this).text();
 
-      // Only update DOM if value actually changed (prevents flickering)
-      if (newValue !== prevValue) {
-        $(this).text(newValue).data('prev-value', newValue);
+      // Only update if text actually changed (prevents flickering)
+      if (newValue !== currentText) {
+        $(this).text(newValue);
       }
     }
   });
