@@ -68,6 +68,7 @@ var InfoBar = function(classification, population, score, funds, date, name) {
     $(populationSelector).text(fmt(initialValues.population));
     $(scoreSelector).text(fmt(initialValues.score));
     $('#info-score-val').text(fmt(initialValues.score));
+    $('#info-score-avg-val').text(fmt(initialValues.scoreAverage || 0));
     $(fundsSelector).text(fmt(initialValues.funds));
     setDate(initialValues.date.month, initialValues.date.year);
     $(nameSelector).text(initialValues.name);
@@ -85,6 +86,10 @@ var InfoBar = function(classification, population, score, funds, date, name) {
     dataSource.addEventListener(Messages.SCORE_UPDATED, function(score) {
       $(scoreSelector).text(fmt(score));
       $('#info-score-val').text(fmt(score));
+    });
+
+    dataSource.addEventListener(Messages.SCORE_AVG_UPDATED, function(avg) {
+      $('#info-score-avg-val').text(fmt(avg));
     });
 
     dataSource.addEventListener(Messages.FUNDS_CHANGED, function(funds) {
