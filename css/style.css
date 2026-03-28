@@ -139,9 +139,6 @@ nav li {
   background-color: green;
 }
 
-.difficulty {
-  margin-left: 10px;
-}
 
 .elided {
   white-space: nowrap;
@@ -1333,7 +1330,7 @@ nav li {
 
 #nameForm {
   font-size: 18px;
-  width: 150px;
+  width: 250px;
 }
 
 #notifications {
@@ -1505,6 +1502,29 @@ nav li {
   display: none;
   text-align: center;
   font-size: 18px;
+}
+
+/* Form group styling for new-game form */
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.form-group label {
+  flex: 1;
+  min-width: 220px;
+  text-align: right;
+  font-size: 14px;
+}
+
+.form-group input[type="text"] {
+  width: 250px;
+  font-size: 18px;
+  padding: 5px;
 }
 
 /* Load screen (save list) */
@@ -1705,7 +1725,7 @@ nav li {
 /* Nickname field in new-game form */
 #nicknameForm {
   font-size: 18px;
-  width: 150px;
+  width: 250px;
 }
 
 #statisticsList, .queryList {
