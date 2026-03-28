@@ -70,6 +70,7 @@ export const SAVE_REQUESTED = "Save requested";
 export const SAVE_WINDOW_CLOSED = "Save window closed";
 export const SCORE_UPDATED = "Scoe updated";
 export const SCORE_AVG_UPDATED = "Score average updated";
+export const LEADERBOARD_UPDATED = "Leaderboard updated";
 export const SCREENSHOT_ALL_REQUESTED = "Screenshot all requested";
 export const SCREENSHOT_LINK_CLOSED = "Screenshot link closed";
 export const SCREENSHOT_VISIBLE_REQUESTED = "Screenshot visible requested";

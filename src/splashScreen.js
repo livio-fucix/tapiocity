@@ -54,15 +54,14 @@ function SplashScreen(tileSet, snowTileSet, spriteSheet) {
   this.spriteSheet = spriteSheet;
   this.map = MapGenerator();
 
-  // Set up listeners on buttons. When play is clicked, we will move on to get the player's desired
-  // difficulty level and city name before launching the game properly
+  // Set up listeners on buttons
   $('#splashGenerate').click(regenerateMap.bind(this));
   $('#splashPlay').click(acquireNameAndDifficulty.bind(this));
   $('#splashLoad').click(handleLoad.bind(this));
 
   // Conditionally enable load/save buttons
   $('#saveRequest').prop('disabled', !Storage.canStore);
-  $('#splashLoad').prop('disabled', !(Storage.canStore && Storage.getSavedGame() !== null));
+  $('#splashLoad').prop('disabled', !(Storage.canStore && Storage.hasSaves()));
 
   // Paint the minimap
   this.splashCanvas = new SplashCanvas('splashContainer', tileSet);
@@ -77,76 +76,160 @@ function SplashScreen(tileSet, snowTileSet, spriteSheet) {
 // Generate a new map at the user's request, and paint it
 var regenerateMap = function(e) {
   e.preventDefault();
-
   this.map = MapGenerator();
   this.splashCanvas.paint(this.map);
 };
 
 
-// Fetches game data from the storage manager, and launches the game. We won't return from here
+// Show the load screen with the list of all saves
 var handleLoad = function(e) {
   e.preventDefault();
 
-  var savedGame = Storage.getSavedGame();
-
-  if (savedGame === null)
-    return;
-
-  // Remove installed event listeners
   $('#splashLoad').off('click');
   $('#splashGenerate').off('click');
   $('#splashPlay').off('click');
-
-  // Hide the splashscreen UI
   $('#splash').toggle();
 
-  // Launch
-  var g = new Game(savedGame, this.tileSet, this.snowTileSet, this.spriteSheet, Simulation.LEVEL_EASY, name);
+  renderSavesList.call(this);
+
+  $('#loadFilter').on('input', function() {
+    renderSavesList.call(this);
+  }.bind(this));
+
+  $('#loadBack').on('click', function() {
+    $('#loadScreen').toggle();
+    $('#loadFilter').off('input');
+    $('#loadBack').off('click');
+    // Re-show splash
+    $('#splash').toggle();
+    $('#splashGenerate').click(regenerateMap.bind(this));
+    $('#splashPlay').click(acquireNameAndDifficulty.bind(this));
+    $('#splashLoad').click(handleLoad.bind(this));
+    $('#splashPlay').focus();
+  }.bind(this));
+
+  $('#loadScreen').toggle();
+};
+
+
+var renderSavesList = function() {
+  var self = this;
+  var filter = ($('#loadFilter').val() || '').toLowerCase();
+  var index = Storage.getIndex();
+
+  if (filter)
+    index = index.filter(function(e) {
+      return e.playerNickname.toLowerCase().indexOf(filter) !== -1;
+    });
+
+  // Most recent first
+  index = index.slice().sort(function(a, b) {
+    return new Date(b.savedAt) - new Date(a.savedAt);
+  });
+
+  var $list = $('#savesList');
+  $list.empty();
+
+  if (index.length === 0) {
+    $list.append('<div class="saves-empty">Nessun salvataggio trovato.</div>');
+    return;
+  }
+
+  index.forEach(function(entry) {
+    var date = new Date(entry.savedAt);
+    var dateStr = date.toLocaleDateString('it-IT', {day: '2-digit', month: '2-digit', year: '2-digit'}) +
+                  ' ' + date.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit'});
+
+    var $row = $('<div class="save-entry"></div>');
+    $row.append('<span class="save-nickname">' + escapeHtml(entry.playerNickname) + '</span>');
+    $row.append('<span class="save-city">' + escapeHtml(entry.cityName) + '</span>');
+    $row.append('<span class="save-score">' + entry.score + '</span>');
+    $row.append('<span class="save-date">' + dateStr + '</span>');
+
+    var $loadBtn = $('<button class="save-load-btn">Carica</button>');
+    $loadBtn.on('click', function() {
+      launchSave.call(self, entry.id);
+    });
+    $row.append($loadBtn);
+
+    var $delBtn = $('<button class="save-delete-btn">Elimina</button>');
+    $delBtn.on('click', function() {
+      if (window.confirm('Eliminare il salvataggio di ' + entry.playerNickname + ' - ' + entry.cityName + '?')) {
+        Storage.deleteSave(entry.id);
+        renderSavesList.call(self);
+      }
+    });
+    $row.append($delBtn);
+
+    $list.append($row);
+  });
+};
+
+
+var launchSave = function(id) {
+  var savedGame = Storage.getSavedGame(id);
+  if (!savedGame) return;
+
+  $('#loadScreen').toggle();
+  $('#loadFilter').off('input');
+  $('#loadBack').off('click');
+
+  var g = new Game(savedGame, this.tileSet, this.snowTileSet, this.spriteSheet,
+                   savedGame._gameLevel || Simulation.LEVEL_EASY,
+                   savedGame.name, savedGame.playerNickname, id);
 };
 
 
 // After a map has been selected, call this function to display a form asking the user for
-// a city name and difficulty level.
+// a nickname, city name and difficulty level.
 var acquireNameAndDifficulty = function(e) {
   e.preventDefault();
 
-  // Remove the initial event listeners
   $('#splashLoad').off('click');
   $('#splashGenerate').off('click');
   $('#splashPlay').off('click');
-
-  // Get rid of the initial splash screen
   $('#splash').toggle();
 
-  // As a convenience, the city name is not mandatory in debug mode
-  if (Config.debug)
+  // Pre-fill last used nickname for convenience
+  var lastNick = window.localStorage.getItem('tapiocity_lastNickname');
+  if (lastNick) $('#nicknameForm').val(lastNick);
+
+  // As a convenience, city name and nickname are not mandatory in debug mode
+  if (Config.debug) {
     $('#nameForm').removeAttr('required');
+    $('#nicknameForm').removeAttr('required');
+  }
 
-  // When the form is submitted, we'll be ready to launch the game
   $('#playForm').submit(play.bind(this));
-
-  // Display the name and difficulty form
   $('#start').toggle();
-  $('#nameForm').focus();
+  $('#nicknameForm').focus();
 };
 
 
-// This function should be called after the name/difficulty form has been submitted. The game will now be launched
-// with the map selected earlier.
 var play = function(e) {
   e.preventDefault();
 
-  // As usual, uninstall event listeners, and hide the UI
   $('#playForm').off('submit');
   $('#start').toggle();
 
-  // What values did the player specify?
   var difficulty = $('.difficulty:checked').val() - 0;
   var name = $('#nameForm').val();
+  var nickname = $('#nicknameForm').val() || 'Anonimo';
 
-  // Launch a new game
-  var g = new Game(this.map, this.tileSet, this.snowTileSet, this.spriteSheet, difficulty, name);
+  // Remember nickname for next time
+  window.localStorage.setItem('tapiocity_lastNickname', nickname);
+
+  var g = new Game(this.map, this.tileSet, this.snowTileSet, this.spriteSheet, difficulty, name, nickname);
 };
+
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
 
 
 export { SplashScreen };

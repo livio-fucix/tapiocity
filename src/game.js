@@ -44,7 +44,7 @@ import { TouchWarnWindow } from './touchWarnWindow.js';
 var disasterTimeout = 20 * 1000;
 
 
-function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name) {
+function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name, playerNickname, saveId) {
   difficulty = difficulty || 0;
   this._bulldozeDragCategory = null;
   var savedGame;
@@ -64,6 +64,8 @@ function Game(gameMap, tileSet, snowTileSet, spriteSheet, difficulty, name) {
   this.simulation = new Simulation(this.gameMap, difficulty, this.defaultSpeed, savedGame);
 
   this.name = name || 'MyTown';
+  this.playerNickname = playerNickname || 'Anonimo';
+  this.saveId = saveId || Storage.generateId();
   this.everClicked = false;
 
   if (savedGame)
@@ -245,13 +247,15 @@ Game.prototype.save = function() {
   BaseTool.save(saveData);
   this.simulation.save(saveData);
 
-  Storage.saveGame(saveData);
+  var score = this.simulation.evaluation.cityScore;
+  Storage.saveGame(this.saveId, this.playerNickname, this.name, score, saveData);
+  this.updateLeaderboard();
 };
 
 
 Game.prototype.newGame = function() {
   this.stopped = true;
-  $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #notifications, #impostazioniBox, #analisiBox, #finanzaBox, #fasiBox').hide();
+  $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #notifications, #impostazioniBox, #analisiBox, #finanzaBox, #fasiBox, #leaderboardBox').hide();
   window.dispatchEvent(new CustomEvent('micropolis:newgame', {
     detail: {tileSet: this.tileSet, snowTileSet: this.snowTileSet, spriteSheet: this.spriteSheet}
   }));
@@ -261,6 +265,8 @@ Game.prototype.newGame = function() {
 Game.prototype.load = function(saveData) {
   this.name = saveData.name;
   this.everClicked = saveData.everClicked;
+  this.playerNickname = saveData.playerNickname || 'Anonimo';
+  this.saveId = saveData.saveId || Storage.generateId();
   BaseTool.load(saveData);
   this.simulation.load(saveData);
 };
@@ -272,12 +278,64 @@ var nextFrame =
   window.webkitRequestAnimationFrame;
 
 
+Game.prototype.updateLeaderboard = function() {
+  var self = this;
+  var board = Storage.getLeaderboard().slice(0, 10);
+  var $list = $('#leaderboardList');
+  $list.empty();
+
+  if (board.length === 0) {
+    $list.append('<div class="lb-sep">—</div>');
+    return;
+  }
+
+  var currentInTop = false;
+  board.forEach(function(entry, i) {
+    var isCurrent = entry.id === self.saveId;
+    if (isCurrent) currentInTop = true;
+    var $row = $('<div class="lb-row' + (isCurrent ? ' lb-current' : '') + '"></div>');
+    $row.append('<span class="lb-rank">' + (i + 1) + '</span>');
+    $row.append('<span class="lb-nick">' + escHtml(entry.playerNickname) + '</span>');
+    $row.append('<span class="lb-city">' + escHtml(entry.cityName) + '</span>');
+    $row.append('<span class="lb-score">' + entry.score + '</span>');
+    $list.append($row);
+  });
+
+  // If current save is outside top-10, append it below a separator
+  if (!currentInTop) {
+    var allBoard = Storage.getLeaderboard();
+    for (var i = 0; i < allBoard.length; i++) {
+      if (allBoard[i].id === self.saveId) {
+        $list.append('<div class="lb-sep">···</div>');
+        var e = allBoard[i];
+        var $row = $('<div class="lb-row lb-current"></div>');
+        $row.append('<span class="lb-rank">' + (i + 1) + '</span>');
+        $row.append('<span class="lb-nick">' + escHtml(e.playerNickname) + '</span>');
+        $row.append('<span class="lb-city">' + escHtml(e.cityName) + '</span>');
+        $row.append('<span class="lb-score">' + e.score + '</span>');
+        $list.append($row);
+        break;
+      }
+    }
+  }
+};
+
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+
 Game.prototype.revealControls = function() {
  $('.initialHidden').each(function(e) {
    $(this).removeClass('initialHidden');
  });
  // Re-show panels hidden by newGame() via .hide() (inline display:none)
- $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #impostazioniBox, #analisiBox, #finanzaBox, #disastriBox, #fasiBox').show();
+ $('#infobar, #topBar, #controls, #RCIContainer, #statusBox, #infoBox, #impostazioniBox, #analisiBox, #finanzaBox, #disastriBox, #fasiBox, #leaderboardBox').show();
 
  // Initialize unit count circles for tools with census data (appended to rightEdgeCol for overflow:visible)
  var toolsWithCounts = ['coal','nuclear','eolico','solare','residential','commercial','industrial','police','fire','port','airport','stadium','road','rail'];
@@ -294,6 +352,10 @@ Game.prototype.revealControls = function() {
  this.initQueryLegend();
  this._notificationBar.news({subject: Messages.WELCOME});
  this.rci.update({residential: 750, commercial: 750, industrial: 750});
+ this.updateLeaderboard();
+
+ // Refresh leaderboard whenever score changes
+ this.simulation.addEventListener(Messages.SCORE_UPDATED, this.updateLeaderboard.bind(this));
 };
 
 
